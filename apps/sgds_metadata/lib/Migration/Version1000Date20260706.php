@@ -59,7 +59,7 @@ class Version1000Date20260706 extends SimpleMigrationStep
                 'notnull' => false,
                 'default' => null,
             ]);
-            $table->addColumn('created_at', Types::DATETIME_MUTABLE, [
+            $table->addColumn('created_at', Types::DATETIME, [
                 'notnull' => true,
                 'default' => 'CURRENT_TIMESTAMP',
             ]);
@@ -92,7 +92,7 @@ class Version1000Date20260706 extends SimpleMigrationStep
                 'notnull' => false,
                 'default' => null,
             ]);
-            $table->addColumn('updated_at', Types::DATETIME_MUTABLE, [
+            $table->addColumn('updated_at', Types::DATETIME, [
                 'notnull' => true,
                 'default' => 'CURRENT_TIMESTAMP',
             ]);
@@ -101,13 +101,6 @@ class Version1000Date20260706 extends SimpleMigrationStep
             $table->addUniqueIndex(['file_id', 'schema_id'], 'sgds_meta_value_unique');
             $table->addIndex(['file_id'], 'sgds_meta_value_file_idx');
             $table->addIndex(['schema_id'], 'sgds_meta_value_schema_idx');
-            $table->addForeignKeyConstraint(
-                $table,
-                'sgds_metadata_schema',
-                ['schema_id'],
-                ['id'],
-                ['onDelete' => 'CASCADE']
-            );
         }
 
         return $schema;

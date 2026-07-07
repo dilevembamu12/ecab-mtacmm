@@ -1,0 +1,23 @@
+#geoblocker #choose-countries {
+	height: initial;
+	background: initial;
+	padding-right: 12px !important;
+}
+
+#geoblocker .subsection {
+	margin-left: 12px;
+}
+
+#geoblocker .path-input {
+	width: 440px;
+}
+
+#geoblocker a:link, a:visited  {
+	color: blue;
+	text-decoration: underline;
+}
+
+#geoblocker a:hover, a:active {
+	color: lightblue;
+	text-decoration: none;
+}

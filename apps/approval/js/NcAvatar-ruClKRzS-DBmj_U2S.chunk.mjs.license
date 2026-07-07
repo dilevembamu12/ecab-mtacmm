@@ -1,0 +1,32 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: GPL-3.0-or-later
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Eric Norris (https://github.com/ericnorris)
+SPDX-FileCopyrightText: Evan You
+SPDX-FileCopyrightText: Jacob Clevenger<https://github.com/wheatjs>
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: Rob Cresswell <robcresswell@pm.me>
+SPDX-FileCopyrightText: ts-md5 developers
+
+This file is generated from multiple sources. Included packages:
+- @nextcloud/capabilities
+	- version: 1.2.1
+	- license: GPL-3.0-or-later
+- @nextcloud/vue
+	- version: 9.6.0
+	- license: AGPL-3.0-or-later
+- @vitejs/plugin-vue
+	- version: 6.0.6
+	- license: MIT
+- @vueuse/components
+	- version: 14.2.1
+	- license: MIT
+- striptags
+	- version: 3.2.0
+	- license: MIT
+- ts-md5
+	- version: 2.0.1
+	- license: MIT
+- vue-material-design-icons
+	- version: 5.3.1
+	- license: MIT
