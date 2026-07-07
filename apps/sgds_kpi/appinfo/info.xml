@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>sgds_kpi</id>
+    <name>SGDS — Tableau de Bord Stratégique</name>
+    <summary>Monitoring en temps réel des KPIs du Cabinet pour le Ministre</summary>
+    <description><![CDATA[
+Widgets dashboard : dossiers par statut, délais moyens de traitement,
+taux de rejet/approbation, charge par agent, alertes sur dossiers en retard.
+    ]]></description>
+    <version>1.0.2</version>
+    <licence>agpl</licence>
+    <author>MTACMM - Pôle 5</author>
+    <namespace>SgdsKpi</namespace>
+    <category>tools</category>
+    <dependencies>
+        <nextcloud min-version="34" max-version="34"/>
+        <app>sgds_workflow</app>
+        <app>sgds_dossier</app>
+    </dependencies>
+    <types><filesystem/></types>
+</info>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>sgds_ocr</id>
+    <name>SGDS - OCR &amp; Indexation Automatique</name>
+    <summary>Reconnaissance optique et indexation intelligente des documents scannés</summary>
+    <description><![CDATA[
+Module e-Courrier :
+- OCR des documents scannés (Tesseract)
+- Extraction automatique des métadonnées (expéditeur, date, N° référence)
+- Classification automatique par type de document
+- Indexation plein texte
+    ]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>MTACMM - Pôle 5</author>
+    <namespace>SgdsOcr</namespace>
+    <category>tools</category>
+    <dependencies>
+        <nextcloud min-version="34" max-version="34"/>
+        <app>sgds_dossier</app>
+        <app>sgds_metadata</app>
+    </dependencies>
+</info>

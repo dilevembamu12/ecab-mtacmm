@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0d060"/>
+      <stop offset="50%" style="stop-color:#c8a83e"/>
+      <stop offset="100%" style="stop-color:#8b7320"/>
+    </linearGradient>
+    <linearGradient id="redBanner" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ce1126"/>
+      <stop offset="100%" style="stop-color:#8b0a1a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Crown at top -->
+  <g transform="translate(100,18)">
+    <path d="M-22,8 L-18,-2 L-10,6 L0,-6 L10,6 L18,-2 L22,8 Z" fill="url(#gold)" stroke="#8b7320" stroke-width="1"/>
+    <rect x="-24" y="8" width="48" height="6" rx="1" fill="url(#gold)" stroke="#8b7320" stroke-width="0.5"/>
+    <circle cx="0" cy="6" r="3" fill="#c8a83e"/>
+  </g>
+
+  <!-- Shield shape -->
+  <g transform="translate(100,105)">
+    <!-- Shield body -->
+    <path d="M-40,-35 L-40,20 C-40,45 0,58 0,58 C0,58 40,45 40,20 L40,-35 Z"
+          fill="#f5e6c8" stroke="url(#gold)" stroke-width="3"/>
+
+    <!-- Green wavy fess (river) -->
+    <path d="M-38,-8 C-30,-14 -20,-2 -10,-8 C0,-14 10,-2 20,-8 C30,-14 38,-8 38,-8
+             L38,4 C30,-2 20,-14 10,-4 C0,2 -10,-14 -20,-4 C-30,2 -38,-2 -38,-2 Z"
+          fill="#009543" opacity="0.8"/>
+
+    <!-- Lion rampant (stylized) -->
+    <g transform="translate(-8,-10) scale(0.55)" fill="url(#gold)" stroke="#8b7320" stroke-width="1.5">
+      <!-- Body -->
+      <ellipse cx="0" cy="15" rx="12" ry="18"/>
+      <!-- Head -->
+      <circle cx="12" cy="-5" r="9"/>
+      <!-- Mane -->
+      <circle cx="18" cy="-8" r="6" fill="#c8a83e" stroke="#8b7320" stroke-width="1"/>
+      <!-- Front legs raised -->
+      <path d="M6,10 L18,-8 L22,-10"/>
+      <path d="M8,12 L22,-2 L26,-2"/>
+      <!-- Hind legs -->
+      <path d="M-6,28 L-14,40"/>
+      <path d="M4,28 L-2,42"/>
+      <!-- Tail -->
+      <path d="M-12,8 C-24,0 -20,18 -16,20" stroke="url(#gold)" stroke-width="3" fill="none"/>
+      <!-- Torch in raised paw -->
+      <line x1="18" y1="-8" x2="22" y2="-20" stroke="#8b7320" stroke-width="2.5"/>
+      <ellipse cx="22" cy="-23" rx="4" ry="6" fill="#e8a020" stroke="#c8a83e" stroke-width="1"/>
+      <!-- Flame -->
+      <path d="M22,-29 C18,-36 26,-36 22,-29" fill="#ff6600"/>
+      <path d="M22,-27 C20,-33 24,-33 22,-27" fill="#ffcc00"/>
+    </g>
+
+    <!-- Green leaves/laurel at bottom -->
+    <g transform="translate(0,42)" fill="#009543">
+      <ellipse cx="-18" cy="0" rx="14" ry="6" transform="rotate(-20)"/>
+      <ellipse cx="-8" cy="4" rx="12" ry="5" transform="rotate(-5)"/>
+      <ellipse cx="8" cy="4" rx="12" ry="5" transform="rotate(5)"/>
+      <ellipse cx="18" cy="0" rx="14" ry="6" transform="rotate(20)"/>
+    </g>
+  </g>
+
+  <!-- Ribbon banner at bottom -->
+  <g transform="translate(100,172)">
+    <path d="M-50,-12 L-44,0 L-40,-10 L0,4 L40,-10 L44,0 L50,-12 L48,8 L-48,8 Z"
+          fill="url(#redBanner)" stroke="#8b0a1a" stroke-width="1"/>
+    <text x="0" y="2" text-anchor="middle" font-family="serif" font-size="7" font-weight="bold"
+          fill="#ffffff" letter-spacing="1.5">UNITÉ • TRAVAIL • PROGRÈS</text>
+  </g>
+
+  <!-- Elephant tusks -->
+  <g fill="none" stroke="#e8dcc8" stroke-width="3" opacity="0.6">
+    <path d="M42,80 C55,70 65,85 58,100 C50,118 44,130 44,130"/>
+    <path d="M158,80 C145,70 135,85 142,100 C150,118 156,130 156,130"/>
+  </g>
+</svg>

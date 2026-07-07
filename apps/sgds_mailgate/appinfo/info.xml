@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>sgds_mailgate</id>
+    <name>SGDS — Passerelle Email</name>
+    <summary>Capture automatique des emails entrants (commissiontextes@gmail.com)</summary>
+    <description><![CDATA[
+Relève automatique de la boîte email institutionnelle,
+création de dossiers documentaires à partir des emails + pièces jointes,
+extraction des métadonnées de base (expéditeur, date, objet).
+    ]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>MTACMM - Pôle 5</author>
+    <namespace>SgdsMailgate</namespace>
+    <category>tools</category>
+    <dependencies>
+        <nextcloud min-version="34" max-version="34"/>
+        <app>sgds_dossier</app>
+        <app>sgds_metadata</app>
+    </dependencies>
+    <types><filesystem/></types>
+</info>

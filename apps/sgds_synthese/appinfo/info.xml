@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>sgds_synthese</id>
+    <name>SGDS — Fiches de Synthèse</name>
+    <summary>Génération automatique de fiches de synthèse PDF pour le Dircab et le Ministre</summary>
+    <description><![CDATA[
+Génère automatiquement une fiche de synthèse PDF comprenant :
+- Résumé du document, scores des 4 piliers (radar),
+- Avis et commentaires de chaque intervenant,
+- Historique du circuit, recommandation finale.
+    ]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>MTACMM - Pôle 5</author>
+    <namespace>SgdsSynthese</namespace>
+    <category>tools</category>
+    <dependencies>
+        <nextcloud min-version="34" max-version="34"/>
+        <app>sgds_grille</app>
+        <app>sgds_workflow</app>
+    </dependencies>
+    <types><filesystem/></types>
+</info>

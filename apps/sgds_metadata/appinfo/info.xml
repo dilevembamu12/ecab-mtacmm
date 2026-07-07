@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>sgds_metadata</id>
+    <name>SGDS — Métadonnées Documentaires</name>
+    <summary>Métadonnées structurées pour les documents ministériels</summary>
+    <description>
+        Ajoute des propriétés personnalisées aux fichiers (type de document,
+        émetteur, destinataire, N° enregistrement, date arrivée, priorité,
+        statut traitement) selon des schémas configurables par type de document.
+        Fondation du Système de Gestion Documentaire Souverain (SGDS).
+    </description>
+    <version>1.0.0</version>
+    <licence>AGPL</licence>
+    <author>MTACMM - Pôle 5</author>
+    <namespace>SgdsMetadata</namespace>
+    <category>tools</category>
+    <website>https://mtacmm.gouv.cg</website>
+    <dependencies>
+        <nextcloud min-version="34" max-version="34"/>
+    </dependencies>
+    <types>
+        <filesystem/>
+    </types>
+</info>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>sgds_dossier</id>
+    <name>SGDS — Dossiers Documentaires</name>
+    <summary>Regroupement de documents liés en dossiers composites</summary>
+    <description><![CDATA[
+Permet de regrouper plusieurs fichiers en un dossier documentaire unique
+(Document principal + Note de présentation + Fiches techniques + Annexes + Avis).
+Fondation pour le circuit de validation du Pôle 5.
+    ]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>MTACMM - Pôle 5</author>
+    <namespace>SgdsDossier</namespace>
+    <category>tools</category>
+    <dependencies>
+        <nextcloud min-version="34" max-version="34"/>
+        <app>sgds_metadata</app>
+    </dependencies>
+    <types>
+        <filesystem/>
+    </types>
+</info>
