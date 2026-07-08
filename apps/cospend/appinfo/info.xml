@@ -1,0 +1,2826 @@
+<?xml version="1.0"?>
+<info>
+	<id>cospend</id>
+	<name>Cospend</name>
+    <summary lang="af">Shared budget manager</summary>
+    <description lang="af">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ar">Shared budget manager</summary>
+    <description lang="ar">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="bg">Инструмент за споделен бюджет</summary>
+    <description lang="bg">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend управлява бюджет за група/споделен бюджет. Вдъхновен е от великолепния [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Можете да го използвате, когато споделят къща, когато отивате на почивка с приятели, винаги когато споделяте разходи с група хора.
+
+Дава ви възможност да създавате проекти с членове и сметки. За всеки член се изчислява салдо от сметките по проекта. Салдата не представляват абсолютна сума парични средства на разположение на членовете, а по-скоро относителна информация, показваща дали даден член е похарчил повече от групата, отколкото групата е похарчила за нея/него, без значение точно кой е похарчил за кого. Така можете да виждате кой ръководи групата и кои са нейни членове. В крайна сметка можете да помолите за план за уреждане на сметките, който да Ви дава информация кои плащания да се извършат с цел възстановяване на салдата на членовете.
+
+Членовете по проекта са независими от потребителите на Nextcloud. Проектите може да се споделят с други потребители на Nextcloud или посредством общественодостъпни хипервръзки.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) за Android се [предлага за F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) и в [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+В момента в процес на разработка е [PayForMe](https://github.com/mayflower/PayForMe) за iOS!
+
+Частните и общодостъпните APIs са документирани посредством [ инструмента за извличане Nextcloud OpenAPI](https://github.com/nextcloud/openapi-extractor/). Достъп до настоящата документация може да се получи директно в Nextcloud. Само трябва да инсталирате Cospend (>= v1.6.0) и да използвате [приложението OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer), за да преглеждате документацията на OpenAPI.
+
+## Функции
+
+* ✎ Създаване/редактиране/изтриване на проекти, членове, сметки, категории сметки, валути
+* ⚖ Проверявайте салдата на членовете
+* 🗠 Показвайте статистиката за проекта
+* ♻ Показвайте плана за уреждане на сметките
+* Местете сметки от едни проект в друг
+* Премествайте сметки в кошчето, преди реално да ги изтриете
+* Архивирайте старите проекти, преди да ги изтриете
+* 🎇 Автоматично създавайте сметки за възстановяване от плана за уреждане на сметките
+* 🗓 Създайте повтарящи се сметки (за деня/седмицата/месеца/годината)
+* 📊 По желание определете сума за всеки участник – за новите сметки
+* 🔗 Свържете личните файлове със сметките (снимка на физическа разписка например)
+* 👩 Общественодостъпни хипервръзки за хората извън Nextcloud (може да са защитени с парола)
+* 👫 Споделяне на проекти с ползватели/групи/кръгове на Nextcloud
+* 🖫 Импортиране/експортиране на проекти като csv (съвместими със csv файлове от IHateMoney и SplitWise)
+* 🔗 Генериране на хипервръзка/QR код за лесно добавяне на проекти в MoneyBuster
+* 🗲 Изпълнение на уведомления в Nextcloud и на поток на дейността
+
+Това приложение обичайно поддържа последните 2 или 3 от основните версии на Nextcloud.
+
+Приложението се разработва.
+
+🌍 Помогнете ни да преведем това приложение в Crowdin проекта [Nextcloud-Cospend/MoneyBuster ](https://crowdin.com/project/moneybuster).
+
+⚒ Проверете други начини за подкрепа в [насоките за принос](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Документация
+
+* [Документация за потребителя](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Документация за администратора](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Документация за разработчиците](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [ПРОМЕНИ](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [АВТОРИ](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Известни проблеми
+
+* Не ви прави богати
+
+Всяка обратна връзка ще бъде оценена.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ca">Shared budget manager</summary>
+    <description lang="ca">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="cs">Správce sdíleného rozpočtu</summary>
+    <description lang="cs">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend je správce skupinových/sdílených rozpočtů. Inspirováno skvělým [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Můžete ji používat když sdílíte dům, jste s příteli na dovolené a nebo kdykoliv máte ze skupinou lidí sdílené výdaje.
+
+Umožňuje vytvářet projekty se členy a účty. Každý člen má zůstek vypočítaný z projektových účtů. Zůstatky nejsou absolutní částkou peněz, které mají členové k dispozici, ale spíše relativní informací uvádějící, zda člen za skupinu utratil více, než skupina utratila za něj, nezávisle na tom, kdo za koho co utratil. Tak je možné vidět kdo dluží skupině a naopak komu dluží skupina. V konečném důsledku můžete požádat o plán vypořádání, který vám oznámí, které platby mají být provedeny za účelem vynulování zůstatků členů.
+
+Členové projektu jsou nezávislí na uživatelích z Nextcloud. Projekty lze sdílet s jinými uživateli služby Nextcloud nebo pomocí veřejných odkazů.
+
+Android klient [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) je [k dispozici v repozitáři F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) a v katalogu [Google Play](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+Ve vývoji je současně také iOS klient [PayForMe](https://github.com/mayflower/PayForMe)!
+
+Soukromé a veřejné API jsou zdokumentováne pomocí [Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). K této dokumentaci lze přistupovat přímo v službě Nextcloud. Vše, co potřebujete, je nainstalovat Cospend (>= v1.6.0) a použít [aplikaci OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) k procházení OpenAPI dokumentace.
+
+## Funkce
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+Na této aplikaci stále ještě probíhá intenzivní vývoj.
+
+🌍 Pomozte nám s překládáním textů v rozhraní této aplikace v rámci [projektu Nextcloud-Cospend/MoneyBuster na službě Crowdin](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Dokumentace
+
+* [Uživatelská dokumentace](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Dokumentace pro správce](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Dokumentace pro vývojáře](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [SEZNAM ZMĚN](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTOŘI](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Známé problémy
+
+* It does not make you rich
+
+Jakákoliv zpětná vazba bude vítána.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="da">Shared budget manager</summary>
+    <description lang="da">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="de">Gemeinsame Budgetverwaltung</summary>
+    <description lang="de">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend ist ein gemeinsamer Budget-Manager für Gruppen. [IHateMoney](https://github.com/spiral-project/ihatemoney/) diente hierbei als Vorbild.
+
+Immer wenn du Geld mit anderen teilst, z. B. in einer WG oder im Urlaub mit Freunden, kannst du diese App verwenden.
+
+Du kannst Projekte erstellen sowie Mitglieder und Ausgaben hinzufügen. Anhand der Ausgaben im Projekt wird für jedes Mitglied eine Bilanz erstellt. Bilanzen sind keine absolute Summe an Geld, die den Mitgliedern zur Verfügung steht, sondern eine relative Information, die anzeigt, ob ein Mitglied mehr für die Gruppe ausgegeben hat als die Gruppe für sie/ihn (unabhängig davon wer genau gezahlt hat). Somit ist ersichtlich, wer wem etwas schuldet. Letztendlich kannst du dir dann in der Abrechnung anzeigen lassen, welche Zahlungen zu leisten sind, um die Bilanzen der Mitglieder auszugleichen.
+
+Projektmitglieder sind unabhängig von Nextcloud Benutzern. Projekte können mit anderen Nextcloud-Nutzern oder mit öffentlichen Links geteilt werden.
+
+Der Android Client [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) ist [erhältlich auf F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) und im [Play Store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+Der iOS-Client [PayForMe](https://github.com/mayflower/PayForMe) wird aktuell noch entwickelt!
+
+Die privaten und öffentlichen APIs sind mit [der Nextcloud OpenAPI Extractor App](https://github.com/nextcloud/openapi-extractor/) dokumentiert. Diese Dokumentation kann direkt in Nextcloud aufgerufen werden. Installiere einfach Cospend (>= v1.6.0) und benutze die [OCS API Viewer App](https://apps.nextcloud.com/apps/ocs_api_viewer) um die OpenAPI-Dokumentation zu sehen.
+
+## Funktionen
+
+* ✎ Projekte, Mitglieder, Rechnungen, Rechnungskategorien, Währungen erstellen/bearbeiten/löschen
+* ⚖ Kontrolle der Mitgliederguthaben
+* 🗠 Projektstatistiken anzeigen
+* ♻ Anzeige des Abrechnungsplans
+* Rechnungen von einem Projekt zu einem anderen verschieben
+* Rechnungen in den Papierkorb verschieben, bevor sie tatsächlich gelöscht werden
+* Alte Projekte archivieren, bevor sie gelöscht werden
+* 🎇 Automatisch Erstattungsrechnungen aus dem Abrechnungsplan erstellen
+* 🗓 Wiederkehrende Rechnungen erstellen (Tag/Woche/Monat/Jahr)
+* 📊 Optionaler benutzerdefinierter Betrag für jedes Mitglied in neuen Rechnungen bereitstellen
+* 🔗 Verknüpfen Sie persönliche Dateien mit Rechnungen (z. B. ein Bild einer Quittung)
+* 👩 Öffentliche Links für Personen außerhalb von Nextcloud (können passwortgeschützt werden)
+* 👫 Projekte mit Nextcloud-Nutzern/Gruppen/Zirkeln teilen
+* 🖫 Projekte als csv importieren/exportieren (kompatibel mit csv-Dateien von IHateMoney und SplitWise)
+* 🔗 Link/QRCode zum einfachen Hinzufügen von Projekten in MoneyBuster generieren
+* 🗲 Implementierung von Nextcloud-Benachrichtigungen und Aktivitätsstrom
+
+Diese App unterstützt in der Regel die 2 oder 3 letzten Hauptversionen von Nextcloud.
+
+Diese App ist in Entwicklung.
+
+🌍 Hilf uns bei der Übersetzung dieser App auf [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒️ Weitere Möglichkeiten zu Helfen findest du in der [Contribution-Richtlinie](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Dokumentation
+
+* [Benutzer-Dokumentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin-Dokumentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Entwickler-Dokumentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG / Änderungen](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS / Ersteller](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Bekannte Probleme
+
+* Es macht dich nicht reich
+
+Jedes Feedback ist willkommen.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="el">Shared budget manager</summary>
+    <description lang="el">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+Η Android εφαρμογή του [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) είναι [διαθέσιμη στο F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) και στο [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Δυνατότητες
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+Αυτή η εφαρμογή είναι υπό ανάπτυξη.
+
+🌍 Βοηθήστε μας να μεταφράσουμε αυτή την εφαρμογή στο [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Τεκμηρίωση
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Γνωστά προβλήματα
+
+* It does not make you rich
+
+Οποιοδήποτε σχόλιο για τη βελτίωση της εφαρμογής θα εκτιμηθεί.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="en">Shared budget manager</summary>
+    <description lang="en">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="es">Gestor de presupuesto compartido</summary>
+    <description lang="es">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend es un gestor de presupuesto compartido. Fue inspirado por el magnífico [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Puedes utilizarlo cuando compartes casa, cuando vas de vacaciones con amigos, o siempre que compartas gastos con un grupo de personas.
+
+Te permite crear proyectos con miembros y facturas. Cada miembro tiene un saldo calculado a partir de las facturas del proyecto. Los saldos no son una cantidad absoluta de dinero a disposición de los miembros, sino más bien una información relativa que muestra si un miembro ha gastado más en el grupo de lo que el grupo ha gastado por él/ella, independientemente de quién gastó dinero para quién. De esta manera se puede ver quién debe al grupo y a quién debe el grupo. En última instancia, puedes pedir un plan de liquidación que indique qué pagos hay que hacer para restablecer los saldos de los miembros.
+
+Los miembros del proyecto son independientes de los usuarios de Nextcloud. Los proyectos pueden compartirse con otros usuarios de Nextcloud o a través de enlaces públicos.
+
+El cliente para Android [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) está [disponible en F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) y en la [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+¡El cliente de iOS [PayForMe](https://github.com/mayflower/PayForMe) está en desarrollo actualmente!
+
+Las APIs privadas y públicas están documentadas usando el extractor [Nextcloud OpenAPI ](https://github.com/nextcloud/openapi-extractor/). Esta documentación puede ser accedida directamente en Nextcloud. Todo lo que necesitas es instalar Cospend (>= v1.6.0) y utilizar la la aplicación [OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) para navegar por la documentación de OpenAPI.
+
+## Funcionalidades
+
+* ✎ Crear, editar y eliminar proyectos, miembros, facturas, categorías y monedas
+* ⚖ Verificar el saldo de los miembros
+* 🗠 Mostrar estadísticas del proyecto
+* ♻️ Mostrar plan de liquidación
+* Mover facturas de un proyecto a otro
+* Mover facturas a la papelera antes de eliminarlas
+* Archivar proyectos antiguos antes de eliminarlos
+* 🎇 Crear automáticamente facturas de reembolso a partir del plan de pago
+* 🗓️ Crear facturas recurrentes (día/semana/mes/año)
+* 📊 Proporcionar opcionalmente una cantidad personalizada para cada miembro en nuevas facturas
+* 🔗 Enlazar archivos personales a facturas (imagen de recibo físico por ejemplo)
+* 👩 Enlaces públicos para personas fuera de Nextcloud (pueden estar protegidos por contraseña)
+* 👫 Compartir proyectos con usuarios/grupos/círculos de Nextcloud
+* ► Importar/exportar proyectos como csv (compatible con archivos csv de IHateMoney y SplitWise)
+* 🔗 Generar enlaces o códigos QRs para agregar proyectos fácilmente en MoneyBuster
+* Implementar notificaciones de Nextcloud y flujo de actividad
+
+Esta aplicación normalmente soporta las 2 o 3 últimas versiones mayores de Nextcloud.
+
+Esta aplicación está en desarrollo.
+
+🌍 Ayúdanos a traducir esta aplicación en [el proyecto de Crowdin de Nextcloud Cospend/MoneyBuster](https://crowdin.com/project/moneybuster).
+
+⚒️ Échale un vistazo a otras formas de ayudar en las [directrices de contribución](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentación
+
+* [Documentacion para el usuario](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Documentacion para el administrador](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Documentación para desarrolladores](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTORES](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Problemas conocidos
+
+* No te hace rico
+
+Cualquier comentario o crítica será apreciado.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="fa">Shared budget manager</summary>
+    <description lang="fa">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+کارخواه اندروید [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) [ در F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) و روی [ فروشگاه play](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster) در دسترس است.
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## ویژگی‌ها
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+این برنامه در حال توسعه است.
+
+🌍 به ما در ترجمه این برنامه کمک کنید روی [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## مشکلات شناخته شده
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="fi">Shared budget manager</summary>
+    <description lang="fi">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="fr">Gestionnaire de budget partagé</summary>
+    <description lang="fr">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend est un gestionnaire de dépenses partagées (de groupe). Il a été inspiré par le génial [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Vous pouvez l'utiliser lorsque vous partagez une maison, quand vous partez en vacances avec des amis, chaque fois que vous partagez des dépenses avec un groupe de personnes.
+
+Cospend vous permet de créer des projets avec des membres et des factures. Chaque membre a un solde calculé à partir des factures du projet. Les soldes ne sont pas un montant absolu d'argent à la disposition des membres, mais plutôt une information relative montrant si un membre a dépensé plus pour le groupe que le groupe n'a dépensé pour lui/elle, indépendamment de qui a dépensé de l'argent pour qui. Comme ça vous pouvez voir qui doit de l'argent au groupe et à qui le groupe doit de l'argent. À la fin, vous pouvez demander un plan de remboursement qui vous indique les paiements à effectuer pour remettre les soldes des membres à zéro.
+
+Les membres du projets sont indépendants des utilisateurs Nextcloud. Les projets peuvent être partagés avec d'autres utilisateurs de Nextcloud ou via des liens publics.
+
+Le client Android [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) est [disponible sur F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) et sur le [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+Le client iOS [PayForMe](https://github.com/mayflower/PayForMe) est en cours de développement !
+
+Les API privées et publiques sont documentées à l'aide de [l'extracteur OpenAPI Nextcloud](https://github.com/nextcloud/openapi-extractor/). Cette documentation est accessible directement dans Nextcloud. Tout ce dont vous avez besoin est d'installer Cospend (>= v1.6.0) et d'utiliser [l'application OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) pour naviguer dans la documentation OpenAPI.
+
+## Fonctionnalités
+
+* ✎ Créer/modifier/supprimer des projets, membres, factures, catégories de factures, devises
+* ⚖ Voir les soldes des membres
+* 🗠 Afficher les statistiques des projets
+* ♻ Afficher un plan de remboursement
+* Déplacer les factures d'un projet vers un autre
+* Déplacer les factures vers la corbeille avant de les supprimer
+* Archiver les anciens projets avant de les supprimer
+* 🎇 Créer automatiquement les factures correspondant au plan de remboursement
+* 🗓 Créer des factures récurrentes (jour/semaine/mois/année)
+* 📊 Entrer un montant personnalisé pour chaque membre dans les nouvelles factures
+* 🔗 Lier les fichiers personnels aux factures (photo du reçu physique par exemple)
+* 👩 Liens publics pour les personnes en dehors de Nextcloud (peut être protégé par mot de passe)
+* 👫 Partager un projet avec des utilisateurs/groupes/cercles Nextcloud
+* 🖫 Importer/exporter des projets en csv (compatible avec les fichiers csv d'IHateMoney)
+* 🔗 Générez des liens/QRCode pour facilement importer des projets dans MoneyBuster
+* 🗲 Implémente les notifications Nextcloud et le flux d'activité
+
+Cette application supporte généralement les 2 ou 3 dernières versions majeures de Nextcloud.
+
+Cette application est en cours de développement.
+
+🌍 Aidez-nous à traduire cette application sur [le project Crowdin Nextcloud-Cospend/MoneyBuster](https://crowdin.com/project/moneybuster).
+
+⚒️ Découvrez d'autres façons d'aider dans le [guide de contribution](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [Documentation utilisateur](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Documentation administrateur](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Documentation développeur](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTEURS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Problèmes connus
+
+* Ça ne vous rend pas riche
+
+Tout retour sera apprécié.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="gl">Xestor de orzamento compartido</summary>
+    <description lang="gl">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend é un xestor de orzamentos de grupos/compartido. Inspirouse no gran [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Pode empregalo cando comparte casa, cando vaia de vacacións cos amigos, sempre que comparta gastos cun grupo de persoas.
+
+Permítelle crear proxectos con membros e facturas. Cada membro ten un saldo calculado a partir das facturas do proxecto. Os saldos non son unha cantidade absoluta de diñeiro a disposición dos membros, senón unha información relativa que amosa se un membro gastou máis para o grupo do que o grupo gastou por el, independentemente de quen gastou cartos para quen. Deste xeito pode ver quen debe ao grupo e a quen debe o grupo. En última instancia, pode pedir un plan de liquidación que lle indique que pagos ten que facer para restabelecer os saldos dos membros.
+
+Os membros do proxecto son independentes dos usuarios de Nextcloud. Os proxectos pódense compartir con outros usuarios de Nextcloud ou mediante ligazóns públicas.
+
+O cliente para Android de [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) está [dispoñíbel en F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) e na [Play Store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+O cliente para iOS [PayForMe](https://github.com/mayflower/PayForMe) atopase en desenvolvemento!
+
+As API públicas e privadas están documentadas mediante o [extractor de Nextcloud OpenAPI](https://github.com/nextcloud/openapi-extractor/). Pódese acceder a esta documentación directamente en Nextcloud. Todo o que precisa é instalar Cospend (>= v1.6.0) e usar a aplicación [OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) para examinar a documentación de OpenAPI.
+
+## Funcionalidades
+
+* ✎ Crear, editar e eliminar proxectos, membros, facturas, categorías de facturas e moedas
+* ⚖ Consultar o saldo dos membros
+* 🗠 Amosar estatísticas do proxecto
+* ♻ Amosar o plan de liquidación
+* Mover facturas dun proxecto cara a outro
+* Mover facturas cara ao lixo antes de eliminalas
+* Arquivar proxectos antigos antes de eliminalos
+* 🎇 Crear automaticamente facturas de reembolso desde o plan de liquidación
+* 🗓️ Crear facturas recorrentes (día/semana/mes/ano)
+* 📊 Opcionalmente, fornece un importe personalizado para cada membro nas novas facturas
+* 🔗 Ligar ficheiros persoais a facturas (por exemplo, a imaxe do recibo físico)
+* 👩 Ligazóns públicas para persoas fóra de Nextcloud (poden estar protexidas con contrasinal)
+* 👫 Compartir proxectos con usuarios/grupos/círculos de Nextcloud
+* 🖫 Importar/exportar proxectos como csv (compatíbel con ficheiros csv de IHateMoney e SplitWise)
+* 🔗 Xerar ligazóns ou códigos QR para engadir doadamente proxectos en MoneyBuster
+* 🗲 Implementar notificacións de Nextcloud e fluxo de actividade
+
+Esta aplicación adoita admitir as 2 ou 3 últimas versións principais de Nextcloud.
+
+Esta aplicación está en desenvolvemento.
+
+🌍 Axúdanos a traducir esta aplicación no [proxecto de Crowdin de Nextcloud-Cospend/MoneyBuster](https://crowdin.com/project/moneybuster).
+
+⚒ Consulte outros xeitos de axudar nas [directrices de colaboración](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentación
+
+* [Documentación para usuarios](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Documentación para a administración](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Documentación de desenvolvemento](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [REXISTRO_DE_CAMBIOS](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTORES](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Incidencias coñecidas
+
+* Non te farás rico
+
+Calquera opinión será ben recibida.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="he">Shared budget manager</summary>
+    <description lang="he">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="hu">Megosztott költségvetés-kezelő</summary>
+    <description lang="hu">
+# Nextcloud Cospend 💰
+
+A Nextcloud Cospend egy csoportos/megosztott költségkezelő. A nagy [IHateMoney](https://github.com/spiral-project/ihatemoney/) inspirálta.
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+Létre tudsz hozni benne projekteket tagokkal és számlákkal. Minden tagnak van egy egyenlege, melyet a projekt számláiból számítunk ki. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. Így láthatod, ki tartozik a csoportnak és a csoport kinek tartozik. Végül kérhetsz elszámolási tervet, mely megmondja, milyen kifizetésekre van szükség, hogy a tagok tartozásai rendezve legyenek.
+
+A projekttagok függetlenek a Nextcloud felhasználóitól. Projects can be shared with other Nextcloud users or via public links.
+
+A [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android kliens elérhető [F-Droid-on](https://f-droid.org/packages/net.eneiluj.moneybuster/) és a [Play store-ban](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Funkciók
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+Ez az alkalmazás fejlesztés alatt áll.
+
+🌍 Segíts nekünk a fordításban a [Nextcloud-Cospend/MoneyBuster Crowdin projektben](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Dokumentáció
+
+* [Felhasználói dokumentáció](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Rendszergazdai dokumentáció](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Fejlesztői dokumentáció](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [VÁLTOZÁSOK](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [SZERZŐK](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Ismert problémák
+
+* It does not make you rich
+
+Bármilyen visszajelzést nagyra értékelünk.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="it">Gestore di bilancio condiviso</summary>
+    <description lang="it">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend è un budget manager condiviso/di gruppo. Ha tratto ispirazione dal grande [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Puoi usarlo per condividere le spese di casa, delle vacanze con gli amici e in ogni altra occasione in cui condividi delle spese con altri.
+
+Permette di creare progetti con utenti e spese. Ogni utente ha un saldo derivante dalle spese del progetto. I saldi non sono un importo assoluto di denaro a disposizione dei membri, ma piuttosto un'informazione relativa che mostra se un membro ha speso più per il gruppo che il gruppo ha speso per lei/lui, indipendentemente da chi ha speso i soldi per chi. Così puoi vedere chi deve al gruppo quanto e quanto deve il gruppo a chi. Infine, puoi visualizzare un piano di rientro dal debito che indichi i pagamenti da effettuare per riportare a zero i saldi degli utenti.
+
+Gli utenti del progetto sono indipendenti dagli utenti Nextcloud. I progetti possono essere condivisi con altri utenti Nextcloud o tramite link pubblici.
+
+Il client per Android [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) è [disponibile su F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) e sul [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) è un client iOS attualmente in fase di sviluppo!
+
+Le API private e pubbliche sono documentate utilizzando [il Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). Questa documentazione può essere consultata direttamente su Nextcloud. Tutto quello che serve è installare Cospend (>= v1.6.) e utilizzare l' [l'app API OCS Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) per sfogliare la documentazione OpenAPI.
+
+## Funzioni
+
+* ✎ Crea/modifica/elimina progetti, utenti, spese, categorie di spese, valute
+* ⚖ Controlla i saldi degli utenti
+* 🗠 Visualizza le statistiche del progetto
+* ♻ Visualizza il piano di compensazione del debito
+* Sposta le spese da un progetto a un altro
+* Sposta le spese nel cestino prima di eliminarle
+* Archivia i vecchi progetti prima di eliminarli
+* 🎇 Crea automaticamente le spese di rimborso dal piano di rientro del debito
+* 🗓 Crea spese ricorrenti (giorno/settimana/mese/anno)
+* 📊 Fornisci opzionalmente un importo personalizzato per ciascun utente nelle spese nuove
+* 🔗 Collega file personali alle spese (per esempio l'immagine della ricevuta fisica)
+* 👩 Link pubblici per le persone al di fuori di Nextcloud (può essere protetto da password)
+* 👫 Condividi progetti con utenti/gruppi/cerchie di Nextcloud
+* 🖫 Importa/esporta progetti in formato csv (compatibile con i file csv di IHateMoney e SplitWise)
+* 🔗 Genera link/codice QR per importare facilmente progetti in MoneyBuster
+* 🗲 Implementa le notifiche e il flusso di attività di Nextcloud
+
+Questa app di solito supporta le ultime 2 o 3 versioni principali di Nextcloud.
+
+Questa app è in fase di sviluppo.
+
+🌍 Aiutaci a tradurre questa app su [Nextcloud-Cospend/MoneyBuster progetto Crowdin](https://crowdin.com/project/moneybuster).
+
+⚒️ Scopri altri modi per aiutare nelle [ linee guida su come contribuire](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentazione
+
+* [Documentazione utente](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Documentazione per l'amministratore](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Documentazione per gli sviluppatori](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTORI](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Problemi noti
+
+* Non ti renderà ricco
+
+Ogni feedback é apprezzato.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ja">共有予算マネージャー</summary>
+    <description lang="ja">
+# Nextcloud Cospend 💰
+
+NextcloudのCospendはグループ予算管理ツールです。 [IHateMoney](https://github.com/spiral-project/ihatemoney/)というツールに影響を受け、開発されました。
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+メンバーと請求書でプロジェクトを作成できます。 各メンバーは、プロジェクトの請求書から計算された残高を持っています。 Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. この方法では、グループに借りている人とグループに貸している人を見ることができます。 最終的には、メンバー残高をリセットするために支払いを行う決算プランを求めることができます。
+
+プロジェクトメンバーは NextCloud ユーザーから独立しています。 Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android クライアントは [F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) と [Play ストア](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster) で利用可能です。
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## 機能紹介
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+このアプリは開発中です。
+
+🌍 [Nextcloud-Cospend/MoneyBuster Crowdin プロジェクト](https://crowdin.com/project/moneybuster) でこのアプリを翻訳する手助けをしてください。
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## ドキュメント
+
+* [利用者向けドキュメント](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [管理ドキュメント](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [開発者ドキュメント](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [変更](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [作者](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## 既知の問題
+
+* It does not make you rich
+
+ご意見をいただければ幸いです。
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ko">Shared budget manager</summary>
+    <description lang="ko">
+#
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="lt">Shared budget manager</summary>
+    <description lang="lt">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="mk">Shared budget manager</summary>
+    <description lang="mk">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android клиентот е [достапен во F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) и на [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Можности
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+Апликацијата сеуште е во фаза на развивање.
+
+🌍 Помогнете со преводот на апликацијата [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Документација
+
+* [Корисничка документација](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Администраторска документација](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Програмерска документација](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [ЛИСТА СО ПРОМЕНИ](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [АВТОРИ](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Познати проблеми
+
+* It does not make you rich
+
+Сите повратни информации ќе бидат ценети.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="nl">Gedeelde budgetbeheerder</summary>
+    <description lang="nl">
+# Nextcloud Samen betalen
+
+Nextcloud Cospend is een groep/deelbaar budgetmanager. Ik was geïnspireerd door het geweldige [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Je kunt het gebruiken wanneer je samenwoont, wanneer je op vakantie gaat met vrienden, wanneer je uitgaven deelt met een groep mensen.
+
+Het laat je projecten aanmaken met deelnemers en rekeningen. Voor iedere deelnemer wordt het saldo berekend op basis van de rekeningen. Saldo's geven niet het absolute bedrag weer dat een deelnemer heeft, maar eerder de relatieve informatie die laat zien of een deelnemer meer aan de groep heeft uitgegeven dan de groep aan hem/haar, ongeacht wie er precies geld aan wie heeft uitgegeven. Zo kan je zien wie er nog moet betalen aan de groep of wie er nog moet ontvangen. Uiteindelijk kunt je vragen om een schikking, dat aangeeft welke betalingen je moet doen om de saldi van deelnemers te vereffenen.
+
+Projectdeelnemers zijn onafhankelijk van Nextcloud gebruikers. Projecten kunnen worden gedeeld met andere Nextcloud gebruikers of via openbare links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android cliënt is [te krijgen in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) en in de [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS cliënt is op dit moment in ontwikkeling!
+
+De private en publieke API's worden gedocumenteerd met behulp van [de Nextcloud OpenAPI-extractor](https://github.com/nextcloud/openapi-extractor/). Deze documentatie is direct toegankelijk in Nextcloud. Het enige wat je hoeft te doen is Samen betalen te installeren (>= v1.6.0) en de [de OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) gebruiken om door de OpenAPI documentatie te bladeren.
+
+## Kenmerken
+
+* ✎ Projecten, deelnemers, rekeningen, rekeningcategorieën, valuta's maken/bewerken/verwijderen
+* ⚖Deelnemer saldi controleren
+* 🗠 Toon projectstatistieken
+* ♻ Schikkingsplan weergeven
+* Rekeningen van het ene project naar het andere verplaatsen
+* Verplaats rekeningen naar de prullenbak voordat u ze daadwerkelijk verwijdert
+* Archiveer oude projecten voordat u ze verwijdert
+* 🎇 Maak automatisch vergoedingsrekeningen aan vanuit het schikkingsplan
+* 🗓 Terugkerende rekeningen maken (dag/week/maand/jaar)
+* 📊 Geef optioneel een aangepast bedrag op voor elke deelnemer in nieuwe rekeningen
+* 🔗 Koppel persoonlijke bestanden aan rekeningen (foto van fysieke bon bijvoorbeeld)
+* 👩 Openbare links voor mensen buiten Nextcloud (kan met een wachtwoord worden beveiligd)
+* 👫 Deel projecten met Nextcloud gebruikers/groepen/cirkels
+* 🖫 Importeer/exporteer projecten als csv (compatibel met csv-bestanden van IHateMoney en SplitWise)
+* 🔗 Genereer link/QRCode om eenvoudig projecten toe te voegen in MoneyBuster
+* 🗲 Implementeer Nextcloud-meldingen en activiteitenstream
+
+Deze app ondersteunt meestal de 2 of 3 laatste hoofdversies van Nextcloud.
+
+Deze app is in ontwikkeling.
+
+🌍 Help ons deze app te vertalen bij het [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Bekijk andere manieren om te helpen in de richtlijnen voor [bijdrage](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentatie
+
+* [Gebruikersdocumentatie](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Beheerderdocumentatie](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Documentatie voor ontwikkelaars](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [WIJZIGINGEN](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHEURS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Bekende problemen
+
+* Je wordt er niet rijk van
+
+Elke feedback wordt op prijs gesteld.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="nn">Shared budget manager</summary>
+    <description lang="nn">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android klient er [tilgjengelig i F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) og i [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Funksjoner
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+Denne appen er under utvikling.
+
+🌍 Hjelp oss med å oversette denne appen på [Nextcloud-Cospend/MoneyBuster Crowdin-prosjektet](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Dokumentasjon
+
+* [Brukerdokumentasjon](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Administratordokumentasjon](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Utviklerdokumentasjon](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [ENDRINGSLOGG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [FORFATTER](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Kjente problemer
+
+* It does not make you rich
+
+Tilbakemeldinger vil bli verdsatt.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="pl">Menedżer wspólnego budżetu</summary>
+    <description lang="pl">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend jest grupowym/wspólnym menedżerem budżetu. Został on zainspirowany przez wielkiego [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+Pozwala tworzyć projekty z użytkownikami i rachunkami. Każdy członek ma saldo obliczone na podstawie rachunków projektu. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. W ten sposób możesz zobaczyć, kto jest winny grupy i kto jest jej winny. W końcu możesz poprosić o plan rozrachunkowy informujący o tym, które płatności mają być dokonane w celu zresetowania sald członków.
+
+Członkowie projektu są niezależni od użytkowników Nextcloud. Projects can be shared with other Nextcloud users or via public links.
+
+[Klient MoneyBuster](https://gitlab.com/eneiluj/moneybuster) na Android jest [dostępny w F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) oraz w [Sklepie Play ](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Funkcje
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+Ta aplikacja jest w trakcie tworzenia.
+
+🌍 Pomóż nam przetłumaczyć tę aplikację na [Projekt Crowdin Nextcloud-Cospend/MoneyBuster](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Znane problemy
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="pt-br">Gestor de orçamento compartilhado</summary>
+    <description lang="pt-br">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend é um gerenciador de orçamento compartilhado/de grupo. Foi inspirado pelo ótimo [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Você pode usá-lo quando dividir uma casa, quando sair de férias com amigos, sempre que dividir despesas com um grupo de pessoas.
+
+Ele permite criar projetos com membros e despesas. Cada membro tem um saldo calculado a partir das faturas do projeto. Os saldos não são uma quantia absoluta de dinheiro à disposição dos membros, mas sim uma informação relativa mostrando se um membro gastou mais para o grupo do que o grupo gastou para ele/ela, independentemente de exatamente quem gastou dinheiro para quem. Desta forma você pode ver quem deve ao grupo e a quem o grupo deve. Em última análise pode pedir um plano de quitação que lhe diga quais os pagamentos a fazer para saldar as dívidas dos membros.
+
+Os membros do projeto são independentes dos usuários do Nextcloud. Os projetos podem ser compartilhados com outros usuários do Nextcloud ou por meio de links públicos.
+
+O cliente Android [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) está [disponível no F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) e na [Play Store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+cliente iOS [PayForMe](https://github.com/mayflower/PayForMe) está atualmente em desenvolvimento!
+
+As APIs privadas e públicas são documentadas usando [o extrator Nextcloud OpenAPI](https://github.com/nextcloud/openapi-extractor/). Esta documentação pode ser acessada diretamente no Nextcloud. Tudo que você precisa é instalar o Cospend (>= v1.6.0) e usar o [o aplicativo OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) para navegar pela documentação da OpenAPI.
+
+## Funcionalidades
+
+* ✎ Criar/editar/excluir projetos, membros, contas, categorias de contas, moedas
+* ⚖ Verifique os saldos dos membros
+* 🗠 Exibir estatísticas do projeto
+* ♻ Exibir plano de liquidação
+* Mover contas de um projeto para outro
+* Mova as contas para a lixeira antes de excluí-las
+* Arquive projetos antigos antes de excluí-los
+* 🎇 Crie automaticamente faturas de reembolso a partir do plano de liquidação
+* 🗓 Crie contas recorrentes (dia/semana/mês/ano)
+* 📊 Opcionalmente, forneça um valor personalizado para cada membro em novas contas
+* 🔗 Vincule arquivos pessoais a contas (foto do recibo físico, por exemplo)
+* 👩 Links públicos para pessoas fora do Nextcloud (podem ser protegidos por senha)
+* 👫 Compartilhe projetos com usuários/grupos/círculos Nextcloud
+* 🖫 Importar/exportar projetos como csv (compatível com arquivos csv de IHateMoney e SplitWise)
+* 🔗 Gere link/QRCode para adicionar projetos facilmente no MoneyBuster
+* 🗲 Implementar notificações Nextcloud e fluxo de atividades
+
+Este aplicativo geralmente suporta as 2 ou 3 últimas versões principais do Nextcloud.
+
+Este aplicativo está em desenvolvimento.
+
+🌍 Ajude-nos a traduzir esta aplicação no [Nextcloud-Cospend/MoneyBuster Crowdin](https://crowdin.com/project/moneybuster).
+
+⚒ Confira outras maneiras de ajudar nas [diretrizes de contribuição](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentação
+
+* [Documentação do usuário](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Documentação do administrador](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Documentação do desenvolvedor](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [REGISTRO DE MUDANÇAS](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTORES](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Problemas conhecidos
+
+* Isso não te deixa rico
+
+Qualquer retorno será apreciado.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="pt">Gestor de orçamento partilhado</summary>
+    <description lang="pt">
+# Cospend do Nextcloud
+
+Nextcloud Cospend é um gestor de orçamento de grupo/partilhado. Foi inspirado pelo grande [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Pode usá-lo quando estiver a partilhar uma casa, quando for de férias com amigos ou sempre que tiver de partilhar despesas com um grupo de pessoas.
+
+Permite-lhe criar planeamentos com membros e despesas. Cada membro tem um saldo calculado a partir das despesas do planeamento. Saldos não são um montante absoluto de dinheiro à disposição dos membros mas antes uma informação relativa que mostra se o membro gastou mais para o grupo do que o grupo gastou para ele/ela, independentemente de quem gastou dinheiro para quem. Desta forma pode ver quem deve ao grupo e a quem o grupo deve. Em última análise pode pedir um plano de liquidação que lhe diga quais os pagamentos a fazer para reiniciar os saldos dos membros.
+
+Os membros do planeamento são independentes dos utilizadores do Nextcloud. Planeamentos podem ser partilhados com outros utilizadores do Nextcloud ou através de ligações públicas.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) O cliente Android está [disponível no F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) e na [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) O cliente iOS está neste momento a ser desenvolvido!
+
+As APIs privadas e públicas são documentadas com o [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). Esta documentação pode ser acedida no Nextcloud. Tudo o que precisa fazer é instalar o Cospend (>= v1.6.0) e usar a aplicação [OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) para consultar a documentação do OpenAPI.
+
+## Funcionalidades
+
+* ✎ Criar/editar/eliminar planeamentos, membros, despesas, categorias de despesas, moedas
+* ⚖ Verificar saldos dos membros
+* 🗠 Mostrar estatísticas do planeamento
+* ♻ Mostrar plano de liquidação
+* Mover despesas de um planeamento para o outro
+* Mover planeamentos para o lixo antes de os eliminar definitivamente
+* Arquivar planeamentos antigos antes de os eliminar
+* 🎇 Criar notas de reembolso automaticamente a partir do plano de liquidação
+* 🗓 Criar despesas recorrentes (dia/semana/mês/ano)
+* 📊 Fornecer, opcionalmente, quantias personalizadas para cada membro nas novas despesas
+* 🔗 Ligar ficheiros pessoais às despesas (uma fotografia do recibo físico, por exemplo)
+* 👩 Ligações públicas para pessoas exteriores ao Nextcloud (podem ser protegidas por uma senha)
+* 👫 Partilhar planeamentos com utilizadores/grupos/círculos do Nextcloud
+* 🖫 Importar/exportar planeamentos com CSV (compatível com ficheiros CSV do IHateMoney e do SplitWise)
+* 🔗 Gerar ligação/código-QR para facilitar a adição de planeamentos no MoneyBuster
+* 🗲 Implementar notificações e fluxo de trabalho do Nextcloud
+
+Esta aplicação normalmente suporta as 2 ou 3 versões maiores do Nextcloud.
+
+Esta aplicação está sob desenvolvimento.
+
+🌍 Ajude-nos a traduzir esta aplicação na [tradução no Crowdin do Nextcloud-Cospend/MoneyBuster](https://crowdin.com/project/moneybuster).
+
+⚒ Veja outras formas de ajudar nas [orientações de contribuição](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentação
+
+* [Documentação para o utilizador](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Documentação para o administrador](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Documentação para o programador](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG (registo das alterações)](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS (autores)](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Problemas conhecidos
+
+* Não lhe traz riqueza
+
+Qualquer comentário será apreciado.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ro">Shared budget manager</summary>
+    <description lang="ro">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ru">Менеджер общего бюджета</summary>
+    <description lang="ru">
+# Проект Cospend для Nextcloud. 💰
+
+Nextcloud Cospend - это менеджер группового/общего бюджета. Он был создан под впечатлением от отличной программы [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+Приложение пригодится, когда вы вскладчину снимаете жильё, или когда едете в отпуск с друзьями, или прочих случаях, когда вы скидываетесь на что-либо.
+
+Он позволяет вам создавать проекты в которых есть участники и счета. Баланс каждого участника вычисляется на основании заведенных в проект счетов. Балансы — это не абсолютная сумма денег, которыми располагают участники, а скорее относительная информация, показывающая, потратил ли участник на группу больше, чем группа потратила на него/нее, независимо от того, кто именно потратил деньги на кого. Таким образом сразу видно кто должен всей группе, а кому должна группа. В завершение проекта можно вычислить план расчетов по платежам для обнуления балансов участников.
+
+Участники проекта не связаны с пользователями Nextcloud. Проектами можно делиться с другими пользователями Nextcloud или через публичные ссылки.
+
+Клиент [MoneyBuster](https://gitlab.com/eneiluj/moneybuster) для Android [ доступен в F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) и в [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+Клиент для iOS [PayForMe](https://github.com/mayflower/PayForMe) разрабатывается в настоящее время!
+
+Частные и публичные API документированы с помощью [Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). Доступ к этой документации можно получить непосредственно в Nextcloud. Все, что вам нужно - это установить Cospend (>= v1.6.0) и используйте [OCS API Viewer](https://apps.nextcloud.com/apps/ocs_api_viewer) для просмотра документации OpenAPI.
+
+## Возможности
+
+* ✏️Создание/редактирование/удаление Проектов, участников, счетов, категорий счетов, валют
+* ⚖️ Проверка балансов участников
+* 🗠 Показать статистику проекта
+* ♻ Показать план расчета
+* Переместить счета из одного проекта в другой
+* Переместить счета в корзину перед их удалением
+* Архивировать старые проекты перед их удалением
+* 🎇 Автоматическое создание счетов на возмещение расходов из плана расчетов
+* 📅 Создание повторяющихся счетов (ежедневно/еженедельно/ежемесячно/ежегодно)
+* 📊 Возможность устрановить произвольную сумму для каждого участника в новых счетах
+* 🔗 Связать личные файлы со счетами (например, изображение физического чека)
+* 👩 Общие ссылки для людей не имеющих аккаунт Nextcloud (могут быть защищены паролем)
+* 👫 Публикация проекта для других пользователей/групп/кругов Nextcloud
+* 💾 Импорт/экспорт Проектов в формате csv (совместим с csv файлами из IHateMoney)
+* 🔗 Создание ссылки/QRCode для легкого импорта проектов в MoneyBuster
+* ⚡Реализация уведомлений и активности Nextcloud
+
+Это приложение обычно поддерживает 2 или 3 последние основные версии Nextcloud.
+
+Это приложение находится в стадии разработки.
+
+🌍 Помогите перевести это приложение на [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒️ Ознакомьтесь с другими способами оказания помощи в руководстве по [внесению пожертвований](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Документация
+
+* [Пользовательская документация](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Документация по администрированию](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Документация для разработчиков](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [ИСТОРИЯ ИЗМЕНЕНИЙ](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [АВТОРЫ](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Известные проблемы
+
+* Приложение не сделает вас богатым
+
+Мы будем признательны за любую обратную связь.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="sk">Shared budget manager</summary>
+    <description lang="sk">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="sl">Shared budget manager</summary>
+    <description lang="sl">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="sq">Shared budget manager</summary>
+    <description lang="sq">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="sr">Shared budget manager</summary>
+    <description lang="sr">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="sv">Shared budget manager</summary>
+    <description lang="sv">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ta">Shared budget manager</summary>
+    <description lang="ta">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="tr">Shared budget manager</summary>
+    <description lang="tr">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="uk">Менеджер спільного бюджету</summary>
+    <description lang="uk">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). Ця документація доступна безпосередньо в Nextcloud. Все, що вам потрібно — встановити Cospend (>= v1.6.0) і використовувати [OCS API Viewer додатків](https://apps.nextcloud.com/apps/ocs_api_viewer) для перегляду документації OpenAPI.
+
+## Можливості
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠Переглядати статистику проекту
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Публічні посилання для людей поза Nextcloud (можуть бути захищені паролем)
+* 👫 Ділитися проєктами з користувачами/групами/колами Nextcloud
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+Додаток зазвичай підтримує 2 або 3 останні основні версії Nextcloud.
+
+Цей додаток в стадії розробки.
+
+🌍 Допоможіть нам перекласти цей додаток на [PhoneTrack Crowdin](https://crowdin. com/project/phonetrack).
+
+⚒️ Перегляньте інші способи допомогти в [інструкціях з внеску оголошень](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Документація
+
+* [Документація користувача](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Документація для адміністратора](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Документація для розробника](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [АВТОРИ](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Відомі проблеми
+
+* Це не зробить вас багатим
+
+Будемо вдячні за будь-який відгук.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="ur">Shared budget manager</summary>
+    <description lang="ur">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="vi">Shared budget manager</summary>
+    <description lang="vi">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="zh-hans">共享预算管理器</summary>
+    <description lang="zh-hans">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend 是一款群组/共享支出管理工具。 由伟大的 [IHateMoney](https://github.com/spiral-project/ihatemoney/) 启发。
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+它可以让您创建带有会员和账单的项目。 每个成员都有根据项目账单计算的余额。 Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. 这种方式你可以看到谁欠该群组以及谁欠该群组。 Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## 特性
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## 已知问题
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+    <summary lang="zh-hant">Shared budget manager</summary>
+    <description lang="zh-hant">
+# Nextcloud Cospend 💰
+
+Nextcloud Cospend is a group/shared budget manager. It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/). It was inspired by the great [IHateMoney](https://github.com/spiral-project/ihatemoney/).
+
+You can use it when you share a house, when you go on vacation with friends, whenever you share expenses with a group of people.
+
+It lets you create projects with members and bills. Each member has a balance computed from the project bills. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances. Each member has a balance computed from the project bills. Balances are not an absolute amount of money at members disposal but rather a relative information showing if a member has spent more for the group than the group has spent for her/him, independently of exactly who spent money for whom. This way you can see who owes the group and who the group owes. Ultimately you can ask for a settlement plan telling you which payments to make to reset members balances.
+
+Project members are independent from Nextcloud users. Projects can be shared with other Nextcloud users or via public links.
+
+[MoneyBuster](https://gitlab.com/eneiluj/moneybuster) Android client is [available in F-Droid](https://f-droid.org/packages/net.eneiluj.moneybuster/) and on the [Play store](https://play.google.com/store/apps/details?id=net.eneiluj.moneybuster).
+
+[PayForMe](https://github.com/mayflower/PayForMe) iOS client is currently under developpement!
+
+The private and public APIs are documented using [the Nextcloud OpenAPI extractor](https://github.com/nextcloud/openapi-extractor/). This documentation can be accessed directly in Nextcloud. All you need is to install Cospend (>= v1.6.0) and use the [the OCS API Viewer app](https://apps.nextcloud.com/apps/ocs_api_viewer) to browse the OpenAPI documentation.
+
+## Features
+
+* ✎ Create/edit/delete projects, members, bills, bill categories, currencies
+* ⚖ Check member balances
+* 🗠 Display project statistics
+* ♻ Display settlement plan
+* Move bills from one project to another
+* Move bills to trash before actually deleting them
+* Archive old projects before deleting them
+* 🎇 Automatically create reimbursement bills from settlement plan
+* 🗓 Create recurring bills (day/week/month/year)
+* 📊 Optionally provide custom amount for each member in new bills
+* 🔗 Link personal files to bills (picture of physical receipt for example)
+* 👩 Public links for people outside Nextcloud (can be password protected)
+* 👫 Share projects with Nextcloud users/groups/circles
+* 🖫 Import/export projects as csv (compatible with csv files from IHateMoney and SplitWise)
+* 🔗 Generate link/QRCode to easily add projects in MoneyBuster
+* 🗲 Implement Nextcloud notifications and activity stream
+
+This app usually support the 2 or 3 last major versions of Nextcloud.
+
+This app is under development.
+
+🌍 Help us to translate this app on [Nextcloud-Cospend/MoneyBuster Crowdin project](https://crowdin.com/project/moneybuster).
+
+⚒ Check out other ways to help in the [contribution guidelines](https://github.com/julien-nc/cospend-nc/blob/master/CONTRIBUTING.md).
+
+## Documentation
+
+* [User documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/user.md)
+* [Admin documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/admin.md)
+* [Developer documentation](https://github.com/julien-nc/cospend-nc/blob/master/docs/dev.md)
+* [CHANGELOG](https://github.com/julien-nc/cospend-nc/blob/master/CHANGELOG.md#change-log)
+* [AUTHORS](https://github.com/julien-nc/cospend-nc/blob/master/AUTHORS.md#authors)
+
+## Known issues
+
+* It does not make you rich
+
+Any feedback will be appreciated.
+
+
+
+## Donation
+
+I develop this app during my free time.
+
+* [Donate with Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=66PALMY8SF5JE) (you don't need a paypal account)
+* [Donate with Liberapay : ![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/eneiluj/donate)
+
+    </description>
+
+	<version>4.0.2</version>
+	<licence>agpl</licence>
+	<author mail="julien-nc@posteo.net">Julien Veyssier</author>
+	<namespace>Cospend</namespace>
+	<documentation>
+		<user>https://github.com/julien-nc/cospend-nc/blob/main/docs/user.md</user>
+		<admin>https://github.com/julien-nc/cospend-nc/blob/main/docs/admin.md</admin>
+		<developer>https://github.com/julien-nc/cospend-nc/blob/main/docs/dev.md</developer>
+	</documentation>
+	<category>tools</category>
+	<category>organization</category>
+	<website>https://github.com/julien-nc/cospend-nc</website>
+	<bugs>https://github.com/julien-nc/cospend-nc/issues</bugs>
+	<screenshot>https://github.com/julien-nc/cospend-nc/raw/main/img/screenshots/cospend1.jpg</screenshot>
+	<screenshot>https://github.com/julien-nc/cospend-nc/raw/main/img/screenshots/cospend2.jpg</screenshot>
+	<screenshot>https://github.com/julien-nc/cospend-nc/raw/main/img/screenshots/cospend3.jpg</screenshot>
+	<screenshot>https://github.com/julien-nc/cospend-nc/raw/main/img/screenshots/cospend4.jpg</screenshot>
+	<dependencies>
+		<nextcloud min-version="33" max-version="35"/>
+	</dependencies>
+	<background-jobs>
+		<job>OCA\Cospend\Cron\RepeatBills</job>
+		<job>OCA\Cospend\Cron\AutoExport</job>
+	</background-jobs>
+    <repair-steps>
+        <post-migration>
+            <step>OCA\Cospend\Migration\CleanupUserMembers</step>
+        </post-migration>
+    </repair-steps>
+	<settings>
+		<admin>OCA\Cospend\Settings\Admin</admin>
+	</settings>
+	<commands>
+		<command>OCA\Cospend\Command\RepeatBills</command>
+		<command>OCA\Cospend\Command\ExportProject</command>
+		<command>OCA\Cospend\Command\DeleteBills</command>
+	</commands>
+	<activity>
+		<settings>
+			<setting>OCA\Cospend\Activity\Setting</setting>
+			<setting>OCA\Cospend\Activity\BillCreatedSetting</setting>
+			<setting>OCA\Cospend\Activity\BillUpdatedSetting</setting>
+			<setting>OCA\Cospend\Activity\BillDeletedSetting</setting>
+		</settings>
+		<filters>
+			<filter>OCA\Cospend\Activity\Filter</filter>
+		</filters>
+		<providers>
+			<provider>OCA\Cospend\Activity\CospendProvider</provider>
+		</providers>
+	</activity>
+	<navigations>
+		<navigation>
+			<id>cospend</id>
+			<name>Cospend</name>
+			<route>cospend.page.index</route>
+			<icon>app.svg</icon>
+			<order>8</order>
+		</navigation>
+	</navigations>
+</info>

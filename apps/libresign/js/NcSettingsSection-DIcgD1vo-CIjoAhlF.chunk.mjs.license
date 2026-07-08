@@ -1,0 +1,20 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: MIT
+SPDX-License-Identifier: agpl
+SPDX-FileCopyrightText: Mario Nebl <hello@mario-nebl.de>
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: libresign developers
+
+This file is generated from multiple sources. Included packages:
+- @marionebl/option
+	- version: 1.0.8
+	- license: MIT
+- @marionebl/result
+	- version: 1.0.8
+	- license: MIT
+- @nextcloud/vue
+	- version: 9.6.0
+	- license: AGPL-3.0-or-later
+- libresign
+	- version: 14.0.2
+	- license: agpl

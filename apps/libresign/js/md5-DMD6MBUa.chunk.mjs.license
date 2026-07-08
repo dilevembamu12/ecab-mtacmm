@@ -1,0 +1,7 @@
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Sebastian Tschan
+
+This file is generated from multiple sources. Included packages:
+- blueimp-md5
+	- version: 2.19.0
+	- license: MIT

@@ -1,0 +1,74 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * SPDX-FileCopyrightText: 2025 LibreCode coop and contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+namespace OCA\Libresign\Service\DocMdp;
+
+use OCA\Libresign\AppInfo\Application;
+use OCA\Libresign\Enum\DocMdpLevel;
+use OCP\IAppConfig;
+use OCP\IL10N;
+
+/**
+ * @psalm-import-type LibresignDocMdpConfig from \OCA\Libresign\ResponseDefinitions
+ * @psalm-import-type LibresignDocMdpLevelOption from \OCA\Libresign\ResponseDefinitions
+ */
+class ConfigService {
+	private const CONFIG_KEY_LEVEL = 'docmdp_level';
+
+	public function __construct(
+		private IAppConfig $appConfig,
+		private IL10N $l10n,
+	) {
+	}
+
+	public function isEnabled(): bool {
+		return $this->getLevel()->isCertifying();
+	}
+
+	public function setEnabled(bool $enabled): void {
+		if ($enabled) {
+			if (!$this->getLevel()->isCertifying()) {
+				$this->setLevel(DocMdpLevel::CERTIFIED_FORM_FILLING);
+			}
+			return;
+		}
+
+		$this->setLevel(DocMdpLevel::NOT_CERTIFIED);
+	}
+
+	public function getLevel(): DocMdpLevel {
+		$level = $this->appConfig->getValueInt(Application::APP_ID, self::CONFIG_KEY_LEVEL, DocMdpLevel::CERTIFIED_FORM_FILLING->value);
+		return DocMdpLevel::tryFrom($level) ?? DocMdpLevel::CERTIFIED_FORM_FILLING;
+	}
+
+	public function setLevel(DocMdpLevel $level): void {
+		$this->appConfig->setValueInt(Application::APP_ID, self::CONFIG_KEY_LEVEL, $level->value);
+	}
+
+	/** @return LibresignDocMdpConfig */
+	public function getConfig(): array {
+		return [
+			'enabled' => $this->isEnabled(),
+			'defaultLevel' => $this->getLevel()->value,
+			'availableLevels' => $this->getAvailableLevels(),
+		];
+	}
+
+	/** @return list<LibresignDocMdpLevelOption> */
+	private function getAvailableLevels(): array {
+		return array_map(
+			fn (DocMdpLevel $level) => [
+				'value' => $level->value,
+				'label' => $level->getLabel($this->l10n),
+				'description' => $level->getDescription($this->l10n),
+			],
+			DocMdpLevel::cases()
+		);
+	}
+}

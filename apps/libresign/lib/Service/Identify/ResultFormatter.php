@@ -1,0 +1,88 @@
+<?php
+
+declare(strict_types=1);
+/**
+ * SPDX-FileCopyrightText: 2026 LibreCode coop and contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+namespace OCA\Libresign\Service\Identify;
+
+use OCA\Libresign\Collaboration\Collaborators\AccountPhonePlugin;
+use OCA\Libresign\Collaboration\Collaborators\ContactPhonePlugin;
+use OCA\Libresign\Collaboration\Collaborators\ManualPhonePlugin;
+use OCA\Libresign\Collaboration\Collaborators\SignerPlugin;
+use OCP\Share\IShare;
+
+class ResultFormatter {
+	private function getIconName(string $method): ?string {
+		return match ($method) {
+			'account',
+			'email',
+			'signal',
+			'sms',
+			'telegram',
+			'whatsapp',
+			'xmpp' => $method,
+			default => null,
+		};
+	}
+
+	public function formatForNcSelect(array $list): array {
+		$formattedList = [];
+		foreach ($list as $key => $item) {
+			$shareType = $item['value']['shareType'];
+			$method = $item['method'] ?? '';
+
+			// Determine if this is not a regular user account
+			$isNoUser = $shareType !== IShare::TYPE_USER;
+			if ($isNoUser && $method === 'account') {
+				$isNoUser = false;
+			}
+
+			$formattedList[$key] = [
+				'identify' => $item['value']['shareWith'],
+				'isNoUser' => $isNoUser,
+				'displayName' => $item['label'],
+				'subname' => $item['shareWithDisplayNameUnique'] ?? '',
+			];
+
+			if ($shareType === IShare::TYPE_EMAIL) {
+				$formattedList[$key]['method'] = 'email';
+				$formattedList[$key]['iconName'] = $this->getIconName('email');
+			} elseif ($shareType === IShare::TYPE_USER) {
+				$formattedList[$key]['method'] = 'account';
+				$formattedList[$key]['iconName'] = $this->getIconName('account');
+			} elseif (in_array($shareType, [
+				SignerPlugin::TYPE_SIGNER,
+				AccountPhonePlugin::TYPE_SIGNER_ACCOUNT_PHONE,
+				ContactPhonePlugin::TYPE_SIGNER_CONTACT_PHONE,
+				ManualPhonePlugin::TYPE_SIGNER_MANUAL_PHONE,
+			], true)) {
+				$method = $item['method'] ?? '';
+				$formattedList[$key]['method'] = $method;
+				$iconName = $this->getIconName($method);
+				if ($iconName !== null) {
+					$formattedList[$key]['iconName'] = $iconName;
+				}
+			}
+		}
+		return $formattedList;
+	}
+
+	public function replaceShareTypeWithMethod(array $list): array {
+		foreach ($list as $key => $item) {
+			if (isset($item['method']) && !empty($item['method'])) {
+				unset($list[$key]['shareType']);
+				continue;
+			}
+			$list[$key]['method'] = match ($item['shareType']) {
+				IShare::TYPE_EMAIL => 'email',
+				IShare::TYPE_USER => 'account',
+				default => '',
+			};
+			unset($list[$key]['shareType']);
+		}
+		return $list;
+	}
+}

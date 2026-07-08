@@ -1,0 +1,7 @@
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Google's Web DevRel Team and Google's Aurora Team
+
+This file is generated from multiple sources. Included packages:
+- workbox-window
+	- version: 7.4.1
+	- license: MIT

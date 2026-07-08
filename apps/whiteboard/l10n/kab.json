@@ -1,0 +1,27 @@
+{ "translations": {
+    "Close" : "Mdel",
+    "Cancel" : "Semmet",
+    "Question" : "Asteqsi",
+    "Option" : "Taxtiṛt",
+    "Add option" : "Rnu aɣewwaṛ",
+    "Comments" : "Iwenniten",
+    "Dismiss" : "Agi",
+    "Guest" : "Inebgi",
+    "Edit" : "Ẓreg",
+    "Save" : "Sekles",
+    "Reply" : "Err",
+    "Send" : "Tuzna",
+    "Offline" : "D aruqqin",
+    "Online" : "D uqqin",
+    "Unknown" : "Arussin",
+    "LIVE" : "SRID",
+    "File" : "Afaylu",
+    "Finished" : "Immed",
+    "Pause" : "Aḥbas",
+    "Resume" : "Agzul",
+    "Status" : "Addad",
+    "Open" : "Ldi",
+    "Vote" : "Tafrant",
+    "Assistant" : "Amallal"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

@@ -1,0 +1,837 @@
+Included dependencies:
+
+@babel/runtime
+version: 7.27.6
+license: MIT
+
+@braintree/sanitize-url
+version: 6.0.2
+license: MIT
+
+@chevrotain/gast
+version: 11.0.3
+license: Apache-2.0
+
+@chevrotain/regexp-to-ast
+version: 11.0.3
+license: Apache-2.0
+
+@chevrotain/utils
+version: 11.0.3
+license: Apache-2.0
+
+@excalidraw/laser-pointer
+version: 1.3.1
+license: MIT
+
+@excalidraw/markdown-to-text
+version: 0.1.2
+license: MIT
+
+@excalidraw/mermaid-to-excalidraw
+version: 1.1.2
+license: 
+
+@floating-ui/core
+version: 0.3.1
+license: MIT
+
+@floating-ui/dom
+version: 0.1.10
+license: MIT
+
+@floating-ui/react-dom
+version: 2.1.4
+license: MIT
+
+@floating-ui/utils
+version: 0.2.10
+license: MIT
+
+@iconify/utils
+version: 3.1.0
+license: MIT
+
+@linusborg/vue-simple-portal
+version: 0.1.5
+license: Apache-2.0
+
+@mdi/js
+version: 7.4.47
+license: Apache-2.0
+
+@mdi/react
+version: 1.6.1
+license: MIT
+
+@mermaid-js/parser
+version: 0.6.3
+license: MIT
+
+@nextcloud/auth
+version: 2.6.0
+license: GPL-3.0-or-later
+
+@nextcloud/axios
+version: 2.6.0
+license: GPL-3.0-or-later
+
+@nextcloud/browser-storage
+version: 0.5.0
+license: GPL-3.0-or-later
+
+@nextcloud/capabilities
+version: 1.2.1
+license: GPL-3.0-or-later
+
+@nextcloud/dialogs
+version: 6.4.1
+license: AGPL-3.0-or-later
+
+@nextcloud/event-bus
+version: 3.3.3
+license: GPL-3.0-or-later
+
+@nextcloud/excalidraw
+version: 0.18.0-6135eb0
+license: MIT
+
+@nextcloud/initial-state
+version: 3.0.0
+license: GPL-3.0-or-later
+
+@nextcloud/l10n
+version: 3.4.1
+license: GPL-3.0-or-later
+
+@nextcloud/logger
+version: 3.0.3
+license: GPL-3.0-or-later
+
+@nextcloud/router
+version: 3.1.0
+license: GPL-3.0-or-later
+
+@nextcloud/sharing
+version: 0.4.0
+license: GPL-3.0-or-later
+
+@nextcloud/timezones
+version: 0.2.0
+license: AGPL-3.0-or-later
+
+@nextcloud/vue
+version: 8.32.0
+license: AGPL-3.0-or-later
+
+@nextcloud/vue-select
+version: 3.26.0
+license: MIT
+
+@radix-ui/primitive
+version: 1.1.1
+license: MIT
+
+@radix-ui/react-arrow
+version: 1.1.2
+license: MIT
+
+@radix-ui/react-collection
+version: 1.0.1
+license: MIT
+
+@radix-ui/react-compose-refs
+version: 1.1.1
+license: MIT
+
+@radix-ui/react-context
+version: 1.1.1
+license: MIT
+
+@radix-ui/react-direction
+version: 1.0.0
+license: MIT
+
+@radix-ui/react-dismissable-layer
+version: 1.1.5
+license: MIT
+
+@radix-ui/react-focus-guards
+version: 1.1.1
+license: MIT
+
+@radix-ui/react-focus-scope
+version: 1.1.2
+license: MIT
+
+@radix-ui/react-id
+version: 1.1.0
+license: MIT
+
+@radix-ui/react-popover
+version: 1.1.6
+license: MIT
+
+@radix-ui/react-popper
+version: 1.2.2
+license: MIT
+
+@radix-ui/react-portal
+version: 1.1.4
+license: MIT
+
+@radix-ui/react-presence
+version: 1.1.2
+license: MIT
+
+@radix-ui/react-primitive
+version: 2.0.2
+license: MIT
+
+@radix-ui/react-roving-focus
+version: 1.0.2
+license: MIT
+
+@radix-ui/react-slot
+version: 1.1.2
+license: MIT
+
+@radix-ui/react-tabs
+version: 1.0.2
+license: MIT
+
+@radix-ui/react-use-callback-ref
+version: 1.1.0
+license: MIT
+
+@radix-ui/react-use-controllable-state
+version: 1.1.0
+license: MIT
+
+@radix-ui/react-use-escape-keydown
+version: 1.1.0
+license: MIT
+
+@radix-ui/react-use-layout-effect
+version: 1.1.0
+license: MIT
+
+@radix-ui/react-use-size
+version: 1.1.0
+license: MIT
+
+@socket.io/component-emitter
+version: 3.1.2
+license: MIT
+
+@svgmoji/core
+version: 3.2.0
+license: MIT
+
+@svgmoji/noto
+version: 3.2.0
+license: MIT
+
+@vueuse/components
+version: 11.3.0
+license: MIT
+
+@vueuse/core
+version: 11.3.0
+license: MIT
+
+@vueuse/shared
+version: 11.3.0
+license: MIT
+
+ansi-regex
+version: 6.1.0
+license: MIT
+
+aria-hidden
+version: 1.2.6
+license: MIT
+
+axios
+version: 1.16.1
+license: MIT
+
+browser-fs-access
+version: 0.29.1
+license: Apache-2.0
+
+canvas-roundrect-polyfill
+version: 0.0.1
+license: MIT
+
+charenc
+version: 0.0.2
+license: BSD-3-Clause
+
+chevrotain
+version: 11.0.3
+license: Apache-2.0
+
+chevrotain-allstar
+version: 0.3.1
+license: MIT
+
+clsx
+version: 1.1.1
+license: MIT
+
+cose-base
+version: 1.0.3
+license: MIT
+
+crc-32
+version: 0.3.0
+license: Apache-2.0
+
+crypt
+version: 0.0.2
+license: BSD-3-Clause
+
+cytoscape
+version: 3.33.1
+license: MIT
+
+cytoscape-cose-bilkent
+version: 4.1.0
+license: MIT
+
+cytoscape-fcose
+version: 2.2.0
+license: MIT
+
+d3-array
+version: 3.2.4
+license: ISC
+
+d3-axis
+version: 3.0.0
+license: ISC
+
+d3-color
+version: 3.1.0
+license: ISC
+
+d3-dispatch
+version: 3.0.1
+license: ISC
+
+d3-ease
+version: 3.0.1
+license: BSD-3-Clause
+
+d3-fetch
+version: 3.0.1
+license: ISC
+
+d3-format
+version: 3.1.0
+license: ISC
+
+d3-hierarchy
+version: 3.1.2
+license: ISC
+
+d3-interpolate
+version: 3.0.1
+license: ISC
+
+d3-path
+version: 1.0.9
+license: BSD-3-Clause
+
+d3-sankey
+version: 0.12.3
+license: BSD-3-Clause
+
+d3-scale
+version: 4.0.2
+license: ISC
+
+d3-scale-chromatic
+version: 3.1.0
+license: ISC
+
+d3-selection
+version: 3.0.0
+license: ISC
+
+d3-shape
+version: 3.2.0
+license: ISC
+
+d3-time
+version: 3.1.0
+license: ISC
+
+d3-time-format
+version: 4.1.0
+license: ISC
+
+d3-timer
+version: 3.0.1
+license: ISC
+
+d3-transition
+version: 3.0.1
+license: ISC
+
+d3-zoom
+version: 3.0.0
+license: ISC
+
+dagre-d3-es
+version: 7.0.10
+license: MIT
+
+date-format-parse
+version: 0.2.7
+license: MIT
+
+dayjs
+version: 1.11.19
+license: MIT
+
+debounce
+version: 2.2.0
+license: MIT
+
+decode-named-character-reference
+version: 1.1.0
+license: MIT
+
+dexie
+version: 4.4.2
+license: Apache-2.0
+
+dompurify
+version: 3.1.6
+license: (MPL-2.0 OR Apache-2.0)
+
+elkjs
+version: 0.9.3
+license: EPL-2.0
+
+emoji-mart-vue-fast
+version: 15.0.5
+license: BSD-3-Clause
+
+emojibase
+version: 5.2.0
+license: MIT
+
+engine.io-client
+version: 6.6.5
+license: MIT
+
+engine.io-parser
+version: 5.2.3
+license: MIT
+
+es6-promise-pool
+version: 2.5.0
+license: MIT
+
+escape-html
+version: 1.0.3
+license: MIT
+
+eventemitter3
+version: 5.0.1
+license: MIT
+
+floating-vue
+version: 1.0.0-beta.19
+license: MIT
+
+focus-trap
+version: 7.6.5
+license: MIT
+
+fractional-indexing
+version: 3.2.0
+license: CC0-1.0
+
+fuzzy
+version: 0.1.3
+license: (MIT)
+
+get-nonce
+version: 1.0.1
+license: MIT
+
+hachure-fill
+version: 0.5.2
+license: MIT
+
+ical.js
+version: 2.1.0
+license: MPL-2.0
+
+image-blob-reduce
+version: 3.0.1
+license: MIT
+
+internmap
+version: 2.0.3
+license: ISC
+
+is-buffer
+version: 1.1.6
+license: MIT
+
+jotai
+version: 2.11.0
+license: MIT
+
+jotai-scope
+version: 0.7.2
+license: MIT
+
+katex
+version: 0.16.22
+license: MIT
+
+khroma
+version: 2.1.0
+license: 
+
+langium
+version: 3.3.1
+license: MIT
+
+layout-base
+version: 1.0.2
+license: MIT
+
+linkify-string
+version: 4.3.2
+license: MIT
+
+linkifyjs
+version: 4.3.2
+license: MIT
+
+lodash
+version: 4.18.1
+license: MIT
+
+lodash-es
+version: 4.17.21
+license: MIT
+
+lodash.debounce
+version: 4.0.8
+license: MIT
+
+lodash.throttle
+version: 4.1.1
+license: MIT
+
+marked
+version: 16.4.2
+license: MIT
+
+match-sorter
+version: 6.3.4
+license: MIT
+
+md5
+version: 2.3.0
+license: BSD-3-Clause
+
+mdast-util-from-markdown
+version: 1.3.1
+license: MIT
+
+mdast-util-to-string
+version: 3.2.0
+license: MIT
+
+mermaid
+version: 10.9.3
+license: MIT
+
+micromark
+version: 3.2.0
+license: MIT
+
+micromark-core-commonmark
+version: 1.1.0
+license: MIT
+
+micromark-factory-destination
+version: 1.1.0
+license: MIT
+
+micromark-factory-label
+version: 1.1.0
+license: MIT
+
+micromark-factory-space
+version: 1.1.0
+license: MIT
+
+micromark-factory-title
+version: 1.1.0
+license: MIT
+
+micromark-factory-whitespace
+version: 1.1.0
+license: MIT
+
+micromark-util-character
+version: 1.2.0
+license: MIT
+
+micromark-util-chunked
+version: 1.1.0
+license: MIT
+
+micromark-util-classify-character
+version: 1.1.0
+license: MIT
+
+micromark-util-combine-extensions
+version: 1.1.0
+license: MIT
+
+micromark-util-decode-numeric-character-reference
+version: 1.1.0
+license: MIT
+
+micromark-util-decode-string
+version: 1.1.0
+license: MIT
+
+micromark-util-html-tag-name
+version: 1.2.0
+license: MIT
+
+micromark-util-normalize-identifier
+version: 1.1.0
+license: MIT
+
+micromark-util-resolve-all
+version: 1.1.0
+license: MIT
+
+micromark-util-subtokenize
+version: 1.1.0
+license: MIT
+
+nanoid
+version: 4.0.2
+license: MIT
+
+open-color
+version: 1.9.1
+license: MIT
+
+p-queue
+version: 8.1.1
+license: MIT
+
+p-timeout
+version: 6.1.4
+license: MIT
+
+pako
+version: 2.0.3
+license: (MIT AND Zlib)
+
+path-browserify
+version: 1.0.1
+license: MIT
+
+path-data-parser
+version: 0.1.0
+license: MIT
+
+perfect-freehand
+version: 1.2.0
+license: MIT
+
+pica
+version: 7.1.1
+license: MIT
+
+png-chunk-text
+version: 1.0.0
+license: MIT
+
+png-chunks-encode
+version: 1.0.0
+license: MIT
+
+png-chunks-extract
+version: 1.0.0
+license: MIT
+
+points-on-curve
+version: 0.2.0
+license: MIT
+
+points-on-path
+version: 0.2.1
+license: MIT
+
+prop-types
+version: 15.8.1
+license: MIT
+
+react
+version: 18.3.1
+license: MIT
+
+react-dom
+version: 18.3.1
+license: MIT
+
+react-remove-scroll
+version: 2.7.1
+license: MIT
+
+react-remove-scroll-bar
+version: 2.3.8
+license: MIT
+
+react-style-singleton
+version: 2.2.3
+license: MIT
+
+remove-accents
+version: 0.5.0
+license: MIT
+
+roughjs
+version: 4.6.4
+license: MIT
+
+scheduler
+version: 0.23.2
+license: MIT
+
+semver
+version: 7.7.2
+license: ISC
+
+sliced
+version: 1.0.1
+license: MIT
+
+socket.io-client
+version: 4.8.3
+license: 
+
+socket.io-parser
+version: 4.2.6
+license: MIT
+
+strip-ansi
+version: 7.1.0
+license: MIT
+
+striptags
+version: 3.2.0
+license: MIT
+
+stylis
+version: 4.3.6
+license: MIT
+
+svgmoji
+version: 3.2.0
+license: MIT
+
+tabbable
+version: 6.2.0
+license: MIT
+
+toastify-js
+version: 1.12.0
+license: MIT
+
+tributejs
+version: 5.1.3
+license: MIT
+
+ts-dedent
+version: 2.2.0
+license: MIT
+
+tslib
+version: 2.8.1
+license: 0BSD
+
+tunnel-rat
+version: 0.1.2
+license: MIT
+
+unist-util-stringify-position
+version: 3.0.3
+license: MIT
+
+use-callback-ref
+version: 1.3.3
+license: MIT
+
+use-sidecar
+version: 1.1.3
+license: MIT
+
+use-sync-external-store
+version: 1.5.0
+license: MIT
+
+uuid
+version: 11.1.0
+license: MIT
+
+vite-plugin-node-polyfills
+version: 0.24.0
+license: MIT
+
+vscode-jsonrpc
+version: 8.2.0
+license: MIT
+
+vscode-languageserver-textdocument
+version: 1.0.12
+license: MIT
+
+vscode-languageserver-types
+version: 3.17.5
+license: MIT
+
+vscode-uri
+version: 3.0.8
+license: MIT
+
+vue
+version: 2.7.16
+license: MIT
+
+vue-color
+version: 2.8.2
+license: MIT
+
+vue-demi
+version: 0.14.10
+license: MIT
+
+vue-router
+version: 3.6.5
+license: MIT
+
+vue2-datepicker
+version: 3.11.1
+license: MIT
+
+zustand
+version: 5.0.13
+license: MIT

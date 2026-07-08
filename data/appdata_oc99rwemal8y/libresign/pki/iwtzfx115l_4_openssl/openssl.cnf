@@ -1,0 +1,35 @@
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_ca
+prompt = no
+
+[req_distinguished_name]
+
+[ca]
+default_ca = CA_default
+
+[CA_default]
+default_crl_days = 7
+default_md = sha256
+preserve = no
+policy = policy_anything
+
+[policy_anything]
+countryName = optional
+stateOrProvinceName = optional
+organizationName = optional
+organizationalUnitName = optional
+commonName = supplied
+emailAddress = optional
+
+[v3_ca]
+basicConstraints = critical, CA:TRUE, pathlen:1
+keyUsage = critical, digitalSignature, keyCertSign, cRLSign
+authorityKeyIdentifier = keyid
+subjectKeyIdentifier = hash
+crlDistributionPoints = URI:http://ecab.fbb.local/index.php/apps/libresign/crl/libresign_iwtzfx115l_4_o.crl
+
+[crl_ext]
+issuerAltName = issuer:copy
+authorityKeyIdentifier = keyid:always
+subjectKeyIdentifier = hash

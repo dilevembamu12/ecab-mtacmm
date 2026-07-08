@@ -1,0 +1,278 @@
+/**
+ * e-Cab MTACMM — Thème personnalisé
+ * Ministère des Transports, de l'Aviation Civile et de la Marine Marchande
+ * République du Congo
+ */
+
+/* ============================================
+   1. PALETTE DE COULEURS INSTITUTIONNELLE
+   ============================================ */
+:root {
+    --mtacmm-primary: #1a3a5c;        /* Bleu marine profond */
+    --mtacmm-primary-light: #2a5a8c;  /* Bleu clair */
+    --mtacmm-accent: #c8a83e;         /* Or */
+    --mtacmm-accent-light: #e0c860;   /* Or clair */
+    --mtacmm-success: #1a6b3c;        /* Vert Congo */
+    --mtacmm-danger: #c42020;         /* Rouge */
+    --mtacmm-warning: #d4950c;        /* Orange */
+    --mtacmm-bg: #f5f0e8;             /* Fond crème */
+    --mtacmm-header-bg: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%);
+    --mtacmm-border: #d4c9b0;
+}
+
+/* ============================================
+   2. HEADER — Barre de navigation
+   ============================================ */
+#header {
+    background: var(--mtacmm-header-bg) !important;
+    border-bottom: 3px solid var(--mtacmm-accent) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+#header .logo {
+    filter: brightness(1.2);
+}
+
+/* ============================================
+   3. LOGIN PAGE — Fond institutionnel
+   ============================================ */
+#body-login {
+    background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 50%, #1a3a5c 100%) !important;
+    background-size: cover !important;
+}
+#body-login:before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+        radial-gradient(ellipse at 20% 80%, rgba(200,168,62,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(200,168,62,0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+#body-login .wrapper {
+    background: rgba(255,255,255,0.97) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+    border: 1px solid var(--mtacmm-accent) !important;
+}
+#body-login .logo {
+    background-image: none !important;
+    border-bottom: 2px solid var(--mtacmm-accent) !important;
+    padding-bottom: 15px !important;
+}
+#body-login h1 {
+    color: var(--mtacmm-primary) !important;
+    font-size: 1.5em !important;
+}
+
+/* ============================================
+   4. BOUTONS — Style institutionnel
+   ============================================ */
+.button.primary,
+button.primary,
+input[type="submit"].primary {
+    background-color: var(--mtacmm-primary) !important;
+    border-color: var(--mtacmm-primary-light) !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+.button.primary:hover,
+button.primary:hover {
+    background-color: var(--mtacmm-primary-light) !important;
+    box-shadow: 0 2px 8px rgba(26,58,92,0.4) !important;
+}
+.button.success {
+    background-color: var(--mtacmm-success) !important;
+}
+.button.error {
+    background-color: var(--mtacmm-danger) !important;
+}
+
+/* ============================================
+   5. SIDEBAR — Navigation gauche
+   ============================================ */
+#app-navigation {
+    background: #f8f5f0 !important;
+    border-right: 1px solid var(--mtacmm-border) !important;
+}
+#app-navigation .active {
+    background: var(--mtacmm-primary) !important;
+    color: white !important;
+    border-left: 3px solid var(--mtacmm-accent) !important;
+}
+
+/* ============================================
+   6. CARDS & WIDGETS — Dashboard
+   ============================================ */
+.dashboard-widget {
+    border: 1px solid var(--mtacmm-border) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+    transition: box-shadow 0.2s ease !important;
+}
+.dashboard-widget:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+/* ============================================
+   7. STATUS BADGES — Pour workflow
+   ============================================ */
+.sgds-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sgds-status-brouillon { background: #e5e7eb; color: #374151; }
+.sgds-status-soumis { background: #dbeafe; color: #1e40af; }
+.sgds-status-examen { background: #fef3c7; color: #92400e; }
+.sgds-status-analyse { background: #ede9fe; color: #5b21b6; }
+.sgds-status-favorable { background: #d1fae5; color: #065f46; }
+.sgds-status-defavorable { background: #fee2e2; color: #991b1b; }
+.sgds-status-pretvisa { background: #cffafe; color: #155e75; }
+.sgds-status-vise { background: #d1fae5; color: #065f46; border: 2px solid #059669; }
+.sgds-status-signe { background: #059669; color: white; font-size: 0.9em; padding: 6px 16px; }
+.sgds-status-rejete { background: #dc2626; color: white; }
+.sgds-status-archive { background: #374151; color: #d1d5db; }
+
+/* ============================================
+   8. TIMELINE — Workflow visuel
+   ============================================ */
+.sgds-timeline {
+    position: relative;
+    padding-left: 30px;
+    margin: 10px 0;
+}
+.sgds-timeline:before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--mtacmm-border);
+}
+.sgds-timeline-item {
+    position: relative;
+    padding: 8px 0 16px 0;
+}
+.sgds-timeline-item:before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--mtacmm-primary);
+    border: 2px solid var(--mtacmm-accent);
+}
+.sgds-timeline-item.completed:before {
+    background: var(--mtacmm-success);
+}
+.sgds-timeline-item.current:before {
+    background: var(--mtacmm-accent);
+    box-shadow: 0 0 0 4px rgba(200,168,62,0.3);
+    animation: pulse 2s infinite;
+}
+.sgds-timeline-item.rejected:before {
+    background: var(--mtacmm-danger);
+}
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(200,168,62,0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(200,168,62,0.1); }
+}
+
+/* ============================================
+   9. GRILLE 4 PILIERS — Visuel radar
+   ============================================ */
+.sgds-radar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 15px 0;
+}
+.sgds-radar-item {
+    background: #f8f5f0;
+    border: 1px solid var(--mtacmm-border);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+}
+.sgds-radar-item .label {
+    font-weight: 600;
+    color: var(--mtacmm-primary);
+    margin-bottom: 6px;
+}
+.sgds-radar-item .score {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--mtacmm-accent);
+}
+.sgds-radar-item .stars {
+    color: var(--mtacmm-accent);
+    font-size: 1.2em;
+    letter-spacing: 2px;
+}
+
+/* ============================================
+   10. FOOTER — République du Congo
+   ============================================ */
+footer, #app-content > footer {
+    background: var(--mtacmm-primary) !important;
+    color: rgba(255,255,255,0.7) !important;
+    text-align: center !important;
+    padding: 8px !important;
+    font-size: 0.8em !important;
+    border-top: 2px solid var(--mtacmm-accent) !important;
+}
+footer a {
+    color: var(--mtacmm-accent-light) !important;
+}
+
+/* ============================================
+   11. TABLEAU DE BORD — Widgets KPI
+   ============================================ */
+.sgds-kpi-widget {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    border-left: 4px solid var(--mtacmm-accent);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.sgds-kpi-widget .kpi-title {
+    font-size: 0.85em;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+.sgds-kpi-widget .kpi-value {
+    font-size: 2.2em;
+    font-weight: 800;
+    color: var(--mtacmm-primary);
+}
+.sgds-kpi-widget .kpi-trend {
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+.sgds-kpi-widget .kpi-trend.up { color: var(--mtacmm-success); }
+.sgds-kpi-widget .kpi-trend.down { color: var(--mtacmm-danger); }
+
+/* ============================================
+   12. DRAPEAU — République du Congo
+   ============================================ */
+.sgds-flag-strip {
+    height: 4px;
+    background: linear-gradient(90deg, 
+        #009543 0%, #009543 33.33%,   /* Vert */
+        #FBDE4A 33.33%, #FBDE4A 66.66%, /* Jaune */
+        #DC241F 66.66%, #DC241F 100%     /* Rouge */
+    );
+    margin-bottom: 0;
+}

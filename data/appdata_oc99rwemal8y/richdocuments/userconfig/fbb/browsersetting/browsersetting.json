@@ -1,0 +1,15 @@
+{
+  "WSDFeedbackCount": "13",
+  "WSDWelcomeVersion": "26.04.2.1",
+  "drawing": {
+    "ShowStatusbar": "true"
+  },
+  "spreadsheet": {
+    "ShowStatusbar": "true"
+  },
+  "text": {
+    "ShowAnnotations": "true",
+    "ShowFormattingMarks": "false",
+    "ShowStatusbar": "true"
+  }
+}

@@ -1,0 +1,183 @@
+<?php
+
+declare(strict_types=1);
+/**
+ * SPDX-FileCopyrightText: 2020-2024 LibreCode coop and contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+namespace OCA\Libresign\Listener;
+
+use OCA\Libresign\Db\File as FileEntity;
+use OCA\Libresign\Db\SignRequest;
+use OCA\Libresign\Db\SignRequestMapper;
+use OCA\Libresign\Events\SendSignNotificationEvent;
+use OCA\Libresign\Events\SignedEvent;
+use OCA\Libresign\Events\SignRequestCanceledEvent;
+use OCA\Libresign\Service\IdentifyMethod\IdentifyService;
+use OCA\Libresign\Service\IdentifyMethod\IIdentifyMethod;
+use OCA\Libresign\Service\MailService;
+use OCA\Libresign\Service\NotificationPreferenceResolver;
+use OCP\EventDispatcher\Event;
+use OCP\EventDispatcher\IEventListener;
+use OCP\IUser;
+use OCP\IUserManager;
+use OCP\IUserSession;
+use Psr\Log\LoggerInterface;
+
+/** @template-implements IEventListener<Event> */
+class MailNotifyListener implements IEventListener {
+	public function __construct(
+		protected IUserSession $userSession,
+		protected IUserManager $userManager,
+		protected IdentifyService $identifyService,
+		protected MailService $mail,
+		private SignRequestMapper $signRequestMapper,
+		private LoggerInterface $logger,
+		private NotificationPreferenceResolver $notificationPreferenceResolver,
+	) {
+	}
+
+	#[\Override]
+	public function handle(Event $event): void {
+		/** @var SendSignNotificationEvent|SignedEvent|SignRequestCanceledEvent $event */
+		match ($event::class) {
+			SendSignNotificationEvent::class => $this->sendSignMailNotification(
+				$event->getSignRequest(),
+				$event->getIdentifyMethod(),
+			),
+			SignedEvent::class => $this->sendSignedMailNotification(
+				$event->getSignRequest(),
+				$event->getIdentifyMethod(),
+				$event->getLibreSignFile(),
+				$event->getUser(),
+			),
+			SignRequestCanceledEvent::class => $this->sendCanceledMailNotification(
+				$event->getSignRequest(),
+				$event->getIdentifyMethod(),
+				$event->getLibreSignFile(),
+			),
+		};
+	}
+
+	protected function sendSignMailNotification(
+		SignRequest $signRequest,
+		IIdentifyMethod $identifyMethod,
+	): void {
+		try {
+			if ($identifyMethod->getEntity()->isDeletedAccount()) {
+				return;
+			}
+			$email = '';
+			if ($identifyMethod->getName() === 'account') {
+				$userId = $identifyMethod->getEntity()->getIdentifierValue();
+				$email = $this->userManager
+					->get($userId)
+					->getEMailAddress();
+			} elseif ($identifyMethod->getName() === 'email') {
+				$email = $identifyMethod->getEntity()->getIdentifierValue();
+			}
+			if (empty($email)) {
+				return;
+			}
+
+			$users = $this->userManager->getByEmail($email);
+			if (count($users) === 1) {
+				$userId = $users[0]->getUID();
+				if ($this->notificationPreferenceResolver->isEmailNotificationDisabled(
+					$userId,
+					SendSignNotificationEvent::FILE_TO_SIGN,
+					true,
+				)) {
+					return;
+				}
+			}
+
+			$isFirstNotification = $this->signRequestMapper->incrementNotificationCounter($signRequest, 'mail');
+			if ($isFirstNotification) {
+				$this->mail->notifyUnsignedUser($signRequest, $email, $signRequest->getDescription());
+				return;
+			}
+			$this->mail->notifySignDataUpdated($signRequest, $email, $signRequest->getDescription());
+		} catch (\InvalidArgumentException $e) {
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			return;
+		}
+	}
+
+	protected function sendSignedMailNotification(
+		SignRequest $signRequest,
+		IIdentifyMethod $identifyMethod,
+		FileEntity $libreSignFile,
+		IUser $user,
+	): void {
+		try {
+			if ($libreSignFile->hasParent()) {
+				return;
+			}
+			if ($identifyMethod->getEntity()->isDeletedAccount()) {
+				return;
+			}
+			if ($this->notificationPreferenceResolver->isEmailNotificationDisabled(
+				$libreSignFile->getUserId(),
+				SignedEvent::FILE_SIGNED,
+				true,
+			)) {
+				return;
+			}
+
+			$email = $user->getEMailAddress();
+
+			if (empty($email)) {
+				return;
+			}
+
+			$this->mail->notifySignedUser($signRequest, $email, $libreSignFile, $user->getDisplayName());
+
+		} catch (\InvalidArgumentException $e) {
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			return;
+		}
+	}
+
+	protected function sendCanceledMailNotification(
+		SignRequest $signRequest,
+		IIdentifyMethod $identifyMethod,
+		FileEntity $libreSignFile,
+	): void {
+		try {
+			if ($identifyMethod->getEntity()->isDeletedAccount()) {
+				return;
+			}
+
+			$email = '';
+			if ($identifyMethod->getName() === 'account') {
+				$userId = $identifyMethod->getEntity()->getIdentifierValue();
+				$user = $this->userManager->get($userId);
+				if ($user) {
+					$email = $user->getEMailAddress();
+				}
+			} elseif ($identifyMethod->getName() === 'email') {
+				$email = $identifyMethod->getEntity()->getIdentifierValue();
+			}
+
+			if (empty($email)) {
+				return;
+			}
+
+			$users = $this->userManager->getByEmail($email);
+			if (count($users) === 1) {
+				$userId = $users[0]->getUID();
+				if ($this->notificationPreferenceResolver->isEmailNotificationDisabled($userId, SignRequestCanceledEvent::SIGN_REQUEST_CANCELED, true)) {
+					return;
+				}
+			}
+
+			$this->mail->notifyCanceledRequest($signRequest, $email, $libreSignFile);
+
+		} catch (\InvalidArgumentException $e) {
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			return;
+		}
+	}
+}

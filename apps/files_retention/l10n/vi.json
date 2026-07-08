@@ -1,0 +1,9 @@
+{ "translations": {
+    "Days" : "Ngày",
+    "Weeks" : "Tuần",
+    "Months" : "Tháng",
+    "Years" : "Năm",
+    "Creation" : "Sự tạo lập",
+    "Create" : "Tạo"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

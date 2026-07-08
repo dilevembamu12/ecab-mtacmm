@@ -1,0 +1,12 @@
+SPDX-License-Identifier: MIT
+SPDX-License-Identifier: agpl
+SPDX-FileCopyrightText: Vladimir Nikitin vladimirsuperwizard@gmail.com
+SPDX-FileCopyrightText: libresign developers
+
+This file is generated from multiple sources. Included packages:
+- js-confetti
+	- version: 0.13.1
+	- license: MIT
+- libresign
+	- version: 14.0.2
+	- license: agpl

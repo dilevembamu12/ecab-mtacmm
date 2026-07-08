@@ -1,0 +1,82 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: MIT
+SPDX-License-Identifier: agpl
+SPDX-FileCopyrightText: @ssddanbrown/codemirror-lang-twig developers
+SPDX-FileCopyrightText: Logue
+SPDX-FileCopyrightText: Marijn Haverbeke
+SPDX-FileCopyrightText: Marijn Haverbeke <marijn@haverbeke.berlin>
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: The Babel Team (https://babel.dev/team)
+SPDX-FileCopyrightText: kenny wong <wowohoo@qq.com>
+SPDX-FileCopyrightText: libresign developers
+
+This file is generated from multiple sources. Included packages:
+- @babel/runtime
+	- version: 7.28.6
+	- license: MIT
+- @codemirror/autocomplete
+	- version: 6.20.1
+	- license: MIT
+- @codemirror/commands
+	- version: 6.10.3
+	- license: MIT
+- @codemirror/language
+	- version: 6.12.3
+	- license: MIT
+- @codemirror/lint
+	- version: 6.9.5
+	- license: MIT
+- @codemirror/search
+	- version: 6.6.0
+	- license: MIT
+- @codemirror/state
+	- version: 6.6.0
+	- license: MIT
+- @codemirror/view
+	- version: 6.41.1
+	- license: MIT
+- @lezer/common
+	- version: 1.5.1
+	- license: MIT
+- @lezer/highlight
+	- version: 1.2.3
+	- license: MIT
+- @lezer/lr
+	- version: 1.4.8
+	- license: MIT
+- @marijn/find-cluster-break
+	- version: 1.0.2
+	- license: MIT
+- @nextcloud/password-confirmation
+	- version: 6.1.0
+	- license: MIT
+- @nextcloud/vue
+	- version: 9.6.0
+	- license: AGPL-3.0-or-later
+- @ssddanbrown/codemirror-lang-twig
+	- version: 1.0.0
+	- license: MIT
+- @uiw/codemirror-theme-material
+	- version: 4.25.9
+	- license: MIT
+- @uiw/codemirror-themes
+	- version: 4.25.9
+	- license: MIT
+- codemirror
+	- version: 6.0.2
+	- license: MIT
+- crelt
+	- version: 1.0.6
+	- license: MIT
+- libresign
+	- version: 14.0.2
+	- license: agpl
+- style-mod
+	- version: 4.1.3
+	- license: MIT
+- vue-codemirror6
+	- version: 1.5.1
+	- license: MIT
+- w3c-keyname
+	- version: 2.2.8
+	- license: MIT

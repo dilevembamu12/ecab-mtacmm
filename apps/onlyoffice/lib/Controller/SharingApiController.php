@@ -1,0 +1,191 @@
+<?php
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+namespace OCA\Onlyoffice\Controller;
+
+use OCA\Files_Sharing\SharedStorage;
+use OCA\Onlyoffice\AppConfig;
+use OCA\Onlyoffice\ExtraPermissions;
+use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\OCSController;
+use OCP\Files\File;
+use OCP\Files\IRootFolder;
+use OCP\IRequest;
+use OCP\IUserSession;
+use OCP\Share\IManager;
+use OCP\Share\IShare;
+use Psr\Log\LoggerInterface;
+
+/**
+ * OCS handler
+ */
+class SharingApiController extends OCSController {
+
+    public function __construct(
+        string $appName,
+        IRequest $request,
+        private readonly IRootFolder $root,
+        private readonly LoggerInterface $logger,
+        private readonly IUserSession $userSession,
+        private readonly IManager $shareManager,
+        private readonly AppConfig $appConfig,
+        private readonly ExtraPermissions $extraPermissions
+    ) {
+        parent::__construct($appName, $request);
+    }
+
+    /**
+     * Get shares for file
+     *
+     * @param integer $fileId - file identifier
+     *
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[NoCSRFRequired]
+    public function getShares(int $fileId): DataResponse {
+        if (!$this->appConfig->getAdvanced()) {
+            $this->logger->debug("extraPermissions isn't init");
+            return new DataResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
+        $user = $this->userSession->getUser();
+        $userId = $user->getUID();
+
+        $sourceFile = $this->getFile($fileId, $userId);
+        $fileStorage = $sourceFile->getStorage();
+        if ($fileStorage->instanceOfStorage(SharedStorage::class)) {
+            return new DataResponse([]);
+        }
+
+        $shares = $this->getSharesByOwner($userId, $sourceFile);
+        $extras = $this->extraPermissions->getExtras($shares);
+
+        return new DataResponse($extras);
+    }
+
+    /**
+     * Set shares for file
+     *
+     * @param integer $extraId - extra permission identifier
+     * @param string $shareId - share identifier
+     * @param integer $fileId - file identifier
+     * @param integer $permissions - permissions bitmask
+     *
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[NoCSRFRequired]
+    public function setShares(int $extraId, string $shareId, int $fileId, int $permissions): DataResponse {
+        if (!$this->appConfig->getAdvanced()) {
+            $this->logger->debug("extraPermissions isn't init");
+            return new DataResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
+        $user = $this->userSession->getUser();
+        $userId = $user->getUID();
+
+        $sourceFile = $this->getFile($fileId, $userId);
+        $fileStorage = $sourceFile->getStorage();
+        if ($fileStorage->instanceOfStorage(SharedStorage::class)) {
+            return new DataResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
+        $shares = $this->getSharesByOwner($userId, $sourceFile);
+        if (!array_filter($shares, fn (IShare $share) => $share->getId() === $shareId)) {
+            $this->logger->error("setShares: share $shareId not found for file $fileId.");
+            return new DataResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
+        if (!$this->extraPermissions->setExtra($shareId, $permissions, $extraId)) {
+            $this->logger->error("setShares: couldn't set extra permissions for: " . $shareId);
+            return new DataResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
+        $extra = $this->extraPermissions->getExtra($shareId);
+
+        return new DataResponse($extra);
+    }
+
+    /**
+     * Get source file
+     *
+     * @param integer $fileId - file identifier
+     * @param string $userId - user identifier
+     */
+    private function getFile(int $fileId, string $userId): ?File {
+        try {
+            $folder = $this->root->getUserFolder($userId);
+            $files = $folder->getById($fileId);
+        } catch (\Exception $e) {
+            $this->logger->error("getFile: $fileId", ["exception" => $e]);
+            return null;
+        }
+
+        if (empty($files)) {
+            $this->logger->error("getFile: file not found: " . $fileId);
+            return null;
+        }
+
+        return $files[0];
+    }
+
+    /**
+     * Get all shares for a file created by the given user
+     * @param string $userId
+     * @param File $file
+     * @return IShare[]
+     */
+    private function getSharesByOwner(string $userId, File $file): array {
+        $shareTypes = [
+            IShare::TYPE_USER,
+            IShare::TYPE_GROUP,
+            IShare::TYPE_ROOM,
+            IShare::TYPE_LINK,
+            IShare::TYPE_CIRCLE,
+        ];
+
+        $shares = [];
+        foreach ($shareTypes as $type) {
+            $shares = [...$shares, ...$this->shareManager->getSharesBy($userId, $type, $file)];
+        }
+
+        return $shares;
+    }
+}

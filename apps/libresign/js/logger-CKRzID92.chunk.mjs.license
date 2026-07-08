@@ -1,0 +1,7 @@
+SPDX-License-Identifier: agpl
+SPDX-FileCopyrightText: libresign developers
+
+This file is generated from multiple sources. Included packages:
+- libresign
+	- version: 14.0.2
+	- license: agpl

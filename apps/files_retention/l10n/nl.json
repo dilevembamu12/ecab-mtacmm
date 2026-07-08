@@ -1,0 +1,22 @@
+{ "translations": {
+    "Files retention" : "Bewaartermijn van bestanden",
+    "{file} will be removed in 24 hours" : "{file} zal over 24 uur worden verwijderd",
+    "Your systems retention rules will delete this file within 24 hours." : "De bewaartermijninstellingen van je systeem zullen dit bestand binnen 24 uur verwijderen.",
+    "Retention" : "Bewaartermijn",
+    "This application allows for automatic deletion of files after a given time." : "Deze applicatie kan bestanden automatisch na een bepaalde tijd verwijderen.",
+    "An app for Nextcloud to control automatic deletion of files after a given time.\nOptionally the users can be informed the day before." : "Een Nextcloud app om het automatisch verwijderen van bestanden na een bepaalde tijd te regelen.\nOptioneel kunnen de gebruikers de dag ervoor worden geïnformeerd.",
+    "Days" : "Dagen",
+    "Weeks" : "Weken",
+    "Months" : "Maanden",
+    "Years" : "Jaar",
+    "Creation" : "Creatie",
+    "Last modification" : "Laatste wijziging",
+    "An error occurred while changing the setting" : "Er is een fout opgetreden tijdens het wijzigen van de instelling.",
+    "Define if files tagged with a specific tag should be deleted automatically after some time. This is useful for confidential documents." : "Instellen of bestanden die zijn getagd met een specifieke tag na een bepaalde tijd automatisch moeten worden verwijderd. Dit is zinvol voor vertrouwelijke documenten.",
+    "Retention time" : "Bewaartijd",
+    "Create" : "Aanmaken",
+    "_%n day_::_%n days_" : ["%n dag","%n dagen"],
+    "_%n week_::_%n weeks_" : ["%n week","weken"],
+    "Failed to load tags" : "Kon tags niet laden"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

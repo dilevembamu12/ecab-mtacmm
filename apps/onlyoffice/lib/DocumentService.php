@@ -1,0 +1,455 @@
+<?php
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+namespace OCA\Onlyoffice;
+
+use OCP\Http\Client\IClientService;
+use OCP\IL10N;
+use OCP\IURLGenerator;
+use Psr\Log\LoggerInterface;
+
+/**
+ * Class service connector to Document Service
+ *
+ * @package OCA\Onlyoffice
+ */
+class DocumentService {
+
+    /**
+     * Application name
+     */
+    private static string $appName = "onlyoffice";
+
+    public function __construct(
+        private readonly IL10N $trans,
+        private readonly AppConfig $appConfig,
+        private readonly IURLGenerator $urlGenerator,
+        private readonly Crypt $crypt,
+        private readonly LoggerInterface $logger
+    ) {}
+
+    /**
+     * Translation key to a supported form.
+     *
+     * @param string $expected_key - Expected key
+     */
+    public static function generateRevisionId(string $expected_key): string {
+        if (strlen($expected_key) > 20) {
+            $expected_key = crc32($expected_key);
+        }
+        $key = preg_replace("[^0-9-.a-zA-Z_=]", "_", (string) $expected_key);
+        return substr((string) $key, 0, min([strlen((string) $key), 20]));
+    }
+
+    /**
+     * The method is to convert the file to the required format and return the result url
+     *
+     * @param string $document_uri - Uri for the document to convert
+     * @param string $from_extension - Document extension
+     * @param string $to_extension - Extension to which to convert
+     * @param string $document_revision_id - Key for caching on service
+     * @param string $region - Region
+     * @param bool $toForm - Convert to form
+     */
+    public function getConvertedUri(
+        string $document_uri,
+        string $from_extension,
+        string $to_extension,
+        string $document_revision_id,
+        string $region = "",
+        bool $toForm = false
+    ): string {
+        $response = $this->sendRequestToConvertService($document_uri, $from_extension, $to_extension, $document_revision_id, false, $region, $toForm);
+        $error = $response["error"] ?? null;
+
+        if ($error !== null) {
+            $this->processConvServResponceError((int)$error);
+        }
+
+        return $response["fileUrl"] ?? "";
+    }
+
+    /**
+     * Request for conversion to a service
+     *
+     * @param string $document_uri - Uri for the document to convert
+     * @param string $from_extension - Document extension
+     * @param string $to_extension - Extension to which to convert
+     * @param string $document_revision_id - Key for caching on service
+     * @param bool $is_async - Perform conversions asynchronously
+     * @param string $region - Region
+     * @param bool $toForm - Convert to form
+     * @param array $thumbnail - Settings for the thumbnail
+     *
+     * @return array
+     */
+    public function sendRequestToConvertService(
+        string $document_uri,
+        string $from_extension,
+        string $to_extension,
+        string $document_revision_id,
+        bool $is_async,
+        string $region = "",
+        bool $toForm = false,
+        array $thumbnail = [],
+    ): array {
+        $documentServerUrl = $this->appConfig->getDocumentServerInternalUrl();
+
+        if (empty($documentServerUrl)) {
+            throw new \Exception($this->trans->t("ONLYOFFICE app is not configured. Please contact admin"));
+        }
+
+        $urlToConverter = $documentServerUrl . "converter";
+
+        if (empty($document_revision_id)) {
+            $document_revision_id = $document_uri;
+        }
+
+        $document_revision_id = self::generateRevisionId($document_revision_id);
+        $urlToConverter = $urlToConverter . "?shardkey=" . $document_revision_id;
+
+        $from_extension = empty($from_extension) ? pathinfo($document_uri)["extension"] : trim($from_extension, ".");
+
+        $data = [
+            "async" => $is_async,
+            "url" => $document_uri,
+            "outputtype" => trim($to_extension, "."),
+            "filetype" => $from_extension,
+            "title" => $document_revision_id . "." . $from_extension,
+            "key" => $document_revision_id
+        ];
+
+        if ($region !== "") {
+            $data["region"] = $region;
+        }
+
+        if ($this->appConfig->useDemo()) {
+            $data["tenant"] = $this->appConfig->getSystemValue("instanceid", true);
+        }
+
+        if ($toForm) {
+            $data["pdf"] = [
+                "form" => true
+            ];
+        }
+
+        if (!empty($thumbnail)) {
+            $data['thumbnail'] = $thumbnail;
+        }
+
+        $opts = [
+            "timeout" => "120",
+            "headers" => [
+                "Content-type" => "application/json"
+            ],
+            "body" => json_encode($data)
+        ];
+
+        if (!empty($this->appConfig->getDocumentServerSecret())) {
+            $now = time();
+            $iat = $now;
+            $exp = $now + $this->appConfig->getJwtExpiration() * 60;
+            $params = [
+                "payload" => $data,
+                "iat" => $iat,
+                "exp" => $exp
+            ];
+            $token = \OCA\Onlyoffice\Vendor\Firebase\JWT\JWT::encode($params, $this->appConfig->getDocumentServerSecret(), "HS256");
+            $opts["headers"][$this->appConfig->jwtHeader()] = "Bearer " . $token;
+
+            $data["iat"] = $iat;
+            $data["exp"] = $exp;
+            $token = \OCA\Onlyoffice\Vendor\Firebase\JWT\JWT::encode($data, $this->appConfig->getDocumentServerSecret(), "HS256");
+            $data["token"] = $token;
+            $opts["body"] = json_encode($data);
+        }
+
+        $responseJsonData = $this->request($urlToConverter, "post", $opts);
+        $responseData = json_decode($responseJsonData, true);
+        if (json_last_error() !== 0) {
+            $exc = $this->trans->t("Bad Response. JSON error: " . json_last_error_msg());
+            throw new \Exception($exc);
+        }
+
+        return $responseData;
+    }
+
+    /**
+     * Generate an error code table of convertion
+     */
+    public function processConvServResponceError(int $errorCode): void {
+        $errorMessageTemplate = $this->trans->t("Error occurred in the document service");
+        $errorMessage = "";
+
+        switch ($errorCode) {
+            case -20:
+                $errorMessage = $errorMessageTemplate . ": Error encrypt signature";
+                break;
+            case -8:
+                $errorMessage = $errorMessageTemplate . ": Invalid token";
+                break;
+            case -7:
+                $errorMessage = $errorMessageTemplate . ": Error document request";
+                break;
+            case -6:
+                $errorMessage = $errorMessageTemplate . ": Error while accessing the conversion result database";
+                break;
+            case -5:
+                $errorMessage = $errorMessageTemplate . ": Incorrect password";
+                break;
+            case -4:
+                $errorMessage = $errorMessageTemplate . ": Error while downloading the document file to be converted.";
+                break;
+            case -3:
+                $errorMessage = $errorMessageTemplate . ": Conversion error";
+                break;
+            case -2:
+                $errorMessage = $errorMessageTemplate . ": Timeout conversion error";
+                break;
+            case -1:
+                $errorMessage = $errorMessageTemplate . ": Unknown error";
+                break;
+            case 0:
+                break;
+            default:
+                $errorMessage = $errorMessageTemplate . ": ErrorCode = " . $errorCode;
+                break;
+        }
+
+        throw new \Exception($errorMessage);
+    }
+
+    /**
+     * Request health status
+     */
+    public function healthcheckRequest(): bool {
+
+        $documentServerUrl = $this->appConfig->getDocumentServerInternalUrl();
+
+        if (empty($documentServerUrl)) {
+            throw new \Exception($this->trans->t("ONLYOFFICE app is not configured. Please contact admin"));
+        }
+
+        $urlHealthcheck = $documentServerUrl . "healthcheck";
+
+        $response = $this->request($urlHealthcheck);
+
+        return $response === "true";
+    }
+
+    /**
+     * Send command
+     *
+     * @param string $method - type of command
+     */
+    public function commandRequest(string $method): array {
+
+        $documentServerUrl = $this->appConfig->getDocumentServerInternalUrl();
+
+        if (empty($documentServerUrl)) {
+            throw new \Exception($this->trans->t("ONLYOFFICE app is not configured. Please contact admin"));
+        }
+
+        $urlCommand = $documentServerUrl . "coauthoring/CommandService.ashx";
+
+        $data = [
+            "c" => $method
+        ];
+
+        $opts = [
+            "headers" => [
+                "Content-type" => "application/json"
+            ],
+            "body" => json_encode($data)
+        ];
+
+        if (!empty($this->appConfig->getDocumentServerSecret())) {
+            $now = time();
+            $iat = $now;
+            $exp = $now + $this->appConfig->getJwtExpiration() * 60;
+            $params = [
+                "payload" => $data,
+                "iat" => $iat,
+                "exp" => $exp
+            ];
+
+            $token = \OCA\Onlyoffice\Vendor\Firebase\JWT\JWT::encode($params, $this->appConfig->getDocumentServerSecret(), "HS256");
+            $opts["headers"][$this->appConfig->jwtHeader()] = "Bearer " . $token;
+
+            $data["iat"] = $iat;
+            $data["exp"] = $exp;
+            $token = \OCA\Onlyoffice\Vendor\Firebase\JWT\JWT::encode($data, $this->appConfig->getDocumentServerSecret(), "HS256");
+            $data["token"] = $token;
+            $opts["body"] = json_encode($data);
+        }
+
+        $response = $this->request($urlCommand, "post", $opts);
+
+        $data = json_decode($response, true);
+
+        $this->processCommandServResponceError((int)$data["error"]);
+
+        return $data;
+    }
+
+    /**
+     * Generate an error code table of command
+     *
+     * @param int $errorCode - Error code
+     */
+    public function processCommandServResponceError(int $errorCode): void {
+        $errorMessageTemplate = $this->trans->t("Error occurred in the document service");
+        $errorMessage = "";
+
+        switch ($errorCode) {
+            case 6:
+                $errorMessage = $errorMessageTemplate . ": Invalid token";
+                break;
+            case 5:
+                $errorMessage = $errorMessageTemplate . ": Command not correct";
+                break;
+            case 3:
+                $errorMessage = $errorMessageTemplate . ": Internal server error";
+                break;
+            case 0:
+                return;
+            default:
+                $errorMessage = $errorMessageTemplate . ": ErrorCode = " . $errorCode;
+                break;
+        }
+
+        throw new \Exception($errorMessage);
+    }
+
+    /**
+     * Request to Document Server with turn off verification
+     *
+     * @param string $url - request address
+     * @param string $method - request method
+     * @param array $opts - request options
+     *
+     * @return string
+     */
+    public function request(string $url, string $method = "get", array $opts = []) {
+        $httpClientService = \OCP\Server::get(IClientService::class);
+        $client = $httpClientService->newClient();
+
+        if (str_starts_with($url, "https") && $this->appConfig->getVerifyPeerOff()) {
+            $opts["verify"] = false;
+        }
+        if (!array_key_exists("timeout", $opts)) {
+            $opts["timeout"] = 60;
+        }
+
+        $opts['nextcloud'] = [
+            'allow_local_address' => true,
+        ];
+
+        $response = $method === "post" ? $client->post($url, $opts) : $client->get($url, $opts);
+
+        return $response->getBody();
+    }
+
+    /**
+     * Checking document service location
+     */
+    public function checkDocServiceUrl(): array {
+        $version = null;
+
+        try {
+            if (preg_match("/^https:\/\//i", (string) $this->urlGenerator->getAbsoluteURL("/"))
+                && preg_match("/^http:\/\//i", $this->appConfig->getDocumentServerUrl())) {
+                throw new \Exception($this->trans->t("Mixed Active Content is not allowed. HTTPS address for ONLYOFFICE Docs is required."));
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("Protocol on check error", ['exception' => $e]);
+            return [$e->getMessage(), $version];
+        }
+
+        try {
+            $healthcheckResponse = $this->healthcheckRequest();
+            if (!$healthcheckResponse) {
+                throw new \Exception($this->trans->t("Bad healthcheck status"));
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("healthcheckRequest on check error", ['exception' => $e]);
+            return [$e->getMessage(), $version];
+        }
+
+        try {
+            $commandResponse = $this->commandRequest("version");
+            $this->logger->debug("commandRequest on check: " . json_encode($commandResponse), ["app" => self::$appName]);
+            if (empty($commandResponse) || !array_key_exists("version", $commandResponse)) {
+                throw new \Exception($this->trans->t("Error occurred in the document service"));
+            }
+            $version = $commandResponse["version"];
+            $versionF = floatval($version);
+            if ($versionF > 0.0 && $versionF <= 6.0) {
+                throw new \Exception($this->trans->t("Not supported version"));
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("commandRequest on check error", ['exception' => $e]);
+            return [$e->getMessage(), $version];
+        }
+
+        $convertedFileUri = null;
+        try {
+            $hashUrl = $this->crypt->getHash(["action" => "empty"]);
+            $fileUrl = $this->urlGenerator->linkToRouteAbsolute(self::$appName . ".callback.emptyfile", ["doc" => $hashUrl]);
+            if (!$this->appConfig->useDemo() && !empty($this->appConfig->getStorageUrl())) {
+                $fileUrl = str_replace($this->urlGenerator->getAbsoluteURL("/"), $this->appConfig->getStorageUrl(), $fileUrl);
+            }
+
+            $convertedFileUri = $this->getConvertedUri($fileUrl, "docx", "docx", "check_" . random_int(0, mt_getrandmax()));
+
+            if (strcmp($convertedFileUri, (string) $fileUrl) === 0) {
+                $this->logger->debug("getConvertedUri skipped", ["app" => self::$appName]);
+            }
+        } catch (\Exception $e) {
+            $this->logger->error("getConvertedUri on check error", ['exception' => $e]);
+            return [$e->getMessage(), $version];
+        }
+
+        try {
+            $this->request($convertedFileUri);
+        } catch (\Exception $e) {
+            $this->logger->error("Request converted file on check error", ['exception' => $e]);
+            return [$e->getMessage(), $version];
+        }
+
+        return ["", $version];
+    }
+}

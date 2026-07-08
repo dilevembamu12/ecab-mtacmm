@@ -1,0 +1,25 @@
+SPDX-License-Identifier: AGPL-3.0
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Allen
+SPDX-FileCopyrightText: Julien Veyssier
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: Rob Cresswell <robcresswell@pm.me>
+SPDX-FileCopyrightText: Scott Corgan
+
+This file is generated from multiple sources. Included packages:
+- @codog/vue3-infinite-loading
+	- version: 0.0.13
+	- license: MIT
+- @nextcloud/vue
+	- version: 9.8.2
+	- license: AGPL-3.0-or-later
+- cospend
+	- version: 0.3.3
+	- license: AGPL-3.0
+- tiny-emitter
+	- version: 2.1.0
+	- license: MIT
+- vue-material-design-icons
+	- version: 5.3.1
+	- license: MIT

@@ -1,0 +1,2 @@
+import{_ as o}from"./_plugin-vue_export-helper-BG38mulE.chunk.mjs";import{o as a,K as r}from"./index-CLp4TXOQ.chunk.mjs";const t={name:"NcActionSeparator"},s={class:"action action-separator action--disabled",role:"separator"};function e(n,c,i,p,d,l){return a(),r("li",s)}const _=o(t,[["render",e],["__scopeId","data-v-3e2324b7"]]);export{_ as N};
+//# sourceMappingURL=NcActionSeparator-B9pNQaji-DpH2w1qp.chunk.mjs.map

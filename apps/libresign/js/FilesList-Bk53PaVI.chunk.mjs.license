@@ -1,0 +1,12 @@
+SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: agpl
+SPDX-FileCopyrightText: Austin Andrews
+SPDX-FileCopyrightText: libresign developers
+
+This file is generated from multiple sources. Included packages:
+- @mdi/svg
+	- version: 7.4.47
+	- license: Apache-2.0
+- libresign
+	- version: 14.0.2
+	- license: agpl

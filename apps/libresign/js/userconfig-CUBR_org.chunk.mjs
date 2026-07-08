@@ -1,0 +1,2 @@
+import{d as r}from"./preload-helper-B922Dhzv.chunk.mjs";import{d as t}from"./_plugin-vue_export-helper-BG38mulE.chunk.mjs";import{s as p,v as c,x as e,l as f}from"./index-CLp4TXOQ.chunk.mjs";const l=r("userconfig",()=>{const i=p(c("libresign","config",{})),n=(s,a)=>{i[s]=a},o=async(s,a)=>{n(s,a),await t.put(f("/apps/libresign/api/v1/account/config/{key}",{key:s}),{value:a})};return{...e(i),onUpdate:n,update:o}});export{l as u};
+//# sourceMappingURL=userconfig-CUBR_org.chunk.mjs.map

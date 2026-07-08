@@ -1,0 +1,135 @@
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+.icon-onlyoffice-open,
+.icon-onlyoffice-convert,
+.icon-onlyoffice-download,
+.icon-onlyoffice-create {
+    background-color: var(--color-main-text);
+    mask: url("../img/app-dark.svg") no-repeat 50% 50%;
+    mask-size: 16px 16px;
+    -webkit-mask: url("../img/app-dark.svg") no-repeat 50% 50%;
+    -webkit-mask-size: 16px 16px;
+}
+
+/* onlyoffice-inline */
+#body-user.onlyoffice-inline #app-navigation,
+#body-user.onlyoffice-inline .app-navigation,
+#body-user.onlyoffice-inline #app-navigation-vue,
+#body-user.onlyoffice-inline .searchbox,
+#body-user.onlyoffice-inline #app-content .files-controls,
+#body-user.onlyoffice-inline #app-content-vue .files-controls,
+#body-user.onlyoffice-inline .files-filestable,
+#body-user.onlyoffice-inline .files-list,
+#body-user.onlyoffice-inline .files-list__header {
+    display: none;
+}
+
+#body-user.onlyoffice-inline #app-navigation-toggle {
+    display: none !important;
+}
+
+#body-public.onlyoffice-inline #content #app-content,
+#body-user.onlyoffice-inline #content #app-content,
+#body-user.onlyoffice-inline #content #app-content-vue,
+#body-user.onlyoffice-inline #content-vue #app-content-vue {
+    margin-left: 0;
+    position: relative;
+    overflow: hidden;
+    overscroll-behavior-y: none;
+}
+
+#body-public.onlyoffice-inline footer {
+    display: none !important;
+}
+
+#onlyofficeFrame {
+    background-color: #fff;
+    width: 100%;
+    height: 100vh;
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 1010;
+}
+
+.onlyoffice-public-open {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* AscDesktopEditor */
+.AscDesktopEditor #body-user #header {
+    display: none;
+}
+
+.AscDesktopEditor #body-user #content,
+.AscDesktopEditor #body-user #content-vue {
+    padding-top: 0;
+    margin-top: 0px;
+    height: 100%;
+}
+
+.AscDesktopEditor #body-user #app-navigation,
+.AscDesktopEditor #body-user #controls,
+.AscDesktopEditor #body-user #app-sidebar {
+    top: 0;
+}
+
+.AscDesktopEditor #body-user #app-navigation {
+    height: 100%;
+}
+
+.AscDesktopEditor #body-user #app-sidebar {
+    height: 100vh;
+}
+
+.AscDesktopEditor #body-user table.multiselect thead,
+.AscDesktopEditor #app-content-files thead {
+    top: 44px;
+}
+
+.AscDesktopEditor #body-user #gallery-button {
+    display: none;
+}
+
+.onlyoffice-iframe-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    overflow: hidden;
+    z-index: 1010;
+}

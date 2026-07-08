@@ -1,0 +1,61 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: BSD-3-Clause
+SPDX-License-Identifier: GPL-3.0-or-later
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Antoni Andre <antoniandre.web@gmail.com>
+SPDX-FileCopyrightText: Borys Serebrov
+SPDX-FileCopyrightText: Christoph Wurst
+SPDX-FileCopyrightText: CollectiveCloud Team
+SPDX-FileCopyrightText: Evan You
+SPDX-FileCopyrightText: Guillaume Chau
+SPDX-FileCopyrightText: Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)
+SPDX-FileCopyrightText: Jordan Humphreys <jordan@zurb.com>
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: Nick Frasser (https://nfrasser.com)
+SPDX-FileCopyrightText: Rob Cresswell <robcresswell@pm.me>
+SPDX-FileCopyrightText: ndelvalle <nicolas.delvalle@gmail.com>
+SPDX-FileCopyrightText: yangpanteng
+
+This file is generated from multiple sources. Included packages:
+- @nextcloud/moment
+	- version: 1.3.5
+	- license: GPL-3.0-or-later
+- @nextcloud/notify_push
+	- version: 1.4.0
+	- license: AGPL-3.0-or-later
+- @nextcloud/vue
+	- version: 9.8.2
+	- license: AGPL-3.0-or-later
+- collectives
+	- version: undefined
+	- license: AGPL-3.0-or-later
+- emoji-mart-vue-fast
+	- version: 15.0.5
+	- license: BSD-3-Clause
+- linkifyjs
+	- version: 4.3.3
+	- license: MIT
+- moment
+	- version: 2.30.1
+	- license: MIT
+- splitpanes
+	- version: 4.0.4
+	- license: MIT
+- tributejs
+	- version: 5.1.3
+	- license: MIT
+- v-click-outside
+	- version: 3.2.0
+	- license: MIT
+- vite
+	- version: 7.3.5
+	- license: MIT
+- vue-draggable-plus
+	- version: 0.6.1
+	- license: MIT
+- vue-material-design-icons
+	- version: 5.3.1
+	- license: MIT
+- vue-virtual-scroller
+	- version: 3.0.4
+	- license: MIT

@@ -1,0 +1,291 @@
+<?php
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+namespace OCA\Onlyoffice;
+
+use OCA\Files_Sharing\External\Storage as SharingExternalStorage;
+use OCP\Files\File;
+use OCP\Http\Client\IClientService;
+use OCP\IDBConnection;
+use OCP\Server;
+
+/**
+ * Remote instance manager
+ *
+ * @package OCA\Onlyoffice
+ */
+class RemoteInstance {
+
+    /**
+     * App name
+     */
+    private const APP_NAME = "onlyoffice";
+
+    /**
+     * Table name
+     */
+    private const TABLENAME_KEY = "onlyoffice_instance";
+
+    /**
+     * Time to live of remote instance (12 hours)
+     */
+    private static int $ttl = 60 * 60;
+
+    /**
+     * Health remote list
+     */
+    private static array $healthRemote = [];
+
+    /**
+     * Get remote instance
+     *
+     * @param string $remote - remote instance
+     */
+    private static function get(string $remote): array {
+        $connection = Server::get(IDBConnection::class);
+        $select = $connection->prepare("
+            SELECT remote, expire, status
+            FROM  `*PREFIX*" . self::TABLENAME_KEY . "`
+            WHERE `remote` = ?
+        ");
+        $result = $select->execute([$remote]);
+        $row = $result->fetchAssociative();
+
+        return $row === false ? [] : $row;
+    }
+
+    /**
+     * Store remote instance
+     *
+     * @param string $remote - remote instance
+     * @param bool $status - remote status
+     */
+    private static function set(string $remote, bool $status): bool {
+        $connection = Server::get(IDBConnection::class);
+        $insert = $connection->prepare("
+            INSERT INTO `*PREFIX*" . self::TABLENAME_KEY . "`
+                (`remote`, `status`, `expire`)
+            VALUES (?, ?, ?)
+        ");
+        return (bool)$insert->execute([$remote, $status ? 1 : 0, time()]);
+    }
+
+    /**
+     * Update remote instance
+     *
+     * @param string $remote - remote instance
+     * @param bool $status - remote status
+     */
+    private static function update(string $remote, bool $status): bool {
+        $connection = Server::get(IDBConnection::class);
+        $update = $connection->prepare("
+            UPDATE `*PREFIX*" . self::TABLENAME_KEY . "`
+            SET status = ?, expire = ?
+            WHERE remote = ?
+        ");
+        return (bool)$update->execute([$status ? 1 : 0, time(), $remote]);
+    }
+
+    /**
+     * Health check remote instance
+     *
+     * @param string $remote - remote instance
+     *
+     * @return bool
+     */
+    public static function healthCheck(string $remote): bool {
+        $logger = \OCP\Log\logger('onlyoffice');
+        $remote = rtrim($remote, "/") . "/";
+
+        if (array_key_exists($remote, self::$healthRemote)) {
+            $logger->debug("Remote instance " . $remote . " from local cache", ["app" => self::APP_NAME]);
+            return self::$healthRemote[$remote];
+        }
+
+        $dbremote = self::get($remote);
+        if (!empty($dbremote) && $dbremote["expire"] + self::$ttl > time()) {
+            $logger->debug("Remote instance " . $remote . " from database status " . $dbremote["status"], ["app" => self::APP_NAME]);
+            self::$healthRemote[$remote] = $dbremote["status"];
+            return self::$healthRemote[$remote];
+        }
+
+        $httpClientService = Server::get(IClientService::class);
+        $client = $httpClientService->newClient();
+
+        $status = false;
+        try {
+            $response = $client->get($remote . "ocs/v2.php/apps/" . self::APP_NAME . "/api/v1/healthcheck?format=json");
+            $body = json_decode((string) $response->getBody(), true);
+
+            $data = $body["ocs"]["data"];
+
+            if (isset($data["alive"])) {
+                $status = $data["alive"] === true;
+            }
+        } catch (\Exception $e) {
+            $logger->error("Failed to request federated health check for" . $remote, ['exception' => $e]);
+        }
+
+        if (empty($dbremote)) {
+            self::set($remote, $status);
+        } else {
+            self::update($remote, $status);
+        }
+
+        $logger->debug("Remote instance " . $remote . " was stored to database status " . $status, ["app" => self::APP_NAME]);
+
+        self::$healthRemote[$remote] = $status;
+
+        return self::$healthRemote[$remote];
+    }
+
+    /**
+     * Generate unique document identifier in federated share
+     *
+     * @param File $file - file
+     */
+    public static function getRemoteKey(File $file): ?string {
+        $logger = \OCP\Log\logger('onlyoffice');
+
+        $remote = rtrim((string) $file->getStorage()->getRemote(), "/") . "/";
+        $shareToken = $file->getStorage()->getToken();
+        $internalPath = $file->getInternalPath();
+
+        $httpClientService = Server::get(IClientService::class);
+        $client = $httpClientService->newClient();
+
+        try {
+            $response = $client->post($remote . "ocs/v2.php/apps/" . self::APP_NAME . "/api/v1/key?format=json", [
+                "timeout" => 5,
+                "body" => [
+                    "shareToken" => $shareToken,
+                    "path" => $internalPath
+                ]
+            ]);
+
+            $body = \json_decode((string) $response->getBody(), true);
+
+            $data = $body["ocs"]["data"];
+            if (!empty($data["error"])) {
+                $logger->error("Error federated key " . $data["error"], ["app" => self::APP_NAME]);
+                return null;
+            }
+
+            $key = $data["key"];
+            $logger->debug("Federated key: $key", ["app" => self::APP_NAME]);
+
+            return $key;
+        } catch (\Exception $e) {
+            $logger->error("Failed to request federated key " . $file->getId(), ['exception' => $e]);
+
+            if ($e->getResponse()->getStatusCode() === 404) {
+                self::update($remote, false);
+                $logger->debug("Changed status for remote instance $remote to false", ["app" => self::APP_NAME]);
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * Change lock status in the federated share
+     *
+     * @param File $file - file
+     * @param bool $lock - status
+     * @param bool $fs - status
+     *
+     * @return bool
+     */
+    public static function lockRemoteKey(File $file, bool $lock, ?bool $fs): bool {
+        $logger = \OCP\Log\logger('onlyoffice');
+        $action = $lock ? "lock" : "unlock";
+
+        $remote = rtrim((string) $file->getStorage()->getRemote(), "/") . "/";
+        $shareToken = $file->getStorage()->getToken();
+        $internalPath = $file->getInternalPath();
+
+        $httpClientService = Server::get(IClientService::class);
+        $client = $httpClientService->newClient();
+        $data = [
+            "timeout" => 5,
+            "body" => [
+                "shareToken" => $shareToken,
+                "path" => $internalPath,
+                "lock" => $lock
+            ]
+        ];
+        if (!empty($fs)) {
+            $data["body"]["fs"] = $fs;
+        }
+
+        try {
+            $response = $client->post($remote . "ocs/v2.php/apps/" . self::APP_NAME . "/api/v1/keylock?format=json", $data);
+            $body = \json_decode((string) $response->getBody(), true);
+
+            $data = $body["ocs"]["data"];
+
+            if (empty($data)) {
+                $logger->debug("Federated request " . $action . " for " . $file->getId() . " is successful", ["app" => self::APP_NAME]);
+                return true;
+            }
+
+            if (!empty($data["error"])) {
+                $logger->error("Error " . $action . " federated key for " . $file->getId() . ": " . $data["error"], ["app" => self::APP_NAME]);
+                return false;
+            }
+        } catch (\Exception $e) {
+            $logger->error("Failed to request federated " . $action . " for " . $file->getId(), ['exception' => $e]);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check of federated capable
+     */
+    public static function isRemoteFile(File $file): bool {
+        /**
+         * @var \OCP\Files\Storage\IStorage|SharingExternalStorage
+         */
+        $storage = $file->getStorage();
+
+        if (!$storage->instanceOfStorage(SharingExternalStorage::class)) {
+            return false;
+        }
+
+        return RemoteInstance::healthCheck($storage->getRemote());
+    }
+}

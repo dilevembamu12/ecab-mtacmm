@@ -1,0 +1,42 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: MIT
+SPDX-License-Identifier: agpl
+SPDX-FileCopyrightText: Austin Andrews
+SPDX-FileCopyrightText: Evan You
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: libresign developers
+SPDX-FileCopyrightText: sortablejs developers
+SPDX-FileCopyrightText: vuedraggable developers
+
+This file is generated from multiple sources. Included packages:
+- @mdi/svg
+	- version: 7.4.47
+	- license: Apache-2.0
+- @nextcloud/vue
+	- version: 9.6.0
+	- license: AGPL-3.0-or-later
+- @vue/compiler-core
+	- version: 3.5.30
+	- license: MIT
+- @vue/compiler-dom
+	- version: 3.5.30
+	- license: MIT
+- @vue/runtime-dom
+	- version: 3.5.30
+	- license: MIT
+- @vue/shared
+	- version: 3.5.30
+	- license: MIT
+- libresign
+	- version: 14.0.2
+	- license: agpl
+- sortablejs
+	- version: 1.14.0
+	- license: MIT
+- vue
+	- version: 3.5.30
+	- license: MIT
+- vuedraggable
+	- version: 4.1.0
+	- license: MIT

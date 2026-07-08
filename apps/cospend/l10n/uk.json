@@ -1,0 +1,18 @@
+{ "translations": {
+    "circle %1$s" : "коло %1$s",
+    "Cospend" : "Cospend",
+    "You are not allowed to give such shared access level" : "Вам не дозволено давати такий рівень спільного доступу",
+    "You are not allowed to edit this shared access" : "Ви не можете редагувати цей спільний доступ",
+    "You are not allowed to remove this shared access" : "Ви не можете видалити цей спільний доступ",
+    "Access denied" : "Доступ заборонено",
+    "Project not found" : "Проєкт не знайдено",
+    "Guest access" : "Гостьовий доступ",
+    "Enter link password of project %s" : "Введіть пароль посилання для проєкта %s",
+    "Project %s" : "Проєкт %s",
+    "Cospend shared link access" : "Доступ до спільного посилання Cospend",
+    "No such Cospend share link" : "На Cospend немає такого посилання, яким можна поділитися",
+    "Cospend activity" : "Діяльність в Cospend",
+    "Invalid project id" : "Невірний ID проєкту",
+    "Share link" : "Поділитися посиланням"
+},"pluralForm" :"nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));"
+}

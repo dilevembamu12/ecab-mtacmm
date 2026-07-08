@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+version: '3.7'
+services:
+  nextcloud-whiteboard-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3002:3002
+    environment:
+      - NEXTCLOUD_URL
+      - JWT_SECRET_KEY
+      ## if you run this rootess, backup_dir needs to be in a place writeable to the non-root process, for example:
+      - BACKUP_DIR=/tmp/backup

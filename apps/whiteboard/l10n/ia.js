@@ -1,0 +1,27 @@
+OC.L10N.register(
+    "whiteboard",
+    {
+    "Advanced settings" : "Configurationes avantiate",
+    "Close" : "Clauder",
+    "Cancel" : "Cancel",
+    "Update" : "Actualisation",
+    "Comments" : "Commentarios",
+    "Dismiss" : "Dimitter",
+    "Edit" : "Modificar",
+    "Save" : "Salveguardar",
+    "Reply" : "Responde",
+    "Add a comment" : "Adder un commentario",
+    "Send" : "Inviar",
+    "Connecting" : "Connectente",
+    "Unknown" : "Incognite",
+    "Unknown user" : "Usator incognite",
+    "Finished" : "Finite",
+    "Hours" : "Horas",
+    "Minutes" : "Minutas",
+    "min" : "minutas",
+    "Start" : "Initio",
+    "Reset" : "Re-fixar",
+    "Pause" : "Pausar",
+    "Just now" : "Justo ora"
+},
+"nplurals=2; plural=(n != 1);");

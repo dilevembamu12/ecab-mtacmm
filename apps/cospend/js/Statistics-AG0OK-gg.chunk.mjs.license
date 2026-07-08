@@ -1,0 +1,37 @@
+SPDX-License-Identifier: AGPL-3.0
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Jakub Juszczak <jakub@posteo.de>
+SPDX-FileCopyrightText: Jorik Tangelder
+SPDX-FileCopyrightText: Jukka Kurkela
+SPDX-FileCopyrightText: Julien Veyssier
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: Rob Cresswell <robcresswell@pm.me>
+SPDX-FileCopyrightText: chart.js developers
+SPDX-FileCopyrightText: chartjs-plugin-zoom developers
+
+This file is generated from multiple sources. Included packages:
+- @kurkle/color
+	- version: 0.3.4
+	- license: MIT
+- @nextcloud/vue
+	- version: 9.8.2
+	- license: AGPL-3.0-or-later
+- chart.js
+	- version: 4.5.1
+	- license: MIT
+- chartjs-plugin-zoom
+	- version: 2.2.0
+	- license: MIT
+- cospend
+	- version: 0.3.3
+	- license: AGPL-3.0
+- hammerjs
+	- version: 2.0.8
+	- license: MIT
+- vue-chartjs
+	- version: 5.3.3
+	- license: MIT
+- vue-material-design-icons
+	- version: 5.3.1
+	- license: MIT

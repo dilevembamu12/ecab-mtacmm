@@ -1,0 +1,255 @@
+<?php
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+namespace OCA\Onlyoffice;
+
+use OCA\Files_Versions\Versions\IVersion;
+use OCP\Constants;
+use OCP\Files\File;
+use OCP\Files\Folder;
+use OCP\Files\NotFoundException;
+use OCP\IL10N;
+use OCP\ISession;
+use OCP\Share\Exceptions\ShareNotFound;
+use OCP\Share\IManager;
+use OCP\Share\IShare;
+use Psr\Log\LoggerInterface;
+
+/**
+ * File utility
+ *
+ * @package OCA\Onlyoffice
+ */
+class FileUtility {
+
+    public function __construct(
+        private readonly IL10N $trans,
+        private readonly LoggerInterface $logger,
+        private readonly AppConfig $appConfig,
+        private readonly IManager $shareManager,
+        private readonly ISession $session,
+        private readonly KeyManager $keyManager
+    ) {}
+
+    /**
+     * Getting file by token
+     *
+     * @param integer $fileId - file identifier
+     * @param string $shareToken - access token
+     * @param string $path - file path
+     */
+    public function getFileByToken(?int $fileId, string $shareToken, ?string $path = null): array {
+        [$node, $error, $share] = $this->getNodeByToken($shareToken);
+
+        if (isset($error)) {
+            return [null, $error, null];
+        }
+
+        if ($node instanceof Folder) {
+            if ($fileId !== null && $fileId !== 0) {
+                try {
+                    $files = $node->getById($fileId);
+                } catch (\Exception $e) {
+                    $this->logger->error("getFileByToken: $fileId", ["exception" => $e]);
+                    return [null, $this->trans->t("Invalid request"), null];
+                }
+
+                if (empty($files)) {
+                    $this->logger->info("Files not found: $fileId");
+                    return [null, $this->trans->t("File not found"), null];
+                }
+                $file = $files[0];
+            } else {
+                try {
+                    $file = $node->get($path);
+                } catch (\Exception $e) {
+                    $this->logger->error("getFileByToken for path: $path", ["exception" => $e]);
+                    return [null, $this->trans->t("Invalid request"), null];
+                }
+            }
+        } else {
+            $file = $node;
+        }
+
+        return [$file, null, $share];
+    }
+
+    /**
+     * Get a file by token
+     */
+    public function getNodeByToken(string $shareToken): array {
+        [$share, $error] = $this->getShare($shareToken);
+
+        if (isset($error)) {
+            return [null, $error, null];
+        }
+
+        if (($share->getPermissions() & Constants::PERMISSION_READ) === 0) {
+            return [null, $this->trans->t("You do not have enough permissions to view the file"), null];
+        }
+
+        try {
+            $node = $share->getNode();
+        } catch (NotFoundException $e) {
+            $this->logger->error("getNodeByToken error", ["exception" => $e]);
+            return [null, $this->trans->t("File not found"), null];
+        }
+
+        return [$node, null, $share];
+    }
+
+    /**
+     * Getting share by token
+     *
+     * @param string $shareToken - access token
+     */
+    public function getShare(string $shareToken): array {
+        if (empty($shareToken)) {
+            return [null, $this->trans->t("FileId is empty")];
+        }
+
+        try {
+            $share = $this->shareManager->getShareByToken($shareToken);
+        } catch (ShareNotFound $e) {
+            $this->logger->error("getShare error", ["exception" => $e]);
+            $share = null;
+        }
+
+        if ($share === null || $share === false) {
+            return [null, $this->trans->t("You do not have enough permissions to view the file")];
+        }
+
+        $authenticatedLinks = $this->session->get('public_link_authenticated');
+
+        $isAuthenticated = is_array($authenticatedLinks) && in_array($share->getId(), $authenticatedLinks, true);
+        $isAuthenticated = $isAuthenticated || $authenticatedLinks === (string) $share->getId();
+
+        if ($share->getPassword() && !$isAuthenticated) {
+            return [null, $this->trans->t("You do not have enough permissions to view the file")];
+        }
+
+        return [$share, null];
+    }
+
+    /**
+     * Generate unique document identifier
+     *
+     * @param File $file - file
+     * @param bool $origin - request from federated store
+     *
+     * @return string
+     */
+    public function getKey(File $file, bool $origin = false): string {
+        $fileId = $file->getId();
+
+        if ($origin
+            && RemoteInstance::isRemoteFile($file)) {
+            $key = RemoteInstance::getRemoteKey($file);
+            if (!empty($key)) {
+                return $key;
+            }
+        }
+
+        $key = $this->keyManager->get($fileId);
+
+        if (empty($key)) {
+            $instanceId = $this->appConfig->getSystemValue("instanceid", true);
+
+            $key = $instanceId . "_" . $this->GUID();
+
+            $this->keyManager->set($fileId, $key);
+        }
+
+        return $key;
+    }
+
+    /**
+     * Generate unique identifier
+     */
+    private function GUID(): string {
+        if (function_exists("com_create_guid")) {
+            return trim(com_create_guid(), "{}");
+        }
+
+        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+    }
+
+    /**
+     * Generate unique file version key
+     *
+     * @param \OCA\Files_Versions\Versions\IVersion $version - file version
+     */
+    public function getVersionKey(IVersion $version): string {
+        $instanceId = $this->appConfig->getSystemValue("instanceid", true);
+
+        return $instanceId . "_" . $version->getSourceFile()->getEtag() . "_" . $version->getRevisionId();
+    }
+
+    /**
+     * The method checks download permission
+     *
+     * @param IShare $share - share object
+     *
+     * @return bool
+     */
+    public static function canShareDownload(IShare $share): bool {
+        $can = true;
+
+        $downloadAttribute = self::getShareAttrubute($share, "download");
+        if (isset($downloadAttribute)) {
+            $can = $downloadAttribute;
+        }
+
+        return $can;
+    }
+
+    /**
+     * The method extracts share attribute
+     *
+     * @param IShare $share - share object
+     * @param string $attribute - attribute name
+     *
+     * @return bool|null
+     */
+    private static function getShareAttrubute(IShare $share, string $attribute) {
+        $attributes = null;
+        if (method_exists(IShare::class, "getAttributes")) {
+            $attributes = $share->getAttributes();
+        }
+
+        return isset($attributes) ? $attributes->getAttribute("permissions", $attribute) : null;
+    }
+}

@@ -1,0 +1,12 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: agpl
+SPDX-FileCopyrightText: LibreCode <contact@librecode.coop>
+SPDX-FileCopyrightText: libresign developers
+
+This file is generated from multiple sources. Included packages:
+- @libresign/pdf-elements
+	- version: 1.2.4
+	- license: AGPL-3.0-or-later
+- libresign
+	- version: 14.0.2
+	- license: agpl

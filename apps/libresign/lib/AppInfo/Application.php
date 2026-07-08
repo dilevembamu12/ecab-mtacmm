@@ -1,0 +1,107 @@
+<?php
+
+declare(strict_types=1);
+/**
+ * SPDX-FileCopyrightText: 2020-2024 LibreCode coop and contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+namespace OCA\Libresign\AppInfo;
+
+use OCA\Files\Event\LoadAdditionalScriptsEvent;
+use OCA\Files\Event\LoadSidebar;
+use OCA\Libresign\Activity\Listener as ActivityListener;
+use OCA\Libresign\Capabilities;
+use OCA\Libresign\Dashboard\PendingSignaturesWidget;
+use OCA\Libresign\Events\SendSignNotificationEvent;
+use OCA\Libresign\Events\SignedEvent;
+use OCA\Libresign\Events\SignRequestCanceledEvent;
+use OCA\Libresign\Files\TemplateLoader;
+use OCA\Libresign\Listener\BeforeNodeDeletedListener;
+use OCA\Libresign\Listener\LoadAdditionalListener;
+use OCA\Libresign\Listener\MailNotifyListener;
+use OCA\Libresign\Listener\NotificationListener;
+use OCA\Libresign\Listener\RevokeClickToSignCertificateListener;
+use OCA\Libresign\Listener\SignedCallbackListener;
+use OCA\Libresign\Listener\TwofactorGatewayListener;
+use OCA\Libresign\Listener\UserDeletedListener;
+use OCA\Libresign\Middleware\GlobalInjectionMiddleware;
+use OCA\Libresign\Middleware\InjectionMiddleware;
+use OCA\Libresign\Notification\Notifier;
+use OCA\Libresign\Search\FileSearchProvider;
+use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\Files\Cache\CacheEntryRemovedEvent;
+use OCP\Files\Events\Node\BeforeNodeDeletedEvent;
+use OCP\User\Events\UserDeletedEvent;
+
+/**
+ * @codeCoverageIgnore
+ */
+class Application extends App implements IBootstrap {
+	public const APP_ID = 'libresign';
+
+	public function __construct() {
+		parent::__construct(self::APP_ID);
+	}
+
+	#[\Override]
+	public function boot(IBootContext $context): void {
+	}
+
+	#[\Override]
+	public function register(IRegistrationContext $context): void {
+		$context->registerMiddleWare(GlobalInjectionMiddleware::class, true);
+		$context->registerMiddleWare(InjectionMiddleware::class);
+		$context->registerCapability(Capabilities::class);
+
+		$context->registerNotifierService(Notifier::class);
+
+		$context->registerSearchProvider(FileSearchProvider::class);
+
+		$context->registerEventListener(LoadSidebar::class, TemplateLoader::class);
+		$context->registerEventListener(BeforeNodeDeletedEvent::class, BeforeNodeDeletedListener::class);
+		$context->registerEventListener(CacheEntryRemovedEvent::class, BeforeNodeDeletedListener::class);
+		$context->registerEventListener(SignedEvent::class, SignedCallbackListener::class);
+
+		// Files newFile listener
+		$context->registerEventListener(LoadAdditionalScriptsEvent::class, LoadAdditionalListener::class);
+
+		// Activity listeners
+		$context->registerEventListener(SendSignNotificationEvent::class, ActivityListener::class);
+		$context->registerEventListener(SignedEvent::class, ActivityListener::class);
+		$context->registerEventListener(SignRequestCanceledEvent::class, ActivityListener::class);
+
+		// Notification listeners
+		$context->registerEventListener(SendSignNotificationEvent::class, NotificationListener::class);
+		$context->registerEventListener(SignedEvent::class, NotificationListener::class);
+		$context->registerEventListener(SignRequestCanceledEvent::class, NotificationListener::class);
+
+		// MailNotify listener
+		$context->registerEventListener(SendSignNotificationEvent::class, MailNotifyListener::class);
+		$context->registerEventListener(SignedEvent::class, MailNotifyListener::class);
+		$context->registerEventListener(SignRequestCanceledEvent::class, MailNotifyListener::class);
+
+		// Certificate Revocation listener
+		$context->registerEventListener(SignedEvent::class, RevokeClickToSignCertificateListener::class);
+
+		// TwofactorGateway listener
+		$context->registerEventListener(SendSignNotificationEvent::class, TwofactorGatewayListener::class);
+		$context->registerEventListener(SignedEvent::class, TwofactorGatewayListener::class);
+
+		$context->registerEventListener(UserDeletedEvent::class, UserDeletedListener::class);
+
+		$context->registerDashboardWidget(PendingSignaturesWidget::class);
+
+		$context->registerSetupCheck(\OCA\Libresign\SetupCheck\JavaSetupCheck::class);
+		$context->registerSetupCheck(\OCA\Libresign\SetupCheck\JSignPdfSetupCheck::class);
+		$context->registerSetupCheck(\OCA\Libresign\SetupCheck\PDFtkSetupCheck::class);
+
+		$context->registerSetupCheck(\OCA\Libresign\SetupCheck\PopplerSetupCheck::class);
+		$context->registerSetupCheck(\OCA\Libresign\SetupCheck\ImagickSetupCheck::class);
+
+		$context->registerSetupCheck(\OCA\Libresign\SetupCheck\CertificateEngineSetupCheck::class);
+	}
+}

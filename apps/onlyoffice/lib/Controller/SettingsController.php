@@ -1,0 +1,300 @@
+<?php
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+namespace OCA\Onlyoffice\Controller;
+
+use OCA\Onlyoffice\AppConfig;
+use OCA\Onlyoffice\DocumentService;
+use OCA\Onlyoffice\FileVersions;
+use OCA\Onlyoffice\TemplateManager;
+use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
+use OCP\IL10N;
+use OCP\IRequest;
+use OCP\IURLGenerator;
+use OCP\Preview\IMimeIconProvider;
+
+/**
+ * Settings controller for the administration page
+ */
+class SettingsController extends Controller {
+
+    public function __construct(
+        $appName,
+        IRequest $request,
+        private readonly IURLGenerator $urlGenerator,
+        private readonly IL10N $trans,
+        private readonly AppConfig $appConfig,
+        private readonly IMimeIconProvider $mimeIconProvider,
+        private readonly DocumentService $documentService,
+        private readonly IInitialState $initialState
+    ) {
+        parent::__construct($appName, $request);
+    }
+
+    /**
+     * Print config section
+     */
+    public function index(): TemplateResponse {
+        $data = [
+            "documentserver" => $this->appConfig->getDocumentServerUrl(true),
+            "documentserverInternal" => $this->appConfig->getDocumentServerInternalUrl(true),
+            "storageUrl" => $this->appConfig->getStorageUrl(),
+            "verifyPeerOff" => $this->appConfig->getVerifyPeerOff(),
+            "secret" => $this->appConfig->getDocumentServerSecret(true),
+            "jwtHeader" => $this->appConfig->jwtHeader(true),
+            "demo" => $this->appConfig->getDemoData(),
+            "currentServer" => $this->urlGenerator->getAbsoluteURL("/"),
+            "formats" => $this->appConfig->formatsSetting(),
+            "restrictExternalStorage" => $this->appConfig->getRestrictExternalStorage(),
+            "sameTab" => $this->appConfig->getSameTab(),
+            "enableSharing" => $this->appConfig->getEnableSharing(),
+            "preview" => $this->appConfig->getPreview(),
+            "advanced" => $this->appConfig->getAdvanced(),
+            "cronChecker" => $this->appConfig->getCronChecker(),
+            "emailNotifications" => $this->appConfig->getEmailNotifications(),
+            "versionHistory" => $this->appConfig->getVersionHistory(),
+            "protection" => $this->appConfig->getProtection(),
+            "limitGroups" => $this->appConfig->getLimitGroups(),
+            "chat" => $this->appConfig->getCustomizationChat(),
+            "compactHeader" => $this->appConfig->getCustomizationCompactHeader(),
+            "feedback" => $this->appConfig->getCustomizationFeedback(),
+            "forcesave" => $this->appConfig->getCustomizationForcesave(),
+            "liveViewOnShare" => $this->appConfig->getLiveViewOnShare(),
+            "help" => $this->appConfig->getCustomizationHelp(),
+            "successful" => $this->appConfig->settingsAreSuccessful(),
+            "settingsError" => $this->appConfig->getSettingsError(),
+            "watermark" => $this->appConfig->getWatermarkSettings(),
+            "plugins" => $this->appConfig->getCustomizationPlugins(),
+            "macros" => $this->appConfig->getCustomizationMacros(),
+            "tagsEnabled" => \OCP\Server::get(\OCP\App\IAppManager::class)->isEnabledForUser("systemtags"),
+            "reviewDisplay" => $this->appConfig->getCustomizationReviewDisplay(),
+            "theme" => $this->appConfig->getCustomizationTheme(true),
+            "templates" => $this->getGlobalTemplates(),
+            "unknownAuthor" => $this->appConfig->getUnknownAuthor()
+        ];
+        $this->initialState->provideInitialState('admin-settings', $data);
+        return new TemplateResponse($this->appName, "settings", $data, "blank");
+    }
+
+    /**
+     * Save address settings
+     *
+     * @param string $documentserver - document service address
+     * @param string $documentserverInternal - document service address available from Nextcloud
+     * @param string $storageUrl - Nextcloud address available from document server
+     * @param bool $verifyPeerOff - parameter verification setting
+     * @param string $secret - secret key for signature
+     * @param string $jwtHeader - jwt header
+     * @param bool $demo - use demo server
+     */
+    public function saveAddress(
+        $documentserver,
+        $documentserverInternal,
+        $storageUrl,
+        $verifyPeerOff,
+        $secret,
+        $jwtHeader,
+        $demo
+    ): DataResponse {
+        $error = null;
+        if (!$this->appConfig->selectDemo($demo === true)) {
+            $error = $this->trans->t("The 30-day test period is over, you can no longer connect to demo ONLYOFFICE Docs server.");
+        }
+        if ($demo !== true) {
+            $this->appConfig->setDocumentServerUrl($documentserver);
+            $this->appConfig->setVerifyPeerOff($verifyPeerOff);
+            $this->appConfig->setDocumentServerInternalUrl($documentserverInternal);
+            $this->appConfig->setDocumentServerSecret($secret);
+            $this->appConfig->setJwtHeader($jwtHeader);
+        }
+        $this->appConfig->setStorageUrl($storageUrl);
+
+        $version = null;
+        if (empty($error)) {
+            $documentserver = $this->appConfig->getDocumentServerUrl();
+            if (!empty($documentserver)) {
+                [$error, $version] = $this->documentService->checkDocServiceUrl();
+                $this->appConfig->setSettingsError($error);
+            }
+        }
+
+        return new DataResponse([
+            "documentserver" => $this->appConfig->getDocumentServerUrl(true),
+            "verifyPeerOff" => $this->appConfig->getVerifyPeerOff(),
+            "documentserverInternal" => $this->appConfig->getDocumentServerInternalUrl(true),
+            "storageUrl" => $this->appConfig->getStorageUrl(),
+            "secret" => $this->appConfig->getDocumentServerSecret(true),
+            "jwtHeader" => $this->appConfig->jwtHeader(true),
+            "error" => $error,
+            "version" => $version,
+        ]);
+    }
+
+    /**
+     * Save common settings
+     *
+     * @param array $defFormats - formats array with default action
+     * @param array $editFormats - editable formats array
+     * @param bool $restrictExternalStorage - restrict access from external storage
+     * @param bool $sameTab - open in the same tab
+     * @param bool $enableSharing - enable sharingsameTab
+     * @param bool $preview - generate preview files
+     * @param bool $advanced - use advanced tab
+     * @param bool $cronChecker - disable cron checker
+     * @param bool $emailNotifications - notifications via e-mail
+     * @param bool $versionHistory - keep version history
+     * @param array $limitGroups - list of groups
+     * @param bool $chat - display chat
+     * @param bool $compactHeader - display compact header
+     * @param bool $feedback - display feedback
+     * @param bool $forcesave - forcesave
+     * @param bool $liveViewOnShare - live view on share
+     * @param bool $help - display help
+     * @param string $reviewDisplay - review viewing mode
+     * @param string $unknownAuthor - display unknown author
+     */
+    public function saveCommon(
+        array $defFormats,
+        array $editFormats,
+        bool $restrictExternalStorage,
+        bool $sameTab,
+        bool $enableSharing,
+        bool $preview,
+        bool $advanced,
+        bool $cronChecker,
+        bool $emailNotifications,
+        bool $versionHistory,
+        bool $chat,
+        bool $compactHeader,
+        bool $feedback,
+        bool $forcesave,
+        bool $liveViewOnShare,
+        bool $help,
+        string $reviewDisplay,
+        string $theme,
+        string $unknownAuthor,
+        array $limitGroups = []
+    ): DataResponse {
+
+        $this->appConfig->setDefaultFormats($defFormats);
+        $this->appConfig->setEditableFormats($editFormats);
+        $this->appConfig->setEnableSharing($enableSharing);
+        $this->appConfig->setRestrictExternalStorage($restrictExternalStorage);
+        $this->appConfig->setSameTab($sameTab);
+        $this->appConfig->setPreview($preview);
+        $this->appConfig->setAdvanced($advanced);
+        $this->appConfig->setCronChecker($cronChecker);
+        $this->appConfig->setEmailNotifications($emailNotifications);
+        $this->appConfig->setVersionHistory($versionHistory);
+        $this->appConfig->setLimitGroups($limitGroups);
+        $this->appConfig->setCustomizationChat($chat);
+        $this->appConfig->setCustomizationCompactHeader($compactHeader);
+        $this->appConfig->setCustomizationFeedback($feedback);
+        $this->appConfig->setCustomizationForcesave($forcesave);
+        $this->appConfig->setLiveViewOnShare($liveViewOnShare);
+        $this->appConfig->setCustomizationHelp($help);
+        $this->appConfig->setCustomizationReviewDisplay($reviewDisplay);
+        $this->appConfig->setCustomizationTheme($theme);
+        $this->appConfig->setUnknownAuthor($unknownAuthor);
+
+        return new DataResponse();
+    }
+
+    /**
+     * Save security settings
+     *
+     * @param array $watermarks - watermark settings
+     * @param bool $plugins - enable plugins
+     * @param bool $macros - run document macros
+     * @param string $protection - protection
+     */
+    public function saveSecurity(
+        array $watermarks,
+        bool $plugins,
+        bool $macros,
+        string $protection
+    ): DataResponse {
+
+        if ($watermarks["enabled"]) {
+            $watermarks["text"] = trim((string) $watermarks["text"]);
+            if (empty($watermarks["text"])) {
+                $watermarks["text"] = $this->trans->t("DO NOT SHARE THIS") . " {userId} {date}";
+            }
+        }
+
+        $this->appConfig->setWatermarkSettings($watermarks);
+        $this->appConfig->setCustomizationPlugins($plugins);
+        $this->appConfig->setCustomizationMacros($macros);
+        $this->appConfig->setProtection($protection);
+
+        return new DataResponse();
+    }
+
+    /**
+     * Clear all version history
+     *
+     * @return DataResponse
+     */
+    public function clearHistory(): DataResponse {
+
+        FileVersions::clearHistory();
+
+        return new DataResponse();
+    }
+
+    /**
+     * Get global templates
+     */
+    private function getGlobalTemplates(): array {
+        $templates = [];
+        $templatesList = TemplateManager::getGlobalTemplates();
+
+        foreach ($templatesList as $templatesItem) {
+            $template = [
+                "id" => $templatesItem->getId(),
+                "name" => $templatesItem->getName(),
+                "type" => TemplateManager::getTypeTemplate($templatesItem->getMimeType()),
+                "icon" => $this->mimeIconProvider->getMimeIconUrl($templatesItem->getMimeType())
+            ];
+            $templates[] = $template;
+        }
+
+        return $templates;
+    }
+}

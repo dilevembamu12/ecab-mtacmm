@@ -3,118 +3,6 @@
 # République du Congo — Ministère des Transports
 # ============================================
 
-# --- Nextcloud Core (non versionné) ---
-/core/
-/3rdparty/
-/lib/
-/ocs/
-/ocs-provider/
-/resources/
-/themes/
-/updater/
-/console.php
-/cron.php
-/index.html
-/index.php
-/public.php
-/remote.php
-/status.php
-/version.php
-/occ
-/REUSE.toml
-/robots.txt
-/AUTHORS
-/COPYING
-/composer.json
-/package.json
-/openapi*.json
-/shipped.json
-/signature.json
-/routes.php
-/strings.php
-
-# --- Apps tierces (non versionnées) ---
-/apps/activity/
-/apps/admin_audit/
-/apps/app_api/
-/apps/appstore/
-/apps/bruteforcesettings/
-/apps/circles/
-/apps/cloud_federation_api/
-/apps/collectives/
-/apps/comments/
-/apps/contactsinteraction/
-/apps/cospend/
-/apps/dashboard/
-/apps/dav/
-/apps/encryption/
-/apps/federatedfilesharing/
-/apps/federation/
-/apps/files/
-/apps/files_automatedtagging/
-/apps/files_confidential/
-/apps/files_downloadlimit/
-/apps/files_external/
-/apps/files_lock/
-/apps/files_pdfviewer/
-/apps/files_reminders/
-/apps/files_retention/
-/apps/files_sharing/
-/apps/files_trashbin/
-/apps/files_versions/
-/apps/files_versions_s3/
-/apps/firstrunwizard/
-/apps/forms/
-/apps/libresign/
-/apps/logreader/
-/apps/lookup_server_connector/
-/apps/nextcloud_announcements/
-/apps/notifications/
-/apps/oauth2/
-/apps/office/
-/apps/onlyoffice/
-/apps/password_policy/
-/apps/photos/
-/apps/privacy/
-/apps/profile/
-/apps/provisioning_api/
-/apps/recommendations/
-/apps/related_resources/
-/apps/richdocuments/
-/apps/serverinfo/
-/apps/settings/
-/apps/sharebymail/
-/apps/support/
-/apps/survey_client/
-/apps/suspicious_login/
-/apps/systemtags/
-/apps/text/
-/apps/theming/
-/apps/twofactor_backupcodes/
-/apps/twofactor_nextcloud_notification/
-/apps/twofactor_totp/
-/apps/updatenotification/
-/apps/user_ldap/
-/apps/user_status/
-/apps/viewer/
-/apps/weather_status/
-/apps/webhook_listeners/
-/apps/whiteboard/
-/apps/workflowengine/
-
-# --- Données sensibles ---
-/config/config.php
-/data/
-
-# --- OS / IDE ---
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
 # --- Dépendances ---
 node_modules/
 vendor/
@@ -122,9 +10,6 @@ vendor/
 # --- Logs ---
 *.log
 /www/wwwlogs/
-
-# --- Docker volumes ---
-docker-volumes/
 
 # --- Scripts temporaires ---
 /occ

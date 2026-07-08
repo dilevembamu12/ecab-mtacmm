@@ -1,0 +1,901 @@
+<?php
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+namespace OCA\Onlyoffice\Controller;
+
+use OCA\DAV\CalDAV\TimezoneService;
+use OCA\Onlyoffice\AppConfig;
+use OCA\Onlyoffice\Crypt;
+use OCA\Onlyoffice\DocumentService;
+use OCA\Onlyoffice\EmailManager;
+use OCA\Onlyoffice\ExtraPermissions;
+use OCA\Onlyoffice\FileUtility;
+use OCA\Onlyoffice\TemplateManager;
+use OCP\AppFramework\Http\JSONResponse;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\PublicPage;
+use OCP\AppFramework\OCSController;
+use OCP\Constants;
+use OCP\Files\File;
+use OCP\Files\Folder;
+use OCP\Files\IRootFolder;
+use OCP\Files\Lock\ILock;
+use OCP\Files\Lock\ILockManager;
+use OCP\Files\Lock\NoLockProviderException;
+use OCP\IAvatarManager;
+use OCP\IL10N;
+use OCP\IRequest;
+use OCP\ITagManager;
+use OCP\ITags;
+use OCP\IURLGenerator;
+use OCP\IUser;
+use OCP\IUserManager;
+use OCP\IUserSession;
+use OCP\L10N\IFactory;
+use OCP\PreConditionNotMetException;
+use OCP\Server;
+use OCP\Share\IShare;
+use OCP\SystemTag\ISystemTagObjectMapper;
+use Psr\Log\LoggerInterface;
+
+/**
+ * Controller with the main functions
+ */
+class EditorApiController extends OCSController {
+
+    /**
+     * Mobile regex from https://github.com/ONLYOFFICE/CommunityServer/blob/v9.1.1/web/studio/ASC.Web.Studio/web.appsettings.config#L35
+     */
+    public const USER_AGENT_MOBILE = "/android|avantgo|playbook|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od|ad)|iris|kindle|lge |maemo|midp|mmp|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\\/|plucker|pocket|psp|symbian|treo|up\\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i";
+
+    public function __construct(
+        string $appName,
+        IRequest $request,
+        private readonly IRootFolder $root,
+        private readonly IUserSession $userSession,
+        private readonly IUserManager $userManager,
+        private readonly IURLGenerator $urlGenerator,
+        private readonly IL10N $trans,
+        private readonly LoggerInterface $logger,
+        private readonly AppConfig $appConfig,
+        private readonly Crypt $crypt,
+        private readonly ITagManager $tagManager,
+        private readonly ILockManager $lockManager,
+        private readonly TimezoneService $timezoneService,
+        private readonly FileUtility $fileUtility,
+        private readonly IAvatarManager $avatarManager,
+        private readonly ExtraPermissions $extraPermissions,
+        private readonly EmailManager $emailManager,
+    ) {
+        parent::__construct($appName, $request);
+    }
+
+    /**
+     * Collecting the file parameters for the document service
+     *
+     * @param integer $fileId - file identifier
+     * @param string $filePath - file path
+     * @param string $shareToken - access token
+     * @param string $directToken - direct token
+     * @param bool $inframe - open in frame
+     * @param bool $inviewer - open in viewer
+     * @param bool $desktop - desktop label
+     * @param string $guestName - nickname not logged user
+     * @param bool $template - file is template
+     * @param string $anchor - anchor for file content
+     *
+     * @return JSONResponse
+     */
+    #[NoAdminRequired]
+    #[PublicPage]
+    public function config(
+        int $fileId,
+        ?string $filePath = null,
+        ?string $shareToken = null,
+        ?string $directToken = null,
+        bool $inframe = false,
+        bool $inviewer = false,
+        bool $desktop = false,
+        ?string $guestName = null,
+        bool $template = false,
+        ?string $anchor = null
+    ): JSONResponse {
+
+        if (!empty($directToken)) {
+            [$directData, $error] = $this->crypt->readHash($directToken);
+            if ($directData === null) {
+                $this->logger->error("Config for directEditor with empty or not correct hash: $error");
+                return new JSONResponse(["error" => $this->trans->t("Not permitted")]);
+            }
+            if ($directData->action !== "direct") {
+                $this->logger->error("Config for directEditor with other data");
+                return new JSONResponse(["error" => $this->trans->t("Invalid request")]);
+            }
+
+            $fileId = $directData->fileId;
+            $userId = $directData->userId;
+            if ($this->userSession->isLoggedIn()
+                && $userId === $this->userSession->getUser()->getUID()) {
+                $redirectUrl = $this->urlGenerator->linkToRouteAbsolute(
+                    $this->appName . ".editor.index",
+                    [
+                        "fileId" => $fileId,
+                        "filePath" => $filePath
+                    ]
+                );
+                return new JSONResponse(["redirectUrl" => $redirectUrl]);
+            }
+
+            $user = $this->userManager->get($userId);
+            if (method_exists($this->userSession, 'setVolatileActiveUser')) {
+                $this->userSession->setVolatileActiveUser($user);
+            }
+        } else {
+            $user = $this->userSession->getUser();
+            $userId = null;
+            if (!empty($user)) {
+                $userId = $user->getUID();
+            }
+        }
+
+        [$file, $error, $share] = empty($shareToken) ? $this->getFile($userId, $fileId, $filePath, $template) : $this->fileUtility->getFileByToken($fileId, $shareToken);
+
+        if (isset($error)) {
+            $this->logger->error("Config: $fileId $error");
+            return new JSONResponse(["error" => $error]);
+        }
+
+        if ($this->appConfig->getRestrictExternalStorage() && $this->isExternalStorage($file)) {
+            return new JSONResponse(["error" => $this->trans->t("Opening files with ONLYOFFICE from external storages is restricted. Please contact the admin.")]);
+        }
+
+        $checkUserAllowGroups = $userId;
+        if (!empty($share)) {
+            $checkUserAllowGroups = $share->getSharedBy();
+        }
+        if (!$this->appConfig->isUserAllowedToUse($checkUserAllowGroups)) {
+            return new JSONResponse(["error" => $this->trans->t("Not permitted")]);
+        }
+
+        $fileName = $file->getName();
+        $ext = strtolower(pathinfo((string) $fileName, PATHINFO_EXTENSION));
+        $format = !empty($ext) && array_key_exists($ext, $this->appConfig->formatsSetting()) ? $this->appConfig->formatsSetting()[$ext] : null;
+        if (!isset($format)) {
+            $this->logger->info("Format is not supported for editing: $fileName");
+            return new JSONResponse(["error" => $this->trans->t("Format is not supported")]);
+        }
+
+        $fileUrl = $this->getUrl($file, $user, $shareToken, false, $template);
+
+        $key = $this->fileUtility->getKey($file, true);
+        $key = DocumentService::generateRevisionId($key);
+
+        $params = [
+            "document" => [
+                "fileType" => $ext,
+                "key" => $key,
+                "permissions" => [],
+                "title" => $fileName,
+                "url" => $fileUrl,
+                "referenceData" => [
+                    "fileKey" => (string)$file->getId(),
+                    "instanceId" => $this->appConfig->getSystemValue("instanceid", true),
+                ],
+            ],
+            "documentType" => $format["type"],
+            "editorConfig" => [
+                // App-less factory: $this->trans may report the wrong locale.
+                "lang" => str_replace("_", "-", Server::get(IFactory::class)->get("")->getLanguageCode()),
+                "region" => str_replace("_", "-", Server::get(IFactory::class)->get("")->getLocaleCode())
+            ]
+        ];
+
+        $permissions_modifyFilter = $this->appConfig->getSystemValue($this->appConfig->_permissions_modifyFilter);
+        if (isset($permissions_modifyFilter)) {
+            $params["document"]["permissions"]["modifyFilter"] = $permissions_modifyFilter;
+        }
+
+        $canDownload = true;
+        $restrictedEditing = false;
+        $fileStorage = $file->getStorage();
+        if ($fileStorage->instanceOfStorage(\OCA\Files_Sharing\SharedStorage::class) || !empty($shareToken)) {
+            $shareId = empty($share) ? $fileStorage->getShareId() : $share->getId();
+            $extraPermissions = null;
+            if ($this->appConfig->getAdvanced()) {
+                $extraPermissions = $this->extraPermissions->getExtra($shareId);
+            }
+
+            if (!empty($extraPermissions)) {
+                if (isset($format["review"]) && $format["review"]) {
+                    $reviewPermission = ($extraPermissions["permissions"] & ExtraPermissions::REVIEW) === ExtraPermissions::REVIEW;
+                    if ($reviewPermission) {
+                        $restrictedEditing = true;
+                        $params["document"]["permissions"]["review"] = true;
+                    }
+                }
+
+                if (isset($format["comment"]) && $format["comment"]) {
+                    $commentPermission = ($extraPermissions["permissions"] & ExtraPermissions::COMMENT) === ExtraPermissions::COMMENT;
+                    if ($commentPermission) {
+                        $restrictedEditing = true;
+                        $params["document"]["permissions"]["comment"] = true;
+                    }
+                }
+
+                if (isset($format["fillForms"]) && $format["fillForms"]) {
+                    $fillFormsPermission = ($extraPermissions["permissions"] & ExtraPermissions::FILLFORMS) === ExtraPermissions::FILLFORMS;
+                    if ($fillFormsPermission) {
+                        $restrictedEditing = true;
+                        $params["document"]["permissions"]["fillForms"] = true;
+                    }
+                }
+
+                if (isset($format["modifyFilter"]) && $format["modifyFilter"]) {
+                    $modifyFilter = ($extraPermissions["permissions"] & ExtraPermissions::MODIFYFILTER) === ExtraPermissions::MODIFYFILTER;
+                    $params["document"]["permissions"]["modifyFilter"] = $modifyFilter;
+                }
+            }
+
+            if (method_exists(IShare::class, "getAttributes")) {
+                $share = empty($share) ? $fileStorage->getShare() : $share;
+                $canDownload = FileUtility::canShareDownload($share);
+            }
+        }
+
+        $isTempLock = false;
+        if ($this->lockManager->isLockProviderAvailable()) {
+            try {
+                $locks = $this->lockManager->getLocks($file->getId());
+                $lock = empty($locks) ? null : $locks[0];
+
+                if ($lock !== null) {
+                    $lockType = $lock->getType();
+                    $lockOwner = $lock->getOwner();
+                    if (($lockType === ILock::TYPE_APP) && $lockOwner !== $this->appName
+                        || ($lockType === ILock::TYPE_USER || $lockType === ILock::TYPE_TOKEN) && $lockOwner !== $userId) {
+                        $isTempLock = true;
+                        $this->logger->debug("File " . $file->getId() . " is locked by $lockOwner");
+                    }
+                }
+            } catch (PreConditionNotMetException | NoLockProviderException) {
+            }
+        }
+
+        $canEdit = isset($format["edit"]) && $format["edit"];
+        $canFillForms = isset($format["fillForms"]) && $format["fillForms"];
+        $editable = !$template
+                    && $file->isUpdateable()
+                    && (empty($shareToken) || ($share->getPermissions() & Constants::PERMISSION_UPDATE) === Constants::PERMISSION_UPDATE)
+                    && !$restrictedEditing;
+        $params["document"]["permissions"]["edit"] = $editable && !$isTempLock;
+        if (($editable || $restrictedEditing) && ($canEdit || $canFillForms) && !$isTempLock) {
+            $ownerId = null;
+            $owner = $file->getOwner();
+            if (!empty($owner)) {
+                $ownerId = $owner->getUID();
+            }
+
+            $canProtect = true;
+            if ($this->appConfig->getProtection() === "owner") {
+                $canProtect = $ownerId === $userId;
+            }
+            $params["document"]["permissions"]["protect"] = $canProtect;
+
+            if (isset($shareToken)) {
+                $params["document"]["permissions"]["chat"] = false;
+                $params["document"]["permissions"]["protect"] = false;
+            }
+
+            if ($canFillForms) {
+                $params["document"]["permissions"]["fillForms"] = true;
+                $params["canEdit"] = $canEdit && $editable;
+            }
+
+            $hashCallback = $this->crypt->getHash(["userId" => $userId, "ownerId" => $ownerId, "fileId" => $file->getId(), "filePath" => $filePath, "shareToken" => $shareToken, "action" => "track"]);
+            $callback = $this->urlGenerator->linkToRouteAbsolute($this->appName . ".callback.track", ["doc" => $hashCallback]);
+
+            if (!$this->appConfig->useDemo() && !empty($this->appConfig->getStorageUrl())) {
+                $callback = str_replace($this->urlGenerator->getAbsoluteURL("/"), $this->appConfig->getStorageUrl(), $callback);
+            }
+
+            $params["editorConfig"]["callbackUrl"] = $callback;
+        } else {
+            $params["editorConfig"]["mode"] = "view";
+
+            if (isset($shareToken) && empty($userId) && !$this->appConfig->getLiveViewOnShare()) {
+                $params["editorConfig"]["coEditing"] = [
+                    "mode" => "strict",
+                    "change" => false
+                ];
+            }
+        }
+
+        if (!$template
+            && $file->isUpdateable()
+            && (empty($shareToken) || ($share->getPermissions() & Constants::PERMISSION_UPDATE) === Constants::PERMISSION_UPDATE)) {
+            $params["document"]["permissions"]["changeHistory"] = true;
+        }
+
+        if ($this->request->isUserAgent([$this::USER_AGENT_MOBILE])) {
+            $params["type"] = "mobile";
+        }
+
+        if (!empty($userId)) {
+            $params["editorConfig"]["user"] = [
+                "id" => $this->buildUserId($userId),
+                "name" => $user->getDisplayName()
+            ];
+            $avatar = $this->avatarManager->getAvatar($userId);
+            if ($avatar->exists() && $avatar->isCustomAvatar()) {
+                $userAvatarUrl = $this->urlGenerator->getAbsoluteURL(
+                    $this->urlGenerator->linkToRoute("core.avatar.getAvatar", [
+                        "userId" => $userId,
+                        "size" => 64,
+                    ])
+                );
+                $params["editorConfig"]["user"]["image"] = $userAvatarUrl;
+            }
+        } elseif (!empty($guestName)) {
+            $params["editorConfig"]["user"] = [
+                "name" => $guestName
+            ];
+        }
+
+        $folderLink = null;
+
+        if (!empty($shareToken)) {
+            if (method_exists($share, "getHideDownload") && $share->getHideDownload()) {
+                $canDownload = false;
+            }
+
+            $node = $share->getNode();
+            if ($node instanceof Folder) {
+                $sharedFolder = $node;
+                $folderPath = $sharedFolder->getRelativePath($file->getParent()->getPath());
+                if (!empty($folderPath)) {
+                    $linkAttr = [
+                        "path" => $folderPath,
+                        "scrollto" => $file->getName(),
+                        "token" => $shareToken
+                    ];
+                    $folderLink = $this->urlGenerator->linkToRouteAbsolute("files_sharing.sharecontroller.showShare", $linkAttr);
+                }
+            }
+        } elseif (!empty($userId)) {
+            $userFolder = $this->root->getUserFolder($userId);
+            $folderPath = $userFolder->getRelativePath($file->getParent()->getPath());
+            if (!empty($folderPath)) {
+                $linkAttr = [
+                    "dir" => $folderPath,
+                    "scrollto" => $file->getName()
+                ];
+                $folderLink = $this->urlGenerator->linkToRouteAbsolute("files.view.index", $linkAttr);
+            }
+
+            $createParam = [
+                "dir" => "/"
+            ];
+
+            if (!empty($folderPath)) {
+                $folder = $userFolder->get($folderPath);
+                if (!empty($folder) && $folder->isCreatable()) {
+                    $createParam["dir"] = $folderPath;
+                }
+            }
+
+            $createName = match ($params["documentType"]) {
+                "word" => $this->trans->t("New document") . ".docx",
+                "cell" => $this->trans->t("New spreadsheet") . ".xlsx",
+                "slide" => $this->trans->t("New presentation") . ".pptx",
+                "pdf" => $this->trans->t("New PDF form") . ".pdf",
+                default => null,
+            };
+
+            if (!empty($createName)) {
+                $createParam["name"] = $createName;
+
+                $createUrl = $this->urlGenerator->linkToRouteAbsolute($this->appName . ".editor.create_new", $createParam);
+                $params["editorConfig"]["createUrl"] = $createUrl;
+            }
+
+            $templatesList = TemplateManager::getGlobalTemplates($file->getMimeType());
+            if (!empty($templatesList)) {
+                $templates = [];
+                foreach ($templatesList as $templateItem) {
+                    $createParam["templateId"] = $templateItem->getId();
+                    $createParam["name"] = $templateItem->getName();
+
+                    $templates[] = [
+                        "image" => "",
+                        "title" => $templateItem->getName(),
+                        "url" => $this->urlGenerator->linkToRouteAbsolute($this->appName . ".editor.create_new", $createParam)
+                    ];
+                }
+
+                $params["editorConfig"]["templates"] = $templates;
+            }
+
+            if (!$template) {
+                $params["document"]["info"]["favorite"] = $this->isFavorite($fileId, $userId);
+            }
+            $params["_file_path"] = $userFolder->getRelativePath($file->getPath());
+        }
+
+        $canGoBack = $folderLink !== null;
+        if ($inviewer) {
+            if ($canGoBack) {
+                $params["editorConfig"]["customization"]["goback"] = [
+                    "url" => $folderLink
+                ];
+            }
+        } elseif (!$desktop
+            && $inframe
+            && ($this->appConfig->getSameTab()
+                || !empty($directToken)
+                || $this->appConfig->getEnableSharing() && empty($shareToken))) {
+                $params["editorConfig"]["customization"]["close"]["visible"] = true;
+        } elseif ($canGoBack) {
+            $params["editorConfig"]["customization"]["goback"] = [
+                "url" => $folderLink
+            ];
+        } elseif ($inframe && !empty($shareToken)) {
+            $params["editorConfig"]["customization"]["close"]["visible"] = true;
+        }
+
+        if (!$canDownload || $this->appConfig->getDisableDownload()) {
+            $params["document"]["permissions"]["download"] = false;
+            $params["document"]["permissions"]["print"] = false;
+            $params["document"]["permissions"]["copy"] = false;
+        }
+
+        if ($inframe) {
+            $params["_files_sharing"] = Server::get(\OCP\App\IAppManager::class)->isEnabledForAnyone("files_sharing");
+        }
+
+        $params = $this->setCustomization($params);
+
+        $params = $this->setWatermark($params, !empty($shareToken), $user, $file);
+
+        if ($this->appConfig->useDemo()) {
+            $params["editorConfig"]["tenant"] = $this->appConfig->getSystemValue("instanceid", true);
+        }
+
+        if (!empty($anchor)) {
+            try {
+                $actionLink = json_decode($anchor, true);
+
+                $params["editorConfig"]["actionLink"] = $actionLink;
+            } catch (\Exception $e) {
+                $this->logger->error("Config: $fileId decode $anchor", ["exception" => $e]);
+            }
+        }
+
+        if (!empty($this->appConfig->getDocumentServerUrl())) {
+            $params["documentServerUrl"] = $this->appConfig->getDocumentServerUrl();
+        }
+
+        $params['userHasMailAccounts'] = !empty($userId) && !empty($this->emailManager->getSenderAddressesFor($userId));
+
+        if (!empty($this->appConfig->getDocumentServerSecret())) {
+            $now = time();
+            $iat = $now;
+            $exp = $now + $this->appConfig->getJwtExpiration() * 60;
+            $params["iat"] = $iat;
+            $params["exp"] = $exp;
+            $token = \OCA\Onlyoffice\Vendor\Firebase\JWT\JWT::encode($params, $this->appConfig->getDocumentServerSecret(), "HS256");
+            $params["token"] = $token;
+        }
+
+        $this->logger->debug("Config is generated for: $fileId with key $key");
+
+        return new JSONResponse($params);
+    }
+
+    /**
+     * Getting file by identifier
+     *
+     * @param string $userId - user identifier
+     * @param integer $fileId - file identifier
+     * @param string $filePath - file path
+     * @param bool $template - file is template
+     */
+    private function getFile(?string $userId, ?int $fileId, ?string $filePath = null, bool $template = false): array {
+        if (empty($userId)) {
+            return [null, $this->trans->t("UserId is empty"), null];
+        }
+
+        if (empty($fileId)) {
+            return [null, $this->trans->t("FileId is empty"), null];
+        }
+
+        try {
+            $folder = $template ? TemplateManager::getGlobalTemplateDir() : $this->root->getUserFolder($userId);
+            $files = $folder->getById($fileId);
+        } catch (\Exception $e) {
+            $this->logger->error("getFile: $fileId", ["exception" => $e]);
+            return [null, $this->trans->t("Invalid request"), null];
+        }
+
+        if (empty($files)) {
+            $this->logger->info("Files not found: $fileId");
+            return [null, $this->trans->t("File not found"), null];
+        }
+
+        $file = $files[0];
+
+        if (count($files) > 1 && !empty($filePath)) {
+            $filePath = "/" . $userId . "/files" . $filePath;
+            foreach ($files as $curFile) {
+                if ($curFile->getPath() === $filePath) {
+                    $file = $curFile;
+                    break;
+                }
+            }
+        }
+
+        if (!$file->isReadable()) {
+            return [null, $this->trans->t("You do not have enough permissions to view the file"), null];
+        }
+
+        return [$file, null, null];
+    }
+
+    /**
+     * Check if file is stored on external storage, including shared files
+     * that originate from external storage
+     *
+     * @param File $file - file to check
+     */
+    private function isExternalStorage(File $file): bool {
+        if ($file->getMountPoint() instanceof \OCA\Files_External\Config\ExternalMountPoint) {
+            return true;
+        }
+
+        $owner = $file->getOwner();
+        if ($owner === null) {
+            return false;
+        }
+
+        try {
+            $ownerFiles = $this->root->getUserFolder($owner->getUID())->getById($file->getId());
+        } catch (\Exception $e) {
+            $this->logger->warning("isExternalStorage: could not resolve owner file: " . $file->getId(), ["exception" => $e]);
+            return false;
+        }
+
+        return !empty($ownerFiles) && $ownerFiles[0]->getMountPoint() instanceof \OCA\Files_External\Config\ExternalMountPoint;
+    }
+
+    /**
+     * Generate secure link to download document
+     *
+     * @param File $file - file
+     * @param IUser $user - user with access
+     * @param string $shareToken - access token
+     * @param bool $changes - is required url to file changes
+     * @param bool $template - file is template
+     *
+     * @return string
+     */
+    private function getUrl(
+        File $file,
+        ?IUser $user = null,
+        ?string $shareToken = null,
+        bool $changes = false,
+        bool $template = false
+    ): string {
+
+        $data = [
+            "action" => "download",
+            "fileId" => $file->getId()
+        ];
+
+        $userId = null;
+        if (!empty($user)) {
+            $userId = $user->getUID();
+            $data["userId"] = $userId;
+        }
+        if (!empty($shareToken)) {
+            $data["shareToken"] = $shareToken;
+        }
+        if ($changes) {
+            $data["changes"] = true;
+        }
+        if ($template) {
+            $data["template"] = true;
+        }
+
+        $hashUrl = $this->crypt->getHash($data);
+
+        $fileUrl = $this->urlGenerator->linkToRouteAbsolute($this->appName . ".callback.download", ["doc" => $hashUrl]);
+
+        if (!$this->appConfig->useDemo() && !empty($this->appConfig->getStorageUrl())) {
+            $fileUrl = str_replace($this->urlGenerator->getAbsoluteURL("/"), $this->appConfig->getStorageUrl(), $fileUrl);
+        }
+
+        return $fileUrl;
+    }
+
+    /**
+     * Generate unique user identifier
+     *
+     * @param string $userId - current user identifier
+     */
+    private function buildUserId(string $userId): string {
+        $instanceId = $this->appConfig->getSystemValue("instanceid", true);
+        return $instanceId . "_" . $userId;
+    }
+
+    /**
+     * Set customization parameters
+     *
+     * @param array params - file parameters
+     */
+    private function setCustomization(array $params): array {
+        //default is true
+        if ($this->appConfig->getCustomizationChat() === false) {
+            $params["editorConfig"]["customization"]["chat"] = false;
+        }
+
+        //default is false
+        if ($this->appConfig->getCustomizationCompactHeader()) {
+            $params["editorConfig"]["customization"]["compactHeader"] = true;
+        }
+
+        //default is false
+        if ($this->appConfig->getCustomizationFeedback()) {
+            $params["editorConfig"]["customization"]["feedback"] = true;
+        }
+
+        //default is false
+        if ($this->appConfig->getCustomizationForcesave()) {
+            $params["editorConfig"]["customization"]["forcesave"] = true;
+        }
+
+        //default is true
+        if ($this->appConfig->getCustomizationHelp() === false) {
+            $params["editorConfig"]["customization"]["help"] = false;
+        }
+
+        //default is original
+        $reviewDisplay = $this->appConfig->getCustomizationReviewDisplay();
+        if ($reviewDisplay !== "original") {
+            $params["editorConfig"]["customization"]["reviewDisplay"] = $reviewDisplay;
+        }
+
+        $theme = $this->appConfig->getCustomizationTheme();
+        if (isset($theme)) {
+            $params["editorConfig"]["customization"]["uiTheme"] = $theme;
+        }
+
+        //default is true
+        if ($this->appConfig->getCustomizationMacros() === false) {
+            $params["editorConfig"]["customization"]["macros"] = false;
+        }
+
+        //default is true
+        if ($this->appConfig->getCustomizationPlugins() === false) {
+            $params["editorConfig"]["customization"]["plugins"] = false;
+        }
+
+        /* from system config */
+
+        $autosave = $this->appConfig->getSystemValue($this->appConfig->_customization_autosave);
+        if (isset($autosave)) {
+            $params["editorConfig"]["customization"]["autosave"] = $autosave;
+        }
+
+        $customer = $this->appConfig->getSystemValue($this->appConfig->_customization_customer);
+        if (isset($customer)) {
+            $params["editorConfig"]["customization"]["customer"] = $customer;
+        }
+
+        $loaderLogo = $this->appConfig->getSystemValue($this->appConfig->_customization_loaderLogo);
+        if (isset($loaderLogo)) {
+            $params["editorConfig"]["customization"]["loaderLogo"] = $loaderLogo;
+        }
+
+        $loaderName = $this->appConfig->getSystemValue($this->appConfig->_customization_loaderName);
+        if (isset($loaderName)) {
+            $params["editorConfig"]["customization"]["loaderName"] = $loaderName;
+        }
+
+        $logo = $this->appConfig->getSystemValue($this->appConfig->_customization_logo);
+        if (isset($logo)) {
+            $params["editorConfig"]["customization"]["logo"] = $logo;
+        }
+
+        $zoom = $this->appConfig->getSystemValue($this->appConfig->_customization_zoom);
+        if (isset($zoom)) {
+            $params["editorConfig"]["customization"]["zoom"] = $zoom;
+        }
+
+        return $params;
+    }
+
+    /**
+     * Set watermark parameters
+     *
+     * @param array params - file parameters
+     * @param bool isPublic - with access token
+     * @param IUser $user - current user
+     * @param File file - file
+     */
+    private function setWatermark(array $params, bool $isPublic, ?IUser $user, File $file): array {
+        $userId = empty($user) ? null : $user->getUID();
+        $watermarkTemplate = $this->getWatermarkText(
+            $isPublic,
+            $userId,
+            $file,
+            $params["document"]["permissions"]["edit"] !== false,
+            !array_key_exists("download", $params["document"]["permissions"]) || $params["document"]["permissions"]["download"] !== false
+        );
+
+        if ($watermarkTemplate !== false) {
+            if (empty($user)) {
+                $userId = $this->trans->t('Anonymous');
+                $userDisplayName = $this->trans->t('Anonymous');
+                $email = $this->trans->t('Anonymous');
+                $timezone = $this->timezoneService->getDefaultTimezone();
+            } else {
+                $userDisplayName = $user->getDisplayName();
+                $email = $user->getEMailAddress();
+                $timezone = $this->timezoneService->getUserTimezone($userId) ?? $this->timezoneService->getDefaultTimezone();
+            }
+
+            $replacements = [
+                "userId" => $userId,
+                "userDisplayName" => $userDisplayName,
+                "email" => $email,
+                "date" => (new \DateTime("now", new \DateTimeZone($timezone)))->format("Y-m-d H:i:s"),
+                "themingName" => Server::get(\OCA\Theming\ThemingDefaults::class)->getName()
+            ];
+            $watermarkTemplate = preg_replace_callback("/{(.+?)}/", fn($matches) => $replacements[$matches[1]], $watermarkTemplate);
+
+            $params["document"]["options"] = [
+                "watermark_on_draw" => [
+                    "align" => 1,
+                    "height" => 100,
+                    "paragraphs" => [[
+                        "align" => 2,
+                        "runs" => [[
+                            "fill" => [182, 182, 182],
+                            "font-size" => 70,
+                            "text" => $watermarkTemplate,
+                        ]]
+                    ]],
+                    "rotate" => -45,
+                    "width" => 250,
+                ]
+            ];
+        }
+
+        return $params;
+    }
+
+    /**
+     * Should watermark
+     *
+     * @param bool isPublic - with access token
+     * @param string userId - user identifier
+     * @param File file - file
+     * @param bool canEdit - edit permission
+     * @param bool canDownload - download permission
+     *
+     * @return bool|string
+     */
+    private function getWatermarkText(
+        bool $isPublic,
+        ?string $userId,
+        File $file,
+        bool $canEdit,
+        bool $canDownload
+    ): bool|string {
+        $watermarkSettings = $this->appConfig->getWatermarkSettings();
+        if (!$watermarkSettings["enabled"]) {
+            return false;
+        }
+
+        $watermarkText = $watermarkSettings["text"];
+        $fileId = $file->getId();
+
+        if ($isPublic) {
+            if ($watermarkSettings["linkAll"]) {
+                return $watermarkText;
+            }
+            if ($watermarkSettings["linkRead"] && !$canEdit) {
+                return $watermarkText;
+            }
+            if ($watermarkSettings["linkSecure"] && !$canDownload) {
+                return $watermarkText;
+            }
+            if ($watermarkSettings["linkTags"]) {
+                $tags = $watermarkSettings["linkTagsList"];
+                $fileTags = Server::get(ISystemTagObjectMapper::class)->getTagIdsForObjects([$fileId], "files")[$fileId];
+                foreach ($fileTags as $tagId) {
+                    if (in_array((string) $tagId, $tags, true)) {
+                        return $watermarkText;
+                    }
+                }
+            }
+        } else {
+            if ($watermarkSettings["shareAll"]
+                && ($file->getOwner() === null || $file->getOwner()->getUID() !== $userId)) {
+                return $watermarkText;
+            }
+            if ($watermarkSettings["shareRead"] && !$canEdit) {
+                return $watermarkText;
+            }
+        }
+        if ($watermarkSettings["allGroups"]
+            && $userId !== null) {
+            $groups = $watermarkSettings["allGroupsList"];
+            foreach ($groups as $group) {
+                if (Server::get(\OCP\IGroupManager::class)->isInGroup($userId, $group)) {
+                    return $watermarkText;
+                }
+            }
+        }
+        if ($watermarkSettings["allTags"]) {
+            $tags = $watermarkSettings["allTagsList"];
+            $fileTags = Server::get(ISystemTagObjectMapper::class)->getTagIdsForObjects([$fileId], "files")[$fileId];
+            foreach ($fileTags as $tagId) {
+                if (in_array((string) $tagId, $tags, true)) {
+                    return $watermarkText;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check file favorite
+     *
+     * @param integer $fileId - file identifier
+     * @param string $userId - user identifier
+     *
+     * @return bool
+     */
+    private function isFavorite(int $fileId, ?string $userId = null): bool {
+        $currentTags = $this->tagManager->load("files", [], false, $userId)->getTagsForObjects([$fileId]);
+        if ($currentTags) {
+            return in_array(ITags::TAG_FAVORITE, $currentTags[$fileId], true);
+        }
+
+        return false;
+    }
+}

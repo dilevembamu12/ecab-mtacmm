@@ -1,0 +1,198 @@
+body {
+	min-height: 100%;
+	height: auto;
+}
+#app {
+	width: 100%;
+}
+// one solution to fix category multiselect being hidden (overflow of surrounding element)
+.splitpanes__pane-details {
+	// this works but is sketchy
+	// overflow: visible !important;
+	height: auto;
+
+	// Fix content shifting to the top on Nextcloud 25.0.
+	position: relative;
+}
+
+// fix scroll on mobile NextCloud 25.0
+.app-content-wrapper {
+	overflow: auto;
+}
+
+// fix NcDialog style overriden by the NcModal one?
+.dialog__modal .modal-container {
+	padding-inline: 12px 8px !important;
+}
+
+@media only screen and (max-width: 1024px) {
+	// fix max height being unset in mobile view by server style
+	.app-content-list {
+		max-height: calc(100vh - 50px) !important;
+	}
+}
+#projectid, #password {
+	display: none;
+}
+#newBillButton {
+	margin-top: 10px !important;
+}
+.balancePositive {
+	color: green !important;
+}
+.balanceNegative {
+	color: red !important;
+}
+.memberItem {
+	.balance.counter-bubble__counter {
+		//overflow: visible !important;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.app-navigation-entry__counter-wrapper {
+		margin-right: 0 !important;
+	}
+
+	.app-navigation-entry {
+		padding-inline-start: 0 !important;
+	}
+}
+
+.colored-avatar img {
+	position: absolute !important;
+	left: 0;
+}
+
+.memberAvatar img {
+	width: 24px;
+	height: auto;
+	border-radius: 50%;
+	margin: 10px 6px 10px 0px;
+	cursor: pointer;
+}
+.memberAvatar {
+	width: 26px;
+	height: 44px;
+}
+
+input[type=number] {
+	-moz-appearance: number-input !important;
+	-webkit-appearance: initial !important;
+}
+.coloredTable {
+	// max-width: 500px;
+	display: block;
+	margin: 20px 20px 20px 20px;
+	border-spacing: 2px 2px;
+	scrollbar-width: unset !important;
+	scrollbar-color: var(--color-primary) var(--color-background-hover);
+
+	th {
+		font-weight: bold;
+		text-align: center;
+		border: 1px solid var(--color-border-dark);
+		border-radius: var(--border-radius-element);
+		padding: 0px 5px 0px 5px;
+
+		span {
+			display: block;
+			max-width: 100px;
+			word-wrap: break-word;
+			white-space: normal;
+		}
+	}
+	td {
+		text-align: right;
+		padding-right: 2px;
+		border-radius: var(--border-radius-element);
+	}
+	td:first-child {
+		text-align: left;
+	}
+
+	.left-aligned-cell-content {
+		display: flex;
+		align-items: center;
+		justify-content: start;
+		gap: 4px;
+	}
+}
+.undoDeleteBill {
+	display: none;
+}
+#app-settings-content button {
+	padding: 10px;
+	padding-left: 34px;
+	background-position: 10px center;
+	width: 100%;
+	text-align: left;
+}
+.app-navigation-entry-share {
+	display: none;
+}
+.app-navigation-entry {
+	padding-right: 0 !important;
+}
+.app-navigation-toggle-wrapper {
+	//top: 0px !important;
+	//right: 0px !important;
+}
+.shareinput {
+	width: 100%;
+}
+.loading-bill {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.activeButton {
+	background: var(--color-background-darker);
+}
+.memberitem > a {
+	opacity: 1 !important;
+}
+.autoexportSelect {
+	width: 40%;
+}
+.autoexportLabel {
+	width: 60%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.autoexportProject {
+	display: flex !important;
+	align-items: center !important;
+}
+a.billitem .app-content-list-item-icon {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.exportStats span,
+.exportSettlement span {
+	min-height: 16px !important;
+	min-width: 16px !important;
+}
+/* this is not applied if done in a vue component */
+.memberColorPicker .trigger {
+	height: 100% !important;
+}
+.app-sidebar {
+	top: 0 !important;
+}
+/* dirty hack to make things right in settings sidebar */
+.multiselect__content-wrapper {
+	z-index: 10000 !important;
+}
+/* fix NcSelect style in 30 */
+.vs__selected-options {
+	align-items: center !important;
+}
+/* fix input borders */
+select,
+.mx-datepicker .mx-input,
+input[type=date],
+input[type=number],
+.rich-contenteditable__input {
+	border: 1px solid var(--color-border-maxcontrast) !important;
+}
