@@ -11,5 +11,3 @@ vendor/
 *.log
 /www/wwwlogs/
 
-# --- Scripts temporaires ---
-/occ
